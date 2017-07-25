@@ -1,0 +1,1 @@
+export const ODDS_GET = 'ODDS_GET';
