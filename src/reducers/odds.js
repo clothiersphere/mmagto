@@ -12,5 +12,5 @@ export default function(state = initialState, action) {
 
 function getOdds(state, action) {
   const { odds } = action;
-  return [...state, ...odds ];
+  return [...state, odds];
 }

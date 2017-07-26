@@ -6,7 +6,8 @@ import React from 'react';
 //   console.dir(result);
 // })
 
-function BettingPage() {
+function BettingPage(odds) {
+  console.log(odds, "ODDSPRESENT")
   return (
     <h1> Do you have what it takes? </h1>
   )
