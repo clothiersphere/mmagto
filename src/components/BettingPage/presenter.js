@@ -1,5 +1,11 @@
 import React from 'react';
 
+// var parseString = require('xml2js').parseString;
+// var xml = 'lines.bookmaker.eu';
+// parseString(xml, function (err,result) {
+//   console.dir(result);
+// })
+
 function BettingPage() {
   return (
     <h1> Do you have what it takes? </h1>

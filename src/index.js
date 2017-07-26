@@ -13,6 +13,8 @@ const title = 'MMA - guess the odds';
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
+store.dispatch(actions.getOdds());
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
