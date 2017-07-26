@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actionTypes from '../constants/actionTypes';
 
-function getOdds(odds) {
+function showOdds(odds) {
   return {
     type: actionTypes.ODDS_GET,
     odds
@@ -17,7 +17,7 @@ export function getOdds() {
     
     return request
     .then((response) => {
-      dispatch(getOdds(response.data))
+      dispatch(showOdds(response.data))
     })
   };
 };

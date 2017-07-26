@@ -5,7 +5,9 @@ import * as actions from '../../actions';
 import BettingPage from './presenter';
 
 function mapStateToProps(state) {
+  console.log(state, "STATE")
   return {
+  
   };
 }
 
