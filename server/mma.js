@@ -7,10 +7,10 @@ function getOdds(req, res, next) {
 
   axios.get(url).then(
     response => parseString(response.data, function (err, result) {
-      // res.send(result.Data.Leagues[0]);
       const data = []; 
       data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '206'))
-      data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
+      //non UFC feed
+      // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
       //parse data
       
       res.send(data)
