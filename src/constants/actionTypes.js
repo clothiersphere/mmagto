@@ -1,1 +1,1 @@
-export const ODDS_GET = 'ODDS_GET';
+export const FIGHTS_GET = 'FIGHTS_GET';

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import * as actionTypes from '../constants/actionTypes';
 
-function showOdds(odds) {
+function showOdds(fights) {
   return {
-    type: actionTypes.ODDS_GET,
-    odds
+    type: actionTypes.FIGHTS_GET,
+    fights
   };
 };
 

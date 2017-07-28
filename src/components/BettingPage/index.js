@@ -5,10 +5,11 @@ import * as actions from '../../actions';
 import BettingPage from './presenter';
 
 function mapStateToProps(state) {
-  const { odds } = state;
-  
+  console.log(state, "state")
+  const { fights } = state;
+
   return {
-    odds
+    fights
   };  
 }
 

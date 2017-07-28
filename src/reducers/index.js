@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import odds from './odds';
+import fights from './fights';
 
 export default combineReducers({
-  odds,
+  fights,
   routing: routerReducer
 })

@@ -4,13 +4,13 @@ const initialState = [];
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case actionTypes.ODDS_GET:
-      return getOdds(state, action);
+    case actionTypes.FIGHTS_GET:
+      return getFights(state, action);
   }
   return state;
 }
 
-function getOdds(state, action) {
-  const { odds } = action;
-  return {...state, ...odds};
+function getFights(state, action) {
+  const { fights } = action;
+  return [...state, ...fights];
 }
