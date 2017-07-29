@@ -9,6 +9,8 @@ function getOdds(req, res, next) {
     response => parseString(response.data, function (err, result) {
       const data = []; 
       data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '206'))
+      
+
       //non UFC feed
       // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
       //parse data
@@ -22,8 +24,24 @@ function getOdds(req, res, next) {
   })
 }
 
+function getEventInfo(req, res, next) {
+  const url = 'http://ufc-data-api.ufc.com/api/v1/us/events';
+  axios.get(url).then(
+    response => response.data
+  )
+  .then((data) => {
+    var event = data.find( x => x.base_title === 'UFC 214')
+    console.log(event, "EVENTIMG")
+    res.send(event)
+  })
+  .catch((error) => {
+    console.log('ERROR', error);
+  })
+}
+
 module.exports = {
-  getOdds
+  getOdds,
+  getEventInfo
 };
 
 

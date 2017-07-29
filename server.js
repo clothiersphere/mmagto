@@ -8,6 +8,8 @@ app.get('/', function (req, res) {
 
 app.get('/api/getOdds', mma.getOdds)
 
+app.get('/api/getEventImage', mma.getEventInfo)
+
 app.listen(1234, () => {
   console.log('%s listening at %s', app.name, app.url);
 });
