@@ -6,7 +6,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 })
 
-app.get('/api/getOdds', mma.getOdds)
+app.get('/api/getEvents', mma.getEvents)
 
 app.get('/api/getEventImage', mma.getEventInfo)
 

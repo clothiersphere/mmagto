@@ -1,23 +1,23 @@
 import axios from 'axios';
 import * as actionTypes from '../constants/actionTypes';
 
-function showOdds(fights) {
+function showEvents(fights) {
   return {
     type: actionTypes.FIGHTS_GET,
     fights
   };
 };
 
-export function getOdds() {
+export function getEvents() {
   return function(dispatch) {
     const request = axios({
       method: 'GET',
-      url: 'http://localhost:8080/api/getOdds'
+      url: 'http://localhost:8080/api/getEvents'
     });
     
     return request
     .then((response) => {
-      dispatch(showOdds(response.data))
+      dispatch(showEvents(response.data))
     })
   };
 };

@@ -1,5 +1,5 @@
-import { getOdds } from './getOdds';
+import { getEvents } from './getEvents';
 
 export {
-  getOdds
+  getEvents
 };
