@@ -12,6 +12,8 @@ function Events({events = {}}) {
       <div className="eventBox">
       {
         events.fights.map((event,key) => {
+          console.log(event, "event")
+          console.log(events.fights, "evenfights")
           return <div key={key}>
             <div>
               {event.banner[0].$.htm}

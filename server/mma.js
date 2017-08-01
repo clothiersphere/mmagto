@@ -6,11 +6,12 @@ function getEvents(req, res, next) {
   const url = 'http://lines.bookmaker.eu';
 
   axios.get(url).then(
-    response => parseString(response.data, function (err, result) {
-      const data = []; 
-      data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '206'))
-      
+    response => parseString(response.data, {explicitChildren:true}, function (err, result) {
 
+      console.log(result.Data.$$.Leagues, "result")
+      const data = []; 
+      // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '206'))
+      data.push(result.Data.$$.Leagues)
       //non UFC feed
       // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
       //parse data
@@ -37,6 +38,12 @@ function getEventInfo(req, res, next) {
   .catch((error) => {
     console.log('ERROR', error);
   })
+}
+
+function strawberrTest(req, res, next) {
+  axios.get(url).then(
+
+  )
 }
 
 module.exports = {
