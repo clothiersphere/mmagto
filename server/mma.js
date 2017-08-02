@@ -6,17 +6,15 @@ function getEvents(req, res, next) {
   const url = 'http://lines.bookmaker.eu';
 
   axios.get(url).then(
-    response => parseString(response.data, {explicitChildren:true}, function (err, result) {
-
-      console.log(result.Data.$$.Leagues, "result")
+    response => parseString(response.data, {explicitChildren:true, preserveChildrenOrder:true}, function (err, result) {
+      //had to set options: explicitChildren, preserveChildrenOrder to get correct order
+      console.log(result.Data.$$[0].$$.find( x => x.$.IdLeague === '206'), "result")
       const data = []; 
-      // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '206'))
-      data.push(result.Data.$$.Leagues)
+      data.push(result.Data.$$[0].$$.find( x => x.$.IdLeague === '206'))
       //non UFC feed
       // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
-      //parse data
-      
-      res.send(data)
+      //parse data      
+      res.send(data[0].$$)
       next();
     })
   )
