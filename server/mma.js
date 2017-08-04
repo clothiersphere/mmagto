@@ -44,11 +44,33 @@ function strawberrTest(req, res, next) {
   )
 }
 
+function fightParser(array) {
+
+  var storage = []; 
+
+
+  for (var i = 0; i < array.length; i++) {
+    var counter = 0;
+    if (array[i].#name === 'banner') {
+      counter++
+    }
+    if (counter = 3) {
+      //move storage up one index
+      var pointer = storage[pointer+1]
+      push 
+    }
+
+  }
+}
+
 module.exports = {
   getEvents,
   getEventInfo
 };
 
+//loop through array
+//if 
+  // 
 
 
 //obj
