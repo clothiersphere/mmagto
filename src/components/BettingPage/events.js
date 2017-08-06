@@ -7,15 +7,19 @@ function Events({events = {}}) {
     e.preventDefault()
   }
 
+
   if (events.fights) {
     return (
       <div className="eventBox">
       {
         events.fights.map((event,key) => {
+
+          even.banner.length
           console.log(event, "event")
           console.log(events.fights, "evenfights")
           return <div key={key}>
             <div>
+              
               {event.banner[0].$.htm}
               {event.banner[0].$.vtm}
               {event.banner[1].$.htm}
