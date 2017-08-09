@@ -55,14 +55,6 @@ function fightParser(array) {
   storage[pointer][temp] = [{banner:[]}, {fights:[]}];
   
   for (var i = 0; i < array.length; i++) {
-
-    console.log(array[i]['#name'], "name")
-    console.log(array[i]['$'].ab, "ab")
-    console.log(i, "i")
-    console.log(storage[pointer][temp][0]['banner'], "banner")
-
-
-
     if (array[i]['#name'] === 'banner' && array[i]['$'].ab === 'True' && i !== 0) {
           pointer++ 
           storage[pointer] = []
