@@ -51,19 +51,19 @@ function fightParser(array) {
   var pointer = 0;
   var temp = 0;
 
-  storage[pointer] = [];
-  storage[pointer][temp] = [{banner:[]}, {fights:[]}];
+  // storage[pointer] = [];
+  storage[pointer] = [{banner:[]}, {fights:[]}];
   
   for (var i = 0; i < array.length; i++) {
     if (array[i]['#name'] === 'banner' && array[i]['$'].ab === 'True' && i !== 0) {
           pointer++ 
-          storage[pointer] = []
-          storage[pointer][temp] = [{banner:[]}, {fights:[]}];
+          // storage[pointer] = []
+          storage[pointer] = [{banner:[]}, {fights:[]}];
     }
     if (array[i]['#name'] === 'banner') {
-      storage[pointer][temp][0]['banner'].push(array[i])
+      storage[pointer][0]['banner'].push(array[i])
     } else {
-    storage[pointer][temp][1]['fights'].push(array[i]);
+    storage[pointer][1]['fights'].push(array[i]);
     }
   }
   return storage;

@@ -8,22 +8,16 @@ function Events({events = {}}) {
   }
 
 
-  if (events.fights) {
+  if (events.fights[0]) {
     return (
       <div className="eventBox">
       {
-        events.fights.map((event,key) => {
+        
+        events.fights[0][0][0]['banner'].map((event,key) => {
 
-          even.banner.length
-          console.log(event, "event")
-          console.log(events.fights, "evenfights")
           return <div key={key}>
             <div>
               
-              {event.banner[0].$.htm}
-              {event.banner[0].$.vtm}
-              {event.banner[1].$.htm}
-              {event.banner[1].$.vtm}
               <button type="button" onClick={pushbutton}></button>
             </div>
           </div>
