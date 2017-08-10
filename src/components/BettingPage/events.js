@@ -7,21 +7,23 @@ function Events({events = {}}) {
     e.preventDefault()
   }
 
-
-  if (events.fights[0]) {
+  if (events.fights[0]) { 
     return (
       <div className="eventBox">
       {
-        
-        events.fights[0][0][0]['banner'].map((event,key) => {
-
-          return <div key={key}>
-            <div>
+        events.fights.map((event,key) => {
+          console.log(event[0]['banner'], "hi")
+              return <div key={key}>
+              <div>
+              {banner.$.htm}
+              {banner.$.vtm}
+              <h1>hi</h1>
+              </div>
               
-              <button type="button" onClick={pushbutton}></button>
             </div>
-          </div>
+          })
         })
+
       }
       </div>
     )
