@@ -23,14 +23,22 @@ function Events({events = {}}) {
 
       }
         <div className="button">
-          <button />
+          <button onClick={pushbutton}/>
         </div>
       </div>
     }) 
   }
 
   if (events.fights[0]) { 
-    return <div className="fightFight"> {fightFight(events)} </div>
+    return (
+    <div>
+      <div className="fightFight"> 
+        {fightFight(events)} 
+      </div>
+      <div className="bettingOdds"> 
+      </div>
+    </div>
+    )
   } else {
     return <div><h1>..loading</h1></div>
   }  
