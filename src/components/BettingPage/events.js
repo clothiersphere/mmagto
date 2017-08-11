@@ -1,32 +1,36 @@
 import React from 'react';
 
 function Events({events = {}}) {
+
+  console.log(events, "EVENTS")
   
   function pushbutton(e) {
     alert('it work')
     e.preventDefault()
   }
 
-  if (events.fights[0]) { 
-    return (
-      <div className="eventBox">
-      {
-        events.fights.map((event,key) => {
-          console.log(event[0]['banner'], "hi")
-              return <div key={key}>
-              <div>
-              {banner.$.htm}
-              {banner.$.vtm}
-              <h1>hi</h1>
-              </div>
-              
+  function fightFight(events) {
+    return events.fights.map((events,key) => {
+        return <div className="ufcFight" key={key}> {
+        events[0]['banner'].map((event, key) => {
+          return (
+            <div key={key}>
+              {event.$.vtm}
+              {event.$.htm}
             </div>
-          })
+          )
         })
 
       }
+        <div className="button">
+          <button />
+        </div>
       </div>
-    )
+    }) 
+  }
+
+  if (events.fights[0]) { 
+    return <div className="fightFight"> {fightFight(events)} </div>
   } else {
     return <div><h1>..loading</h1></div>
   }  
