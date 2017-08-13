@@ -25,13 +25,22 @@ function getEvents(req, res, next) {
 
 function getEventInfo(req, res, next) {
   const url = 'http://ufc-data-api.ufc.com/api/v1/us/events';
-  axios.get(url).then(
-    response => response.data
-  )
+  axios.get(url).then( response => response.data ) 
   .then((data) => {
-    var event = data.find( x => x.base_title === 'UFC 214')
-    console.log(event, "EVENTIMG")
+    var event = data.find( x => x.title_tag_line.includes('Volkov') )
     res.send(event)
+  })
+  .catch((error) => {
+    console.log('ERROR', error);
+  })
+}
+
+function getEventInfo2(fighterName) {
+  const url = 'http://ufc-data-api.ufc.com/api/v1/us/events';
+  axios.get(url).then( response => response.data )
+  .then((data) => {
+    var eventInfo = data.find( x => x.title_tag_line.includes(fighterName) );
+    return eventInfo
   })
   .catch((error) => {
     console.log('ERROR', error);
@@ -52,14 +61,24 @@ function fightParser(array) {
   var temp = 0;
 
   // storage[pointer] = [];
-  storage[pointer] = [{banner:[]}, {fights:[]}];
+  storage[pointer] = [{banner:[]}, {fights:[]}, {eventData:{}}];
   
   for (var i = 0; i < array.length; i++) {
     if (array[i]['#name'] === 'banner' && array[i]['$'].ab === 'True' && i !== 0) {
+          //use banner name from current 
+          var fighterName = storage[pointer][0]['banner'][1]['$']['vtm']
+          console.log(fighterName, "WHEE")
+          fighterName = fighterName.substring(fighterName.indexOf(":") + 1)
+          console.log(fighterName, "FIGHTERNAME")
+
+
+          // storage[pointer][2]['eventData'] = 
+
           pointer++ 
           // storage[pointer] = []
           storage[pointer] = [{banner:[]}, {fights:[]}];
     }
+
     if (array[i]['#name'] === 'banner') {
       storage[pointer][0]['banner'].push(array[i])
     } else {

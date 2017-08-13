@@ -35,8 +35,6 @@ function Events({events = {}}) {
       <div className="fightFight"> 
         {fightFight(events)} 
       </div>
-      <div className="bettingOdds"> 
-      </div>
     </div>
     )
   } else {
