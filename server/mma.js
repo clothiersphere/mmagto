@@ -41,37 +41,34 @@ function strawberrTest(req, res, next) {
   )
 }
 
+function getEventInfo2(fighterName) {
+  const url = 'http://ufc-data-api.ufc.com/api/v1/us/events';
+  axios.get(url).then( response => response.data )
+  .then((data) => {
+    console.log(fighterName, "fighterNamegetevent2")
+    var eventInfo = data.find( x => x.title_tag_line.includes(fighterName));
+    console.log(eventInfo, "eventInfo")
+    console.log("HIHIHI")
+    return eventInfo;
+  })
+  .catch((error) => {
+    console.log('ERROR', error);
+  })
+}
+
 function fightParser(array) {
 
   var storage = []; 
   var counter = 0;
   var pointer = 0;
-  var temp = 0;
 
-  // storage[pointer] = [];
-  storage[pointer] = [{banner:[]}, {fights:[]}, {eventData: null}];
+  storage[pointer] = [{banner:[]}, {fights:[]}];
   
   for (var i = 0; i < array.length; i++) {
     if (array[i]['#name'] === 'banner' && array[i]['$'].ab === 'True' && i !== 0) {
-          //use banner name from current event
-          //store event name
-          var fighterName = storage[pointer][0]['banner'][1]['$']['vtm'];
-          //chop string into just the fighters names
-          fighterName = fighterName.substring(fighterName.indexOf(":") + 2);
-          console.log(fighterName)
-          //store just first fighter name
-          fighterName = fighterName.substring(0, fighterName.indexOf(' '));
-          console.log(fighterName)
-
-          var b = getEventInfo2(fighterName);
-          console.log(b, "b")
-
-          storage[pointer][2]['eventData'] = b
-          console.log(storage[pointer][2]['eventData'], "fightername")
-
           pointer++ 
-          // storage[pointer] = []
-          storage[pointer] = [{banner:[]}, {fights:[]}, {eventData: null}]
+          storage[pointer] = [{banner:[]}, {fights:[]}]
+       
     }
 
     if (array[i]['#name'] === 'banner') {
@@ -83,19 +80,7 @@ function fightParser(array) {
   return storage;
 }
 
-function getEventInfo2(fighterName) {
-  const url = 'http://ufc-data-api.ufc.com/api/v1/us/events';
-  
-  axios.get(url).then( response => response.data )
-  .then((data) => {
-    var eventInfo = data.find( x => x.title_tag_line.includes(fighterName));
-    console.log(eventInfo, "eventInfo")
-    return eventInfo;
-  })
-  .catch((error) => {
-    console.log('ERROR', error);
-  })
-}
+
 
 module.exports = {
   getEvents,
