@@ -11,10 +11,10 @@ function Events({events = {}}) {
 
   function fightFight(events) {
     return events.fights.map((events,key) => {
-      return <div className="events" key={key}> {
+      return <div className="events" key={key} onClick={pushbutton}> {
         events[0]['banner'].map((event, key) => {
           return (
-            <div key={key} onClick={pushbutton}>
+            <div key={key}>
               {event.$.vtm}
               {event.$.htm}
             </div>
