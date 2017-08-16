@@ -1,3 +1,11 @@
 .button {
   display:inline-block;
 }
+
+.events {
+  /*border: 1px solid #eee;*/
+  border: transparent;
+}
+.events:hover {
+  border: 1px solid #d0d0d0;
+}
