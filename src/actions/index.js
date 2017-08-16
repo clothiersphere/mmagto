@@ -3,5 +3,5 @@ import { selectEvents } from './selectEvents';
 
 export {
   getEvents,
-  selectEvents
+  selectEvent
 };
