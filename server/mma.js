@@ -3,9 +3,10 @@ const parseString = require('xml2js').parseString;
 
 function getEvents(req, res, next) {
   
-  const url = 'http://lines.bookmaker.eu';
+  const bookmakerAPI = 'http://lines.bookmaker.eu';
+  const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v1/us/events';
 
-  axios.get(url).then(
+  axios.get(bookmakerAPI).then(
     response => parseString(response.data, {explicitChildren:true, preserveChildrenOrder:true}, function (err, result) {
       //had to set options: explicitChildren, preserveChildrenOrder to get correct order
       const data = []; 
@@ -13,9 +14,32 @@ function getEvents(req, res, next) {
       //non UFC feed
       // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
       //parse data 
-      res.send(fightParser(data[0].$$));     
-      // res.send(data[0].$$);
-      next();
+      var parsedData = fightParser(data[0].$$);     
+      console.log(parsedData, "data")
+
+      axios.get(ufcEventsAPI).then( response => response.data )
+        .then((data) => {
+          for (var i = 0; i < parsedData.length; i++) {
+            console.log(parsedData[i], "a")
+            console.log(parsedData[i][0]['banner'][0], "b")
+            console.log(parsedData[i][0]['banner'][1], "c");
+            var fighterName = parsedData[i]['banner'][1]['$']['vtm'];
+
+
+            fighterName = fighterName.substring(fighterName.indexOf(":") + 2);
+            fighterName = fighterName.substring(0, fighterName.indexOf(' '));
+            parsedData[i].push( data.find( x => x.title_tag_line.includes(fighterName)) )
+          }
+          console.log(parsedData, "PSDATA")
+          res.send(parsedData);
+          next();
+        })
+        .catch((error) => {
+          console.log('ERROR', error);
+        })
+      //api call to ufc/events
+      //iterate through parsedData
+        //for each index - filter response based on the fighter name and push
     })
   )
   .catch((error) => {
@@ -41,20 +65,9 @@ function strawberrTest(req, res, next) {
   )
 }
 
-function getEventInfo2(fighterName) {
-  const url = 'http://ufc-data-api.ufc.com/api/v1/us/events';
-  axios.get(url).then( response => response.data )
-  .then((data) => {
-    console.log(fighterName, "fighterNamegetevent2")
-    var eventInfo = data.find( x => x.title_tag_line.includes(fighterName));
-    console.log(eventInfo, "eventInfo")
-    console.log("HIHIHI")
-    return eventInfo;
-  })
-  .catch((error) => {
-    console.log('ERROR', error);
-  })
-}
+// function getEventInfo2(array) {
+//   eventInfo = data.find( x => x.title_tag_line.includes(fighterName));
+// }
 
 function fightParser(array) {
 
@@ -68,9 +81,7 @@ function fightParser(array) {
     if (array[i]['#name'] === 'banner' && array[i]['$'].ab === 'True' && i !== 0) {
           pointer++ 
           storage[pointer] = [{banner:[]}, {fights:[]}]
-       
     }
-
     if (array[i]['#name'] === 'banner') {
       storage[pointer][0]['banner'].push(array[i])
     } else {
