@@ -20,19 +20,26 @@ function getEvents(req, res, next) {
       axios.get(ufcEventsAPI).then( response => response.data )
         .then((data) => {
           for (var i = 0; i < parsedData.length; i++) {
-            console.log(parsedData[i], "a")
-            console.log(parsedData[i][0]['banner'][0], "b")
-            console.log(parsedData[i][0]['banner'][1], "c");
-            var fighterName = parsedData[i]['banner'][1]['$']['vtm'];
-
-
+  
+            var fighterName = parsedData[i][0]['banner'][1]['$']['vtm'];
             fighterName = fighterName.substring(fighterName.indexOf(":") + 2);
             fighterName = fighterName.substring(0, fighterName.indexOf(' '));
-            parsedData[i].push( data.find( x => x.title_tag_line.includes(fighterName)) )
+            console.log(fighterName, "fightername")
+            var eventLoc = parsedData[i][0]['banner'][1]['$']['htm'];
+            eventLoc = eventLoc.substring(0, eventLoc.indexOf("@"));
+            eventLoc = eventLoc.substring(0, eventLoc.indexOf(' '));
+            
+            console.log(eventLoc, "eventLoc")
+            console.log( data.find( x => x.title_tag_line.includes(fighterName) && x.arena.includes(eventLoc)) , "TEST TEST")
+            parsedData[i].push( { eventInfo: data.find( x => x.title_tag_line.includes(fighterName) && x.arena.includes(eventLoc)) } )
           }
-          console.log(parsedData, "PSDATA")
-          res.send(parsedData);
-          next();
+        
+
+          })
+          .then(() => {
+            res.send(parsedData);
+            next();
+    
         })
         .catch((error) => {
           console.log('ERROR', error);
