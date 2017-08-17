@@ -15,6 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    // actions: bindActionCreators(actions.selectEvent, dispatch)
   };
 }
 

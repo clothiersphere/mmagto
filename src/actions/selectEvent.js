@@ -1,4 +1,4 @@
-import React from 'react';
+import * as actionTypes from '../constants/actionTypes';
 
 function selectEvent(event) {
   return {

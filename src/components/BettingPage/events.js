@@ -1,17 +1,18 @@
 import React from 'react';
+import * as actions from '../../actions';
 
 function Events({events = {}}) {
 
   console.log(events, "EVENTS")
   
-  function pushbutton(e) {
-    alert('it work')
-    e.preventDefault()
+  function pushbutton(event) {
+    console.log(event, "event")
   }
 
   function fightFight(events) {
     return events.fights.map((events,key) => {
-      return <div className="events" key={key} onClick={pushbutton}> {
+      console.log(events, "events")
+      return <div className="events" key={key} onClick={pushbutton(events)}> {
         events[0]['banner'].map((event, key) => {
           return (
             <div key={key}>

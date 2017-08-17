@@ -1,5 +1,5 @@
 import { getEvents } from './getEvents';
-import { selectEvents } from './selectEvents';
+import { selectEvent } from './selectEvent';
 
 export {
   getEvents,
