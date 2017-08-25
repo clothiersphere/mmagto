@@ -1,11 +1,14 @@
 import * as actionTypes from '../constants/actionTypes';
 
-function selectEvent(event) {
+function setEvent(event) {
   return {
     type: actionTypes.FIGHTS_SET,
     event
-  };
+  }
 };
 
-export default selectEvent;
-
+export function selectEvent(fight) {
+  return function(dispatch) {
+    dispatch(setEvent(fight))
+  }
+};

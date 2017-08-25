@@ -5,7 +5,6 @@ import * as actions from '../../actions';
 import BettingPage from './presenter';
 
 function mapStateToProps(state) {
-  console.log(state, "state")
   const { fights } = state;
 
   return {
@@ -15,7 +14,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // actions: bindActionCreators(actions.selectEvent, dispatch)
+    // setEvent: (fight) => bindActionCreators(actions.selectEvent(fight), dispatch)
+    setEvent: (fight) => dispatch(actions.selectEvent(fight))
   };
 }
 

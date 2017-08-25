@@ -2,19 +2,14 @@ import React from 'react';
 import * as actions from '../../actions';
 
 function Events({events = {}}) {
-  
-  function setEvent(arg, key) {
-    console.log(arg, key, "key")
-  }
-
   function fightFight(events) {
-    return events.fights.map((events,key) => {
-      return <div className="events" key={key} onClick={() => setEvent(events, key)}> {
-        events[0]['banner'].map((fight, key) => {
+    return events.fights.map((fight,key) => {
+      return <div className="events" key={key} onClick={()=> events.setEvent(fight)}> {
+        fight[0]['banner'].map((fights, key) => {
           return (
             <div key={key}  >
-              {fight.$.vtm}
-              {fight.$.htm}
+              {fights.$.vtm}
+              {fights.$.htm}
             </div>
           )
         })

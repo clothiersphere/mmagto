@@ -14,3 +14,4 @@ function getFights(state, action) {
   const { fights } = action;
   return [...state, ...fights];
 }
+

@@ -4,10 +4,9 @@ import BettingPane from './BettingPane';
 import FightBanner from './FightBanner';
 
 function BettingPage(events) {
-
   return (
     <div>
-      <Events events={events}/>
+      <Events events={events} />
       <FightBanner />
       <BettingPane />
     </div>
