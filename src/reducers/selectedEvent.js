@@ -13,6 +13,7 @@ export default function(state = initialState, action) {
 function setFight(state, action) {
   console.log(state, "state")
   const { event } = action;
+  console.log(event, "event")
 
-  return [ state, event];
+  return event;
 }

@@ -15,35 +15,39 @@ function getEvents(req, res, next) {
       // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
       //parse data 
       var parsedData = fightParser(data[0].$$);     
-      console.log(parsedData, "data")
+      
+      getFighterInfo(parsedData);
 
-      axios.get(ufcEventsAPI).then( response => response.data )
-        .then((data) => {
-          for (var i = 0; i < parsedData.length; i++) {
+
+
+      // axios.get(ufcEventsAPI).then( response => response.data )
+      //   .then((data) => {
+      //     for (var i = 0; i < parsedData.length; i++) {
   
-            var fighterName = parsedData[i][0]['banner'][1]['$']['vtm'];
-            fighterName = fighterName.substring(fighterName.indexOf(":") + 2);
-            fighterName = fighterName.substring(0, fighterName.indexOf(' '));
-            console.log(fighterName, "fightername")
-            var eventLoc = parsedData[i][0]['banner'][1]['$']['htm'];
-            eventLoc = eventLoc.substring(0, eventLoc.indexOf("@"));
-            eventLoc = eventLoc.substring(0, eventLoc.indexOf(' '));
+      //       var fighterName = parsedData[i][0]['banner'][1]['$']['vtm'];
+      //       fighterName = fighterName.substring(fighterName.indexOf(":") + 2);
+      //       fighterName = fighterName.substring(0, fighterName.indexOf(' '));
             
-            console.log(eventLoc, "eventLoc")
-            console.log( data.find( x => x.title_tag_line.includes(fighterName) && x.arena.includes(eventLoc)) , "TEST TEST")
-            parsedData[i].push( { eventInfo: data.find( x => x.title_tag_line.includes(fighterName) && x.arena.includes(eventLoc)) } )
-          }
+      //       console.log(fighterName, "fightername")
+      //       var eventLoc = parsedData[i][0]['banner'][1]['$']['htm'];
+      //       eventLoc = eventLoc.substring(0, eventLoc.indexOf("@"));
+      //       eventLoc = eventLoc.substring(0, eventLoc.indexOf(' '));
+            
+      //       console.log(eventLoc, "eventLoc")
+      //       console.log( data.find( x => x.title_tag_line.includes(fighterName) && x.arena.includes(eventLoc)) , "TEST TEST")
+      //       parsedData[i].push( { eventInfo: data.find( x => x.title_tag_line.includes(fighterName) && x.arena.includes(eventLoc)) } )
+      //     }
         
 
-          })
-          .then(() => {
+      //     })
+      //     .then(() => {
             res.send(parsedData);
             next();
     
-        })
-        .catch((error) => {
-          console.log('ERROR', error);
-        })
+        // })
+        // .catch((error) => {
+        //   console.log('ERROR', error);
+        // })
       //api call to ufc/events
       //iterate through parsedData
         //for each index - filter response based on the fighter name and push
@@ -98,6 +102,22 @@ function fightParser(array) {
   return storage;
 }
 
+
+function getFighterInfo(array) {
+  // console.log(array, "ARRAY")
+  for (var i = 0; i < array.length; i++) {
+    for (var j = 0; j< array[i][1]['fights'].length; j++) {
+    console.log(array[i][1]['fights'][j]['$']['vtm'], "fights")
+    console.log(array[i][1]['fights'][j]['$']['htm'], "fights")
+    }
+  }
+  return array;
+}
+
+// [ 
+//   [ { banner: [Object] }, { fights: [Object] } ],
+//   [ { banner: [Object] }, { fights: [Object] } ] 
+// ] 
 
 
 module.exports = {

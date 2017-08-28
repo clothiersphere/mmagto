@@ -10,7 +10,6 @@ function showEvents(fights) {
 
 export function getEvents() {
   return function(dispatch) {
-    console.log(dispatch, "DP")
     const request = axios({
       method: 'GET',
       url: 'http://localhost:8080/api/getEvents'
