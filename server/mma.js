@@ -108,16 +108,24 @@ function getFighterInfo(array) {
   for (var i = 0; i < array.length; i++) {
     for (var j = 0; j< array[i][1]['fights'].length; j++) {
     console.log(array[i][1]['fights'][j]['$']['vtm'], "fights")
-    console.log(array[i][1]['fights'][j]['$']['htm'], "fights")
+    console.log(array[i][1]['fights'][j]['$$'][0]['$']['voddsh'], "$$")
+    console.log(array[i][1]['fights'][j]['$$'][0]['$']['hoddsh'], "$$$")
     }
   }
   return array;
 }
 
-// [ 
-//   [ { banner: [Object] }, { fights: [Object] } ],
-//   [ { banner: [Object] }, { fights: [Object] } ] 
-// ] 
+// {
+//   date: gmdt
+//   time: gmtm
+//   visiting team: array[i][1]['fights'][j]['$']['vtm'],
+//   hometeam : array[i][1]['fights'][j]['$']['htm'],
+//   voddst: '100',
+//   hoddst: '-130',
+
+
+
+// }
 
 
 module.exports = {
