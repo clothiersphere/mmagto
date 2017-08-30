@@ -5,6 +5,7 @@ function getEvents(req, res, next) {
   
   const bookmakerAPI = 'http://lines.bookmaker.eu';
   const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v1/us/events';
+  const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v1/us/fighters';
 
   axios.get(bookmakerAPI).then(
     response => parseString(response.data, {explicitChildren:true, preserveChildrenOrder:true}, function (err, result) {
@@ -19,39 +20,29 @@ function getEvents(req, res, next) {
       //create new data obj w/ just relevant fight stats
       parsedData = parseFighterInfo(parsedData);
 
-
-
-      // axios.get(ufcEventsAPI).then( response => response.data )
-      //   .then((data) => {
-      //     for (var i = 0; i < parsedData.length; i++) {
-  
-      //       var fighterName = parsedData[i][0]['banner'][1]['$']['vtm'];
-      //       fighterName = fighterName.substring(fighterName.indexOf(":") + 2);
-      //       fighterName = fighterName.substring(0, fighterName.indexOf(' '));
-            
-      //       console.log(fighterName, "fightername")
-      //       var eventLoc = parsedData[i][0]['banner'][1]['$']['htm'];
-      //       eventLoc = eventLoc.substring(0, eventLoc.indexOf("@"));
-      //       eventLoc = eventLoc.substring(0, eventLoc.indexOf(' '));
-            
-      //       console.log(eventLoc, "eventLoc")
-      //       console.log( data.find( x => x.title_tag_line.includes(fighterName) && x.arena.includes(eventLoc)) , "TEST TEST")
-      //       parsedData[i].push( { eventInfo: data.find( x => x.title_tag_line.includes(fighterName) && x.arena.includes(eventLoc)) } )
-      //     }
-        
-
-      //     })
-      //     .then(() => {
-            res.send(parsedData);
-            next();
-    
-        // })
-        // .catch((error) => {
-        //   console.log('ERROR', error);
-        // })
-      //api call to ufc/events
-      //iterate through parsedData
-        //for each index - filter response based on the fighter name and push
+      axios.get(ufcFightersAPI).then( response => response.data )
+        .then((data) => {
+          for (var i = 0; i < parsedData.length; i++) {
+            for (var j = 0; j < parsedData[i]['fights'].length; j++) {              
+              var visitor = parsedData[i]['fights'][j]['visitor'];
+              var visitorFirst = visitor.substr(0, visitor.indexOf(' '));
+              var visitorLast = visitor.substr(visitor.indexOf(' ')+1);
+              var home = parsedData[i]['fights'][j]['home'];
+              var homeFirst = home.substr(0, home.indexOf(' '));
+              var homeLast = home.substr(home.indexOf(' ')+1);
+              
+              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name === visitorLast && x.first_name === visitorFirst)
+              parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name === homeLast && x.first_name === homeFirst)
+            }
+          }
+        })
+        .then(() => {
+          res.send(parsedData);
+          next();
+        })
+        .catch((error) => {
+          console.log('ERROR', error);
+        })
     })
   )
   .catch((error) => {
