@@ -13,10 +13,11 @@ function getEvents(req, res, next) {
       data.push(result.Data.$$[0].$$.find( x => x.$.IdLeague === '206'))
       //non UFC feed
       // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
-      //parse data 
-      var parsedData = fightParser(data[0].$$);     
       
-      getFighterInfo(parsedData);
+      //parse data into seperate arrays
+      var parsedData = fightParser(data[0].$$);
+      //create new data obj w/ just relevant fight stats
+      parsedData = parseFighterInfo(parsedData);
 
 
 
@@ -76,12 +77,8 @@ function strawberrTest(req, res, next) {
   )
 }
 
-// function getEventInfo2(array) {
-//   eventInfo = data.find( x => x.title_tag_line.includes(fighterName));
-// }
 
 function fightParser(array) {
-
   var storage = []; 
   var counter = 0;
   var pointer = 0;
@@ -98,21 +95,35 @@ function fightParser(array) {
     } else {
     storage[pointer][1]['fights'].push(array[i]);
     }
-  }
+  };
   return storage;
 }
 
 
-function getFighterInfo(array) {
-  // console.log(array, "ARRAY")
-  for (var i = 0; i < array.length; i++) {
+function parseFighterInfo(array) {  
+
+var result = [];
+  for (var i = 0; i < array.length; i++) {  
+    result[i] = {
+      banner: [],
+      fights: []
+    };
+
+    result[i]['banner'] = array[i][0]['banner'];
+
     for (var j = 0; j< array[i][1]['fights'].length; j++) {
-    console.log(array[i][1]['fights'][j]['$']['vtm'], "fights")
-    console.log(array[i][1]['fights'][j]['$$'][0]['$']['voddsh'], "$$")
-    console.log(array[i][1]['fights'][j]['$$'][0]['$']['hoddsh'], "$$$")
+      var fights = {
+        date: array[i][1]['fights'][j]['$']['gmdt'],
+        time: array[i][1]['fights'][j]['$']['gmtm'],
+        visitor: array[i][1]['fights'][j]['$']['vtm'],
+        visitorOdds: array[i][1]['fights'][j]['$$'][0]['$']['voddsh'],
+        home: array[i][1]['fights'][j]['$']['htm'],
+        homeOdds: array[i][1]['fights'][j]['$$'][0]['$']['hoddsh'],
+      };
+      result[i]['fights'].push(fights);
     }
   }
-  return array;
+  return result;
 }
 
 // {
@@ -122,9 +133,6 @@ function getFighterInfo(array) {
 //   hometeam : array[i][1]['fights'][j]['$']['htm'],
 //   voddst: '100',
 //   hoddst: '-130',
-
-
-
 // }
 
 
