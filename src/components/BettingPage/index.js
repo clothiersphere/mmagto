@@ -17,7 +17,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // setEvent: (fight) => bindActionCreators(actions.selectEvent(fight), dispatch)
     setEvent: (fight) => dispatch(actions.selectEvent(fight))
   };
 }
