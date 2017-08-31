@@ -7,9 +7,11 @@ import BettingPage from './presenter';
 function mapStateToProps(state) {
   console.log(state, "state")
   const { fights } = state;
+  const { selectedEvent } = state;
 
   return {
-    fights
+    fights,
+    selectedEvent
   };  
 }
 

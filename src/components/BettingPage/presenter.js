@@ -3,11 +3,11 @@ import Events from './events';
 import BettingPane from './BettingPane';
 import FightBanner from './FightBanner';
 
-function BettingPage(events) {
+function BettingPage(props) {
   return (
     <div>
-      <Events events={events} />
-      <FightBanner />
+      <Events events={props} />
+      <FightBanner selectedEvent={props.selectedEvent}/>
       <BettingPane />
     </div>
   )

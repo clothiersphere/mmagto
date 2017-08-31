@@ -2,13 +2,13 @@ import React from 'react';
 import * as actions from '../../actions';
 
 function Events({events = {}}) {
+  
   function fightFight(events) {
     return events.fights.map((fight,key) => {
-      console.log(fight, "fight")
       return <div className="events" key={key} onClick={()=> events.setEvent(fight)}> {
         fight['banner'].map((fights, key) => {
           return (
-            <div key={key}  >
+            <div key={key}>
               {fights.$.vtm}
               {fights.$.htm}
             </div>
@@ -16,20 +16,19 @@ function Events({events = {}}) {
         })
       }
       </div>
-    }) 
+    });
   }
 
-  if (events.fights[0]) { 
+  if (events.fights[0]) {
     return (
-    <div>
-      <div className="fightFight"> 
-        {fightFight(events)} 
+      <div>
+        <div className="fightFight">
+          {fightFight(events)}
+        </div>
       </div>
-    </div>
     )
   } else {
     return <div><h1>..loading</h1></div>
-  }  
+  }
 }
-
 export default Events;
