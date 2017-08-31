@@ -4,8 +4,9 @@ import * as actions from '../../actions';
 function Events({events = {}}) {
   function fightFight(events) {
     return events.fights.map((fight,key) => {
+      console.log(fight, "fight")
       return <div className="events" key={key} onClick={()=> events.setEvent(fight)}> {
-        fight[0]['banner'].map((fights, key) => {
+        fight['banner'].map((fights, key) => {
           return (
             <div key={key}  >
               {fights.$.vtm}

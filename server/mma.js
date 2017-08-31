@@ -37,8 +37,27 @@ function getEvents(req, res, next) {
           }
         })
         .then(() => {
-          res.send(parsedData);
-          next();
+          axios.get(ufcEventsAPI).then( response => response.data )
+          .then((data) => {
+            for (var i = 0; i < parsedData.length; i++) {
+              var fightName = parsedData[i]['banner'][1]['$']['vtm'];
+              
+              if (fightName.includes('UFC Fight Night')) {
+                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC Fight Night') && x.title_tag_line.includes('Struve'))
+              }
+
+              if (fightName.includes('UFC 215')) {
+                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC 215'))
+              }
+            }
+          })
+          .then(() => {
+            res.send(parsedData);
+            next();
+          })
+          .catch((error) => {
+          console.log('ERROR', error);
+          })
         })
         .catch((error) => {
           console.log('ERROR', error);
