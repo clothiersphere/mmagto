@@ -1,11 +1,38 @@
-.button {
-  display:inline-block;
-}
-
 .events {
-  /*border: 1px solid #eee;*/
   border: transparent;
 }
+
 .events:hover {
   border: 1px solid #d0d0d0;
 }
+
+.fightText {
+  font-size: 40;
+  font-style: bold;
+}
+
+.container {
+  display: inline-block;
+  border: 1px solid black;
+}
+
+.stats {
+  border: 1px solid gray;
+  text-align: center;
+}
+
+.portrait {
+  height: 50%;
+  width: 50%;
+}
+/*.fighter_visitor {
+  display: inline-block;
+}
+
+.fighter_home {
+  display: inline-block;
+}
+
+.stats {
+  display: inline-block;
+}*/

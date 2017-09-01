@@ -17,10 +17,9 @@ function FightBanner({selectedEvent = {}}, link) {
   }
 
   if (selectedEvent.eventInfo) {  
-    return <div className="fightText"> 
-      <img src={selectedEvent.eventInfo.secondary_feature_image} />
-      <br/>
-      {selectedEvent.eventInfo.base_title}: {selectedEvent.eventInfo.title_tag_line}
+    return <div className="fightText">
+      <h2>{selectedEvent.eventInfo.base_title}: {selectedEvent.eventInfo.title_tag_line}</h2>
+      <img src={selectedEvent.eventInfo.feature_image} />
       {trailer()}
       </div>
   } else {
