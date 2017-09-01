@@ -8,7 +8,7 @@ function BettingPage(props) {
     <div>
       <Events events={props} />
       <FightBanner selectedEvent={props.selectedEvent}/>
-      <BettingPane />
+      <BettingPane selectedEvent={props.selectedEvent}/>
     </div>
   )
 }
