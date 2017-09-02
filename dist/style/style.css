@@ -6,6 +6,10 @@
   border: 1px solid #d0d0d0;
 }
 
+.fightTrailer {
+  display: inline-block;
+}
+
 .fightText {
   font-size: 40;
   font-style: bold;
@@ -19,11 +23,13 @@
 .stats {
   border: 1px solid gray;
   text-align: center;
+  display: inline-block;
 }
 
 .portrait {
-  height: 50%;
-  width: 50%;
+  height: 50px;
+  width: 50px;
+  /*display: inline-block;*/
 }
 /*.fighter_visitor {
   display: inline-block;

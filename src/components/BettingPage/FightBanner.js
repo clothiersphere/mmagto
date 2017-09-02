@@ -7,7 +7,7 @@ function FightBanner({selectedEvent = {}}, link) {
   function trailer() {
     if (selectedEvent.eventInfo.trailer_url) {
       return (
-        <div>
+        <div className ="fightTrailer">
           <video width="320" height="240" controls>
             <source src={selectedEvent.eventInfo.trailer_url} type="video/mp4"/>
           </video>
