@@ -27,12 +27,17 @@ function getEvents(req, res, next) {
               var visitor = parsedData[i]['fights'][j]['visitor'];
               var visitorFirst = visitor.substr(0, visitor.indexOf(' '));
               var visitorLast = visitor.substr(visitor.indexOf(' ')+1);
-              var home = parsedData[i]['fights'][j]['home'];
-              var homeFirst = home.substr(0, home.indexOf(' '));
-              var homeLast = home.substr(home.indexOf(' ')+1);
               
-              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name === visitorLast && x.first_name === visitorFirst)
-              parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name === homeLast && x.first_name === homeFirst)
+              var home = parsedData[i]['fights'][j]['home'];
+              console.log(home, "home")
+              var homeFirst = home.substr(0, home.indexOf(' '));
+              console.log(homeFirst, "homeFirst")
+              var homeLast = home.substr(home.indexOf(' ')+1);
+              console.log(homeLast, "homeLast")
+              
+              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()) && x.first_name.toLowerCase() === visitorFirst.toLowerCase())
+              
+              parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()) && x.first_name.toLowerCase() === homeFirst.toLowerCase())
             }
           }
         })
@@ -41,13 +46,23 @@ function getEvents(req, res, next) {
           .then((data) => {
             for (var i = 0; i < parsedData.length; i++) {
               var fightName = parsedData[i]['banner'][1]['$']['vtm'];
-              
+
+              console.log(fightName.substring(0, fightName.indexOf(':')) , "fightName")
+
+          
               if (fightName.includes('UFC Fight Night')) {
-                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC Fight Night') && x.title_tag_line.includes('Struve'))
+                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC Fight Night') && x.title_tag_line.includes(visitorFirst))
               }
 
-              if (fightName.includes('UFC 215')) {
-                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC 215'))
+              //example - UFC 215: Johnson vs. Borg
+              //pulls the # from the UFC event - should spit out 215
+              var ufcNumberedEvent = fightName.substring(fightName.indexOf('C')+2, fightName.indexOf(':'))
+
+              //if it is a number - then we know it follows UFC ### conventions and is a main UFC event.
+              if (/^\d+$/.test(ufcNumberedEvent)) {
+                //find event where base title includes the numbered UFC event eg: UFC 215
+                // parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes(fightName.substring(0, indexOf(':'))))
+                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes(ufcNumberedEvent))
               }
             }
           })
