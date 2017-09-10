@@ -54,17 +54,48 @@ function BettingPane({selectedEvent={}}) {
       // )
       return (
         <div className="bettingPane" key={key}>
-          <div className="fighter portrait">
+          <div className="homeFighter">
+            <div className="fighter portrait">
+              <img className="portrait" src={fight.homeInfo.thumbnail}/>
+            </div>
+            <div className="fighter name">
+              {fight.homeInfo.first_name} {fight.homeInfo.last_name}
+              <br/>
+              {fight.homeInfo.wins}-{fight.homeInfo.losses}-{fight.homeInfo.draws}
+            </div>
+            <div className="fighter odds">
+              {convertOdds(fight.homeOdds)}
+            </div>
+            <div className="fighter slider check">
+              <form className="payoutSlider">
+                <input type="slider"/>
+              </form>
+              <form className="winnerCheck">
+                <input type="checkbox"/>
+              </form>
+            </div>
           </div>
-          <div className="fighter name">
-            {fight.homeInfo.first_name} {fight.homeInfo.last_name}
+          <div className="visitorFighter">
+            <div className="fighter portrait">
+              <img className="portrait" src={fight.visitorInfo.thumbnail}/>
+            </div>
+            <div className="fighter name">
+              {fight.visitorInfo.first_name} {fight.visitorInfo.last_name}
+              <br/>
+              {fight.visitorInfo.wins}-{fight.visitorInfo.losses}-{fight.visitorInfo.draws}
+            </div>
+            <div className="fighter odds">
+              {convertOdds(fight.visitorOdds)}
+            </div>
+            <div className="fighter slider check">
+              <form className="payoutSlider">
+                <input type="slider"/>
+              </form>
+              <form className="winnerCheck">
+                <input type="checkbox"/>
+              </form>
+            </div>
           </div>
-          <div className="fighter odds">
-            {convertOdds(fight.homeOdds)}
-          </div>
-          <form>
-            <input type="number"/>
-          </form>
         </div>
 
       )
@@ -83,13 +114,3 @@ function BettingPane({selectedEvent={}}) {
 } 
 
 export default BettingPane;
-
-// <div className="wager">
-  // homeOdds:{fight.homeOdds}
-  // {convertOdds(fight.homeOdds)}
-// </div>
-
-// <div className="wager">
-//   visitorOdds:{fight.visitorOdds}
-//   {convertOdds(fight.visitorOdds)}
-// </div>

@@ -10,9 +10,29 @@
   display: inline-block;
 }
 
+.fighter {
+  width: 20%;
+}
+
 .fightText {
   font-size: 40;
   font-style: bold;
+}
+
+.name {
+  text-align: center;
+}
+
+.slider {
+  display: inline-block;
+}
+
+.winnerCheck {
+  display: inline-block;
+}
+
+.payoutSlider {
+  display: inline-block;
 }
 
 .portrait {
