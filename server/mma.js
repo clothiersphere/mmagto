@@ -5,7 +5,8 @@ function getEvents(req, res, next) {
   
   const bookmakerAPI = 'http://lines.bookmaker.eu';
   const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v1/us/events';
-  const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v1/us/fighters';
+  // const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v1/us/fighters';
+  const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v3/iphone/fighters';
 
   axios.get(bookmakerAPI).then(
     response => parseString(response.data, {explicitChildren:true, preserveChildrenOrder:true}, function (err, result) {

@@ -6,7 +6,7 @@ function BettingPane({selectedEvent={}}) {
   
   function displayEvent(selectedEvent) {
     return selectedEvent.fights.map((fight, key) => {
-      
+
       function convertOdds(number) {
         if (number > 0) {
           var udParse = number.substr(number.indexOf('+')+1)
@@ -18,42 +18,10 @@ function BettingPane({selectedEvent={}}) {
         }
       }
 
-      console.log(fight, "fight")
-     
-      // return (
-      //   <div className="bettingPane" key={key}>
-      //     <div className="container">
-      //       <img className="portrait" src={fight.homeInfo.thumbnail}/> 
-      //       <div className="stats"> 
-      //         {fight.homeInfo.first_name}
-      //         <br/>
-      //         {fight.homeInfo.last_name}
-      //         <br/>
-      //         {fight.homeInfo.wins}-{fight.homeInfo.losses}-{fight.homeInfo.draws}
-      //       </div>
-            
-      //       <div className="bet">
-      //         <form>
-      //           <input type="text"/>
-      //           <input type="submit"/>
-      //         </form>              
-      //       </div>
-      //     </div> 
-      //     <div className="container">
-      //         <img className="portrait" src={fight.visitorInfo.thumbnail}/>
-      //         <div className="stats"> 
-      //           {fight.visitorInfo.first_name}
-      //           <br/>
-      //           {fight.visitorInfo.last_name}
-      //           <br/>
-      //           {fight.visitorInfo.wins}-{fight.visitorInfo.losses}-{fight.visitorInfo.draws}
-      //         </div>
-              
-      //     </div>
-      //   </div>  
-      // )
-      return (
-        <div className="bettingPane" key={key}>
+      console.log(fight, "fight");
+
+      function homeFighter() {
+        return (
           <div className="homeFighter">
             <div className="fighter portrait">
               <img className="portrait" src={fight.homeInfo.thumbnail}/>
@@ -75,17 +43,20 @@ function BettingPane({selectedEvent={}}) {
               </form>
             </div>
           </div>
-          <div className="visitorFighter">
+        )
+      }
+
+      function homeFighterNoInfo() {
+        return (
+          <div className="homeFighter">
             <div className="fighter portrait">
-              <img className="portrait" src={fight.visitorInfo.thumbnail}/>
+              <img className="portrait" src={fight.homeInfo.thumbnail}/>
             </div>
             <div className="fighter name">
-              {fight.visitorInfo.first_name} {fight.visitorInfo.last_name}
-              <br/>
-              {fight.visitorInfo.wins}-{fight.visitorInfo.losses}-{fight.visitorInfo.draws}
+              {fight.home}
             </div>
             <div className="fighter odds">
-              {convertOdds(fight.visitorOdds)}
+              {convertOdds(fight.homeOdds)}
             </div>
             <div className="fighter slider check">
               <form className="payoutSlider">
@@ -96,8 +67,43 @@ function BettingPane({selectedEvent={}}) {
               </form>
             </div>
           </div>
-        </div>
+        )
+      }
 
+      function visitorFighter() {
+        return (
+        <div className="visitorFighter">
+          <div className="fighter portrait">
+            <img className="portrait" src={fight.visitorInfo.thumbnail}/>
+          </div>
+          <div className="fighter name">
+            {fight.visitorInfo.first_name} {fight.visitorInfo.last_name}
+            <br/>
+            {fight.visitorInfo.wins}-{fight.visitorInfo.losses}-{fight.visitorInfo.draws}
+          </div>
+          <div className="fighter odds">
+            {convertOdds(fight.visitorOdds)}
+          </div>
+          <div className="fighter slider check">
+            <form className="payoutSlider">
+              <input type="slider"/>
+            </form>
+            <form className="winnerCheck">
+              <input type="checkbox"/>
+            </form>
+          </div>
+        </div>
+        )
+      }
+
+
+
+
+      return (
+        <div className="bettingPane" key={key}>
+          {visitorFighter()}
+          {homeFighter()}
+        </div>
       )
     })
   }
