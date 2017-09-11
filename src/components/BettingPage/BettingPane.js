@@ -24,7 +24,7 @@ function BettingPane({selectedEvent={}}) {
         return (
           <div className="homeFighter">
             <div className="fighter portrait">
-              <img className="portrait" src={fight.homeInfo.thumbnail}/>
+              <img className="portrait" src={fight.homeInfo.profile_image}/>
             </div>
             <div className="fighter name">
               {fight.homeInfo.first_name} {fight.homeInfo.last_name}
@@ -74,7 +74,7 @@ function BettingPane({selectedEvent={}}) {
         return (
         <div className="visitorFighter">
           <div className="fighter portrait">
-            <img className="portrait" src={fight.visitorInfo.thumbnail}/>
+            <img className="portrait" src={fight.visitorInfo.profile_image}/>
           </div>
           <div className="fighter name">
             {fight.visitorInfo.first_name} {fight.visitorInfo.last_name}

@@ -4,7 +4,8 @@ const parseString = require('xml2js').parseString;
 function getEvents(req, res, next) {
   
   const bookmakerAPI = 'http://lines.bookmaker.eu';
-  const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v1/us/events';
+  // const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v1/us/events';
+  const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v3/iphone/events'
   // const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v1/us/fighters';
   const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v3/iphone/fighters';
 
@@ -58,7 +59,7 @@ function getEvents(req, res, next) {
               var fightName = parsedData[i]['banner'][1]['$']['vtm'];
               // console.log(fightName.substring(0, fightName.indexOf(':')) , "fightName")
               if (fightName.includes('UFC Fight Night')) {
-                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC Fight Night') && x.title_tag_line.includes(visitorFirst))
+                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC Fight Night') && x.title_tag_line.includes(visitorLast))
               }
               //example - UFC 215: Johnson vs. Borg
               //pulls the # from the UFC event - should spit out 215
