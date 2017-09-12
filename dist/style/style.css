@@ -6,7 +6,36 @@
   border: 1px solid #d0d0d0;
 }
 
-.fightTrailer {
+.portrait {
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+}
+
+.homeFighter, .visitorFighter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.homeFighter > div {
+  
+}
+
+.odds {
+  justify-content: flex-start;
+}
+
+.fighter {
+  flex-grow:0.5;
+}
+
+.homeFighter {
+
+}
+
+/*.fightTrailer {
   display: inline-block;
 }
 
@@ -35,12 +64,6 @@
   display: inline-block;
 }
 
-.portrait {
-  height: 50px;
-  width: 50px;
-  display: inline-block;
-}
-
 .fighter {
   display:inline-block;
-}
+}*/

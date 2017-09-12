@@ -10,11 +10,11 @@ function BettingPane({selectedEvent={}}) {
       function convertOdds(number) {
         if (number > 0) {
           var udParse = number.substr(number.indexOf('+')+1)
-          return <div> $100 wins you ${udParse} </div>  
+          return <div className="fighter odds"> $100 wins you ${udParse} </div>  
         } else {
           var favCalc = (number*(-1))/100
           favCalc = Math.round(100/favCalc)
-          return <div> $100 wins you ${favCalc} </div>
+          return <div className="fighter odds"> $100 wins you ${favCalc} </div>
         }
       }
 
@@ -31,18 +31,19 @@ function BettingPane({selectedEvent={}}) {
               <br/>
               {fight.homeInfo.wins}-{fight.homeInfo.losses}-{fight.homeInfo.draws}
             </div>
-            <div className="fighter odds">
               {convertOdds(fight.homeOdds)}
-            </div>
-            <div className="fighter slider check">
+            <div className="fighter slider">
               <form className="payoutSlider">
                 <input type="slider"/>
               </form>
+            </div>
+            <div className="fighter check">
               <form className="winnerCheck">
                 <input type="checkbox"/>
               </form>
             </div>
           </div>
+          
         )
       }
 
@@ -58,10 +59,12 @@ function BettingPane({selectedEvent={}}) {
             <div className="fighter odds">
               {convertOdds(fight.homeOdds)}
             </div>
-            <div className="fighter slider check">
+            <div className="fighter slider">
               <form className="payoutSlider">
                 <input type="slider"/>
               </form>
+            </div>
+            <div className="fighter check">
               <form className="winnerCheck">
                 <input type="checkbox"/>
               </form>
@@ -84,10 +87,12 @@ function BettingPane({selectedEvent={}}) {
           <div className="fighter odds">
             {convertOdds(fight.visitorOdds)}
           </div>
-          <div className="fighter slider check">
+          <div className="fighter slider">
             <form className="payoutSlider">
               <input type="slider"/>
             </form>
+          </div>
+          <div className="fighter check">
             <form className="winnerCheck">
               <input type="checkbox"/>
             </form>
