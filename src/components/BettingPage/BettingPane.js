@@ -1,5 +1,11 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import axios from 'axios';
+
+import Slider, { Range } from 'rc-slider';
+// import 'rc-slider/assets/index.css';
+
+
 
 
 function BettingPane({selectedEvent={}}) {
@@ -33,9 +39,7 @@ function BettingPane({selectedEvent={}}) {
             </div>
               {convertOdds(fight.homeOdds)}
             <div className="fighter slider">
-              <form className="payoutSlider">
-                <input type="slider"/>
-              </form>
+              <Slider />
             </div>
             <div className="fighter check">
               <form className="winnerCheck">

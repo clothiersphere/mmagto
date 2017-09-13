@@ -48,18 +48,30 @@ function getEvents(req, res, next) {
               // console.log(homeLast, "homeLast")
 
               parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()) && x.first_name.toLowerCase() === visitorFirst.toLowerCase())
+              if (!parsedData[i]['fights'][j]['visitorInfo']) {
+                parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()))
+              }
+
               parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()) && x.first_name.toLowerCase() === homeFirst.toLowerCase())
+              if (!parsedData[i]['fights'][j]['homeInfo']) {
+                parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()))
+              }
             }
           }
         })
         .then(() => {
           axios.get(ufcEventsAPI).then( response => response.data )
           .then((data) => {
+            console.log(parsedData, "parsedData")
             for (var i = 0; i < parsedData.length; i++) {
               var fightName = parsedData[i]['banner'][1]['$']['vtm'];
+              console.log(fightName, "fightName")
+              var lastFighterName = fightName.split(' ').pop()
+              console.log(lastFighterName)
+
               // console.log(fightName.substring(0, fightName.indexOf(':')) , "fightName")
               if (fightName.includes('UFC Fight Night')) {
-                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC Fight Night') && x.title_tag_line.includes(visitorLast))
+                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC Fight Night') && x.title_tag_line.includes(lastFighterName))
               }
               //example - UFC 215: Johnson vs. Borg
               //pulls the # from the UFC event - should spit out 215
@@ -101,13 +113,6 @@ function getEventInfo(req, res, next) {
     console.log('ERROR', error);
   })
 }
-
-function strawberrTest(req, res, next) {
-  axios.get(url).then(
-
-  )
-}
-
 
 function fightParser(array) {
   var storage = []; 

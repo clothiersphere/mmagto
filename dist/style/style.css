@@ -20,7 +20,7 @@
 }
 
 .homeFighter > div {
-  
+
 }
 
 .odds {
@@ -29,6 +29,7 @@
 
 .fighter {
   flex-grow:0.5;
+  width: 20%;
 }
 
 .homeFighter {
