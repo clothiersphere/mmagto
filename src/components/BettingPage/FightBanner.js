@@ -16,11 +16,29 @@ function FightBanner({selectedEvent = {}}, link) {
     }
   }
 
+  function faceOff(selectedEvent) {
+    return selectedEvent.fights.map((fights, key) => {
+      return (
+      <div className="faceFaceOff"> 
+       <img src={fights.homeInfo.profile_image}/>
+       <img src={fights.visitorInfo.profile_image}/>
+      </div> 
+      )
+    })
+  }
+
   if (selectedEvent.eventInfo) {  
-    return <div className="fightText">
-      <h1>{selectedEvent.eventInfo.base_title}: {selectedEvent.eventInfo.title_tag_line}</h1>
-      <img height='100px' width= '100px' src={selectedEvent.eventInfo.secondary_feature_image} />
+    return (
+      <div className="fightText">
+        <h1>{selectedEvent.eventInfo.base_title}: {selectedEvent.eventInfo.title_tag_line}</h1>
+        <div className="fightHeader">
+          <img  src={selectedEvent.eventInfo.secondary_feature_image} />
+          <div className="fighterFaces">
+            {faceOff(selectedEvent)}
+          </div>
+        </div>
       </div>
+    )
   } else {
     return <div> <img src={img} /></div>
   }

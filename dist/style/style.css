@@ -6,17 +6,20 @@
   border: 1px solid #d0d0d0;
 }
 
+.bettingPane {
+  border: 0.5px solid black;
+  margin-top: 2px
+}
+
 .portrait {
-  height: 50px;
-  width: 50px;
-  display: inline-block;
+  height: 100px;
+  width: 100px;
+  /*display: inline-block;*/
 }
 
 .homeFighter, .visitorFighter {
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 .homeFighter > div {
@@ -28,8 +31,8 @@
 }
 
 .fighter {
-  flex-grow:0.5;
-  width: 20%;
+  width: 150px;
+  
 }
 
 .homeFighter {
