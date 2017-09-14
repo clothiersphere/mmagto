@@ -14,12 +14,48 @@
 .portrait {
   height: 100px;
   width: 100px;
-  /*display: inline-block;*/
 }
 
 .homeFighter, .visitorFighter {
   display: flex;
   align-items: center;
+}
+
+.fightHeader {
+  display: flex;
+  align-items: center;
+}
+
+.fightBanner {
+  margin-right: 50px;
+}
+
+.fighterFacesBox {
+  display: flex;
+  flex-wrap: wrap;
+  /*height: 50%;*/
+  /*width: 55%;*/
+  /*justify-content: space-around;*/
+  /*align-items: center;*/
+}
+
+.faceFaceOff {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid;
+  justify-content: center;
+}
+
+.leftFaceFaceOffPortrait, .faceFaceOffPortrait {
+  height: 100px;
+  width: 100px;
+  margin: 5px;
+  background-color: black;
+  border-radius: 5px;
+}
+
+.leftFaceFaceOffPortrait {
+  margin-right: 1px;
 }
 
 .homeFighter > div {

@@ -124,12 +124,14 @@ function BettingPane({selectedEvent={}}) {
   if (selectedEvent.fights) {
     return (
      <div>
-      {displayEvent(selectedEvent)}
+      
      </div>
     )
   } else {
     return <div> hi </div>
   }
 } 
+
+// {displayEvent(selectedEvent)}
 
 export default BettingPane;
