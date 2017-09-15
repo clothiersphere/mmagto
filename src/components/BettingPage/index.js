@@ -8,10 +8,12 @@ function mapStateToProps(state) {
   console.log(state, "state")
   const { fights } = state;
   const { selectedEvent } = state;
+  const { selectedFight } = state;
 
   return {
     fights,
-    selectedEvent
+    selectedEvent,
+    selectedFight
   };  
 }
 

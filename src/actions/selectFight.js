@@ -3,7 +3,7 @@ import * as actionTypes from '../constants/actionTypes';
 function setFight(fight) {
   return {
     type: actionTypes.FIGHT_SET,
-    event
+    fight
   }
 };
 

@@ -12,8 +12,6 @@ export default function(state = initialState, action) {
 
 function getFights(state, action) {
   const { fights } = action;
-  console.log(state, "state in getFIghts")
-  console.log(fights, "fights in getFights")
   return [...state, ...fights];
 }
 
