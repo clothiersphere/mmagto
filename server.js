@@ -8,7 +8,7 @@ app.get('/', function (req, res) {
 
 app.get('/api/getEvents', mma.getEvents)
 
-app.get('/api/getEventInfo', mma.getEventInfo)
+// app.get('/api/getEventInfo', mma.getEventInfo)
 
 app.listen(1234, () => {
   console.log('%s listening at %s', app.name, app.url);

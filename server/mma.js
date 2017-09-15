@@ -102,18 +102,6 @@ function getEvents(req, res, next) {
   })
 }
 
-function getEventInfo(req, res, next) {
-  const url = 'http://ufc-data-api.ufc.com/api/v1/us/events';
-  axios.get(url).then( response => response.data ) 
-  .then((data) => {
-    var event = data.find( x => x.title_tag_line.includes('Volkov') )
-    res.send(event)
-  })
-  .catch((error) => {
-    console.log('ERROR', error);
-  })
-}
-
 function fightParser(array) {
   var storage = []; 
   var counter = 0;
@@ -160,6 +148,5 @@ function parseFighterInfo(array) {
 }
 
 module.exports = {
-  getEvents,
-  getEventInfo
+  getEvents
 };

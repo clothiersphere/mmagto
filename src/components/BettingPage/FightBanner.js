@@ -42,7 +42,6 @@ function FightBanner({selectedEvent = {}}, link) {
       <div className="fightText">
         <h2 className="eventTitle">{selectedEvent.eventInfo.base_title}: {selectedEvent.eventInfo.title_tag_line}</h2>
         <div className="fightHeader">
-          <img  className="fightBanner" src={selectedEvent.eventInfo.secondary_feature_image} />
           <div className="fighterFacesBox">
             {faceOff(selectedEvent)}
           </div>
@@ -53,6 +52,8 @@ function FightBanner({selectedEvent = {}}, link) {
     return <div> <img src={img} /></div>
   }
 }
+
+// <img  className="fightBanner" src={selectedEvent.eventInfo.secondary_feature_image} />
 
 export default FightBanner;
 

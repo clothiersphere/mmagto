@@ -8,7 +8,7 @@ function Events({events = {}}) {
       return <div className="events" key={key} onClick={()=> events.setEvent(fight)}> {
         fight['banner'].map((fights, key) => {
           return (
-            <div key={key}>
+            <div className="bannerTitle" key={key}>
               {fights.$.vtm} {fights.$.htm}
             </div>
           )
