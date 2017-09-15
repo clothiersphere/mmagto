@@ -17,7 +17,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setEvent: (fight) => dispatch(actions.selectEvent(fight))
+    setEvent: (event) => dispatch(actions.selectEvent(event)),
+    selectFight: (fight) => dispatch(actions.selectFight(fight))
   };
 }
 

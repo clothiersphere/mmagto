@@ -2,14 +2,15 @@ import React from 'react';
 
 const img = 'http://www.craziestsportsfights.com/wp-content/uploads/2017/07/mmaimports.png';
 
-function FightBanner({selectedEvent = {}}, link) {
+function FightBanner({events ={}}) {
   
+  console.log(events, "events")
   function trailer() {
-    if (selectedEvent.eventInfo.trailer_url) {
+    if (events.selectedEvent.eventInfo.trailer_url) {
       return (
         <div className ="fightTrailer">
           <video width="320" height="240" controls>
-            <source src={selectedEvent.eventInfo.trailer_url} type="video/mp4"/>
+            <source src={events.selectedEvent.eventInfo.trailer_url} type="video/mp4"/>
           </video>
         </div>
       )
@@ -19,7 +20,7 @@ function FightBanner({selectedEvent = {}}, link) {
   function faceOff(selectedEvent) {
     return selectedEvent.fights.map((fights, key) => {
       return (
-        <div className="small_faceOff_container" key={key}>
+        <div className="small_faceOff_container" key={key} onClick={()=> events.selectFight(fights)}>
           <div className="small_faceOff_visitor">
             <img className="faceOff_visitor small_portrait" src={fights.visitorInfo.profile_image}/>
             <div className="visitor visitor_faceOff_LastName">
@@ -37,13 +38,13 @@ function FightBanner({selectedEvent = {}}, link) {
     })
   }
 
-  if (selectedEvent.eventInfo) {  
+  if (events.selectedEvent.eventInfo) {  
     return (
       <div className="fightText">
-        <h2 className="eventTitle">{selectedEvent.eventInfo.base_title}: {selectedEvent.eventInfo.title_tag_line}</h2>
+        <h2 className="eventTitle">{events.selectedEvent.eventInfo.base_title}: {events.selectedEvent.eventInfo.title_tag_line}</h2>
         <div className="fightHeader">
           <div className="fighterFacesBox">
-            {faceOff(selectedEvent)}
+            {faceOff(events.selectedEvent)}
           </div>
         </div>
       </div>
