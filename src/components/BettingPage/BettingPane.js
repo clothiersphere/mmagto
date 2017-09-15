@@ -109,9 +109,6 @@ function BettingPane({selectedEvent={}}) {
         )
       }
 
-
-
-
       return (
         <div className="bettingPane" key={key}>
           {visitorFighter()}
@@ -131,7 +128,5 @@ function BettingPane({selectedEvent={}}) {
     return <div> hi </div>
   }
 } 
-
-// {displayEvent(selectedEvent)}
 
 export default BettingPane;

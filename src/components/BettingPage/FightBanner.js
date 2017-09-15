@@ -19,10 +19,20 @@ function FightBanner({selectedEvent = {}}, link) {
   function faceOff(selectedEvent) {
     return selectedEvent.fights.map((fights, key) => {
       return (
-      <div className="faceFaceOff"> 
-       <img className="leftFaceFaceOffPortrait" src={fights.visitorInfo.profile_image}/>
-       <img className="faceFaceOffPortrait" src={fights.homeInfo.profile_image}/>
-      </div> 
+        <div className="small_faceOff_container" key={key}>
+          <div className="small_faceOff_visitor">
+            <img className="faceOff_visitor small_portrait" src={fights.visitorInfo.profile_image}/>
+            <div className="visitor visitor_faceOff_LastName">
+              {fights.visitorInfo.last_name}
+            </div>
+          </div>
+          <div className="small_faceOff_home">
+            <img className="faceOff_home small_portrait" src={fights.homeInfo.profile_image}/>
+            <div className="home home_faceOff_LastName">
+              {fights.homeInfo.last_name}
+            </div>
+          </div>
+        </div>
       )
     })
   }
@@ -30,11 +40,9 @@ function FightBanner({selectedEvent = {}}, link) {
   if (selectedEvent.eventInfo) {  
     return (
       <div className="fightText">
-        <h1>{selectedEvent.eventInfo.base_title}: {selectedEvent.eventInfo.title_tag_line}</h1>
+        <h2 className="eventTitle">{selectedEvent.eventInfo.base_title}: {selectedEvent.eventInfo.title_tag_line}</h2>
         <div className="fightHeader">
-          <div>
           <img  className="fightBanner" src={selectedEvent.eventInfo.secondary_feature_image} />
-          </div>
           <div className="fighterFacesBox">
             {faceOff(selectedEvent)}
           </div>

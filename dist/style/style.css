@@ -11,9 +11,53 @@
   margin-top: 2px
 }
 
+.eventTitle {
+  margin:0;
+}
+
+/*.fightHeader {
+  display: flex;
+  flex-direction: row;
+}*/
+
 .portrait {
   height: 100px;
   width: 100px;
+}
+
+.small_portrait {
+  height: 97px;
+  width: 97px;
+  background: #E6DADA;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #E6DADA, #274046);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #E6DADA, #274046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.small_faceOff_container {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  border: 1px solid black;
+}
+
+.small_faceOff_container:hover {
+  border: 2px solid black;
+}
+
+.small_faceOff_home, .small_faceOff_visitor {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.small_faceOff_visitor {
+  margin-right: 2px;
+  border-right: 1px solid black;
+}
+
+.small_faceOff_home {
+  border-left: 1px solid black;
 }
 
 .homeFighter, .visitorFighter {
@@ -23,11 +67,13 @@
 
 .fightHeader {
   display: flex;
-  align-items: center;
+  /*align-items: center;*/
+  align-items: flex-start;
 }
 
 .fightBanner {
-  margin-right: 50px;
+  margin-right: 9px;
+
 }
 
 .fighterFacesBox {
@@ -44,6 +90,10 @@
   flex-direction: row;
   border: 1px solid;
   justify-content: center;
+}
+
+.visitorLastName {
+  align-self: center;
 }
 
 .leftFaceFaceOffPortrait, .faceFaceOffPortrait {
@@ -70,40 +120,3 @@
   width: 150px;
   
 }
-
-.homeFighter {
-
-}
-
-/*.fightTrailer {
-  display: inline-block;
-}
-
-.fighter {
-  width: 20%;
-}
-
-.fightText {
-  font-size: 40;
-  font-style: bold;
-}
-
-.name {
-  text-align: center;
-}
-
-.slider {
-  display: inline-block;
-}
-
-.winnerCheck {
-  display: inline-block;
-}
-
-.payoutSlider {
-  display: inline-block;
-}
-
-.fighter {
-  display:inline-block;
-}*/
