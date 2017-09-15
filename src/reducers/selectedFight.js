@@ -11,9 +11,7 @@ export default function(state = initialState, action) {
 }
 
 function setFight(state, action) {
-  console.log(state, "state")
   const { fight } = action;
-  console.log(event, "event")
-
   return fight;
 }
+

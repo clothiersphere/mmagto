@@ -7,8 +7,8 @@ function BettingPage(props) {
   return (
     <div>
       <Events events={props} />
-      <FightBanner selectedEvent={props.selectedEvent} events={props} />
-      <BettingPane selectedEvent={props.selectedEvent} />
+      <FightBanner events={props} />
+      <BettingPane events={props} />
     </div>
   )
 }

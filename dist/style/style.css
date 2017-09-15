@@ -1,7 +1,3 @@
-*h1 {
-  margin:0;
-}
-
 .events {
   border: transparent;
 }
@@ -24,14 +20,9 @@
   margin:0;
 }
 
-/*.fightHeader {
+.fighterFacesBox {
   display: flex;
-  flex-direction: row;
-}*/
-
-.portrait {
-  height: 100px;
-  width: 100px;
+  flex-wrap: wrap;
 }
 
 .small_portrait {
@@ -60,72 +51,26 @@
   text-align: center;
 }
 
+.small_faceOff_home {
+  border-left: 1px solid black;
+}
+
 .small_faceOff_visitor {
   margin-right: 2px;
   border-right: 1px solid black;
 }
 
-.small_faceOff_home {
-  border-left: 1px solid black;
-}
-
-.homeFighter, .visitorFighter {
-  display: flex;
-  align-items: center;
-}
-
 .fightHeader {
   display: flex;
-  /*align-items: center;*/
   align-items: flex-start;
 }
 
-.fightBanner {
-  margin-right: 9px;
-
-}
-
-.fighterFacesBox {
-  display: flex;
-  flex-wrap: wrap;
-  /*height: 50%;*/
-  /*width: 55%;*/
-  /*justify-content: space-around;*/
-  /*align-items: center;*/
-}
-
-.faceFaceOff {
-  display: flex;
-  flex-direction: row;
-  border: 1px solid;
-  justify-content: center;
-}
-
-.visitorLastName {
-  align-self: center;
-}
-
-.leftFaceFaceOffPortrait, .faceFaceOffPortrait {
-  height: 100px;
-  width: 100px;
-  margin: 5px;
-  background-color: black;
-  border-radius: 5px;
-}
-
-.leftFaceFaceOffPortrait {
-  margin-right: 1px;
-}
-
-.homeFighter > div {
-
-}
-
-.odds {
-  justify-content: flex-start;
-}
-
-.fighter {
-  width: 150px;
-  
+.flipIt {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    transform: scaleX(-1);
+    -ms-filter: "FlipH";
+    filter: FlipH;
 }

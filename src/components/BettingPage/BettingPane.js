@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-function BettingPane({selectedEvent={}}) {
+function BettingPane({events={}}) {
   
+  console.log(events, "events")
   function displayEvent(selectedEvent) {
     return selectedEvent.fights.map((fight, key) => {
 
@@ -47,7 +48,6 @@ function BettingPane({selectedEvent={}}) {
           
         )
       }
-
       function homeFighterNoInfo() {
         return (
           <div className="homeFighter">
@@ -73,7 +73,6 @@ function BettingPane({selectedEvent={}}) {
           </div>
         )
       }
-
       function visitorFighter() {
         return (
         <div className="visitorFighter">
@@ -104,21 +103,30 @@ function BettingPane({selectedEvent={}}) {
 
       return (
         <div className="bettingPane" key={key}>
-          {visitorFighter()}
-          {homeFighter()}
+        
         </div>
       )
     })
   }
 
-  if (selectedEvent.fights) {
+  // function largeFaceOff(events) {
+  //   console.log(events, "eventssss")
+   
+  // }
+
+  if (events.selectedFight.homeInfo) {
     return (
-     <div>
-      
-     </div>
+     <div className="large_faceOff_container">
+      <div className="large_faceOff_visitor">
+      <img src={events.selectedFight.visitorInfo.left_full_body_image} />
+      </div>
+      <div className="large_faceOff_home">
+      <img className="flipIt" src={events.selectedFight.homeInfo.right_full_body_image} />
+      </div>
+    </div>
     )
   } else {
-    return <div> hi </div>
+    return <div> Please select a fight. </div>
   }
 } 
 
