@@ -18,13 +18,11 @@ function Events({events = {}}) {
     });
   }
 
-  console.log(events.fights.toString() === 'failed', "eventsfights")
-
   if (events.fights[0]) {
     if (events.fights.join('') === 'failed') {
       return (
         <div>
-          <h1> MMA BETTING FEED IS DOWN</h1> 
+          <h1> MMA odds are down. Please check back tomorrow.</h1> 
         </div>
       )
     }

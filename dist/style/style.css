@@ -65,6 +65,12 @@
   align-items: flex-start;
 }
 
+.large_faceOff_container {
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .flipIt {
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);

@@ -2,8 +2,6 @@ import React from 'react';
 import axios from 'axios';
 
 function BettingPane({events={}}) {
-  
-  console.log(events, "events")
   function displayEvent(selectedEvent) {
     return selectedEvent.fights.map((fight, key) => {
 
@@ -109,14 +107,67 @@ function BettingPane({events={}}) {
     })
   }
 
+  function nullRank(side) {
+    // console.log(events.selectedFight.visitorInfo.rank, "hi")
+    if ( side === visitor) {
+      if (events.selectedFight.visitorInfo.rank === null) {
+        return <div className="large_faceOff_visitorInfo_rank"> Rank: Unranked </div>
+      } else {
+        return <div className="large_faceOff_visitorInfo_rank"> Rank: { events.selectedFight.visitorInfo.rank } </div>
+      }
+    } else {
+      if ( side === home) {
+        if (events.selectedFight.homeInfo.rank === null) {
+          return <div className="large_faceOff_homeInfo_rank"> Rank: Unranked </div>
+        } else {
+          return <div className="large_faceOff_homeInfo_rank"> Rank: { events.selectedFight.homeInfo.rank } </div>
+        }
+      }
+    }
+  }
+
   if (events.selectedFight.homeInfo) {
+    
+    var visitor = events.selectedFight.visitorInfo;
+    var home = events.selectedFight.homeInfo;
+
     return (
      <div className="large_faceOff_container">
       <div className="large_faceOff_visitor">
-      <img src={events.selectedFight.visitorInfo.left_full_body_image} />
+      <img src={visitor.left_full_body_image} />
+      </div>
+      <div className="large_faceOff_visitorInfo">
+        <div className="large_faceOff_visitorInfo_name">
+          Name: {visitor.first_name} {visitor.last_name}
+        </div>
+        <div className="large_faceOff_visitorInfo_nickname">
+          Nickname: {visitor.nickname}
+        </div>
+        <div className="large_faceOff_visitorInfo_weightclass">
+          Weightclass: {visitor.weight_class}
+        </div>
+          {nullRank(visitor)}
+        <div className="large_faceOff_visitorInfo_record">
+          Record: {visitor.wins}-{visitor.losses}-{visitor.draws} (W-L-D)
+        </div>
+      </div>
+      <div className="large_faceOff_homeInfo">
+        <div className="large_faceOff_homeInfo_name">
+          Name: {home.first_name} {home.last_name}
+        </div>
+        <div className="large_faceOff_homeInfo_nickname">
+          Nickname: {home.nickname}
+        </div>
+        <div className="large_faceOff_homeInfo_weightclass">
+          Weightclass: {home.weight_class}
+        </div>
+          {nullRank(home)}
+        <div className="large_faceOff_homeInfo_record">
+          Record: {home.wins}-{home.losses}-{home.draws} (W-L-D)
+        </div>
       </div>
       <div className="large_faceOff_home">
-      <img src={events.selectedFight.homeInfo.right_full_body_image} />
+      <img src={home.right_full_body_image} />
       </div>
     </div>
     )
