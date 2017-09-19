@@ -3,8 +3,6 @@ import React from 'react';
 const img = 'http://www.craziestsportsfights.com/wp-content/uploads/2017/07/mmaimports.png';
 
 function FightBanner({events ={}}) {
-  
-  console.log(events, "events")
   function trailer() {
     if (events.selectedEvent.eventInfo.trailer_url) {
       return (

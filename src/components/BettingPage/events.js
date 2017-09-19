@@ -18,7 +18,17 @@ function Events({events = {}}) {
     });
   }
 
+  console.log(events.fights.toString() === 'failed', "eventsfights")
+
   if (events.fights[0]) {
+    if (events.fights.join('') === 'failed') {
+      return (
+        <div>
+          <h1> MMA BETTING FEED IS DOWN</h1> 
+        </div>
+      )
+    }
+
     return (
       <div>
         <div className="displayBanner">

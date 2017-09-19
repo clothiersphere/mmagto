@@ -109,11 +109,6 @@ function BettingPane({events={}}) {
     })
   }
 
-  // function largeFaceOff(events) {
-  //   console.log(events, "eventssss")
-   
-  // }
-
   if (events.selectedFight.homeInfo) {
     return (
      <div className="large_faceOff_container">
@@ -121,7 +116,7 @@ function BettingPane({events={}}) {
       <img src={events.selectedFight.visitorInfo.left_full_body_image} />
       </div>
       <div className="large_faceOff_home">
-      <img className="flipIt" src={events.selectedFight.homeInfo.right_full_body_image} />
+      <img src={events.selectedFight.homeInfo.right_full_body_image} />
       </div>
     </div>
     )
