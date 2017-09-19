@@ -19,6 +19,12 @@ function getEvents(req, res, next) {
       let home;
       let homeFirst;
       let homeLast;
+      
+      if (!result.Data.$$[0].$$.find( x => x.$.IdLeague === '206')) {
+        console.log("hi")
+        res.send('failed');
+        return;
+      }
 
       data.push(result.Data.$$[0].$$.find( x => x.$.IdLeague === '206'))
       //non UFC feed
@@ -26,6 +32,7 @@ function getEvents(req, res, next) {
       
       // console.log(data[0]['banner'][1]['$']['vtm'], "data")
       //parse data into seperate arrays
+      
       var parsedData = fightParser(data[0].$$);
       //create new data obj w/ just relevant fight stats
       parsedData = parseFighterInfo(parsedData);
