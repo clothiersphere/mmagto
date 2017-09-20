@@ -73,7 +73,7 @@ function getEvents(req, res, next) {
         .then(() => {
           axios.get(ufcEventsAPI).then( response => response.data )
           .then((data) => {
-            console.log(parsedData, "parsedData")
+            
             for (var i = 0; i < parsedData.length; i++) {
               var fightName = parsedData[i]['banner'][1]['$']['vtm'];
               var lastFighterName = fightName.split(' ').pop()

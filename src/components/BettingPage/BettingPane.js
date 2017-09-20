@@ -125,6 +125,40 @@ function BettingPane({events={}}) {
     }
   }
 
+  function showNickname(side) {
+    if ( side === visitor) {
+      if (events.selectedFight.visitorInfo.nickname === null) {
+        return (
+          <div className="large_faceOff_visitorInfo_nickname">
+            Nickname: None
+          </div>
+        )
+      } else {
+        return (
+          <div className="large_faceOff_visitorInfo_nickname">
+            Nickname: {visitor.nickname}
+          </div>
+        )
+      }
+    } else {
+      if (side === home) {
+        if (events.selectedFight.homeInfo.nickname === null) {
+          return (
+            <div className="large_faceOff_homeInfo_nickname">
+              Nickname: None
+            </div>
+          )
+        } else {
+          return (
+            <div className="large_faceOff_homeInfo_nickname">
+              Nickname: {home.nickname}
+            </div>
+          )
+        }
+      }
+    }
+  }
+
   if (events.selectedFight.homeInfo) {
 
     var visitor = events.selectedFight.visitorInfo;
@@ -139,11 +173,9 @@ function BettingPane({events={}}) {
         <div className="large_faceOff_visitorInfo_name">
           Name: {visitor.first_name} {visitor.last_name}
         </div>
-        <div className="large_faceOff_visitorInfo_nickname">
-          Nickname: {visitor.nickname}
-        </div>
+          {showNickname(visitor)}
         <div className="large_faceOff_visitorInfo_weightclass">
-          Weightclass: {visitor.weight_class}
+          Weightclass: {visitor.weight_class.replace(/\_/g, " ")}
         </div>
           {showRank(visitor)}
         <div className="large_faceOff_visitorInfo_record">
@@ -154,11 +186,9 @@ function BettingPane({events={}}) {
         <div className="large_faceOff_homeInfo_name">
           Name: {home.first_name} {home.last_name}
         </div>
-        <div className="large_faceOff_homeInfo_nickname">
-          Nickname: {home.nickname}
-        </div>
+        {showNickname(home)}
         <div className="large_faceOff_homeInfo_weightclass">
-          Weightclass: {home.weight_class}
+          Weightclass: {home.weight_class.replace(/\_/g, " ")}
         </div>
           {showRank(home)}
         <div className="large_faceOff_homeInfo_record">
