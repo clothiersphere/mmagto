@@ -107,13 +107,12 @@ function BettingPane({events={}}) {
     })
   }
 
-  function nullRank(side) {
-    // console.log(events.selectedFight.visitorInfo.rank, "hi")
+  function showRank(side) {
     if ( side === visitor) {
       if (events.selectedFight.visitorInfo.rank === null) {
         return <div className="large_faceOff_visitorInfo_rank"> Rank: Unranked </div>
       } else {
-        return <div className="large_faceOff_visitorInfo_rank"> Rank: { events.selectedFight.visitorInfo.rank } </div>
+        return <div className="large_faceOff_visitorInfo_rank"> Rank: #{ events.selectedFight.visitorInfo.rank } </div>
       }
     } else {
       if ( side === home) {
@@ -146,7 +145,7 @@ function BettingPane({events={}}) {
         <div className="large_faceOff_visitorInfo_weightclass">
           Weightclass: {visitor.weight_class}
         </div>
-          {nullRank(visitor)}
+          {showRank(visitor)}
         <div className="large_faceOff_visitorInfo_record">
           Record: {visitor.wins}-{visitor.losses}-{visitor.draws} (W-L-D)
         </div>
@@ -161,7 +160,7 @@ function BettingPane({events={}}) {
         <div className="large_faceOff_homeInfo_weightclass">
           Weightclass: {home.weight_class}
         </div>
-          {nullRank(home)}
+          {showRank(home)}
         <div className="large_faceOff_homeInfo_record">
           Record: {home.wins}-{home.losses}-{home.draws} (W-L-D)
         </div>

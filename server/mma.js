@@ -76,10 +76,7 @@ function getEvents(req, res, next) {
             console.log(parsedData, "parsedData")
             for (var i = 0; i < parsedData.length; i++) {
               var fightName = parsedData[i]['banner'][1]['$']['vtm'];
-              console.log(fightName, "fightName")
               var lastFighterName = fightName.split(' ').pop()
-              console.log(lastFighterName)
-
               // console.log(fightName.substring(0, fightName.indexOf(':')) , "fightName")
               if (fightName.includes('UFC Fight Night')) {
                 parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC Fight Night') && x.title_tag_line.includes(lastFighterName))
