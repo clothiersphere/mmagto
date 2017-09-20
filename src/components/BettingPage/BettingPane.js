@@ -120,14 +120,14 @@ function BettingPane({events={}}) {
         if (events.selectedFight.homeInfo.rank === null) {
           return <div className="large_faceOff_homeInfo_rank"> Rank: Unranked </div>
         } else {
-          return <div className="large_faceOff_homeInfo_rank"> Rank: { events.selectedFight.homeInfo.rank } </div>
+          return <div className="large_faceOff_homeInfo_rank"> Rank: #{ events.selectedFight.homeInfo.rank } </div>
         }
       }
     }
   }
 
   if (events.selectedFight.homeInfo) {
-    
+
     var visitor = events.selectedFight.visitorInfo;
     var home = events.selectedFight.homeInfo;
 

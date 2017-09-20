@@ -39,30 +39,61 @@ function getEvents(req, res, next) {
 
       axios.get(ufcFightersAPI).then( response => response.data )
         .then((data) => {
+          console.log(data, "data")
           for (var i = 0; i < parsedData.length; i++) {
-            for (var j = 0; j < parsedData[i]['fights'].length; j++) {              
+            for (var j = 0; j < parsedData[i]['fights'].length; j++) {             
               visitor = parsedData[i]['fights'][j]['visitor'];
               visitorFirst = visitor.substr(0, visitor.indexOf(' '));
               visitorLast = visitor.substr(visitor.indexOf(' ')+1);
-              // console.log(visitor, "visitor")
-              // console.log(visitorFirst, "visitorFirst")
-              // console.log(visitorLast, "visitorLast")
+              console.log(visitor, "visitor")
+              console.log(visitorFirst, "visitorFirst")
+              console.log(visitorLast, "visitorLast")
               home = parsedData[i]['fights'][j]['home'];
               homeFirst = home.substr(0, home.indexOf(' '));
               homeLast = home.substr(home.indexOf(' ')+1);
-              // console.log(home, "home")
-              // console.log(homeFirst, "homeFirst")
-              // console.log(homeLast, "homeLast")
+              console.log(home, "home")
+              console.log(homeFirst, "homeFirst")
+              console.log(homeLast, "homeLast")
+              //backup in case naming convention is messed up
+              var homeFirst2 = homeLast.substr(homeLast.indexOf(' ')+1)
+              console.log(homeFirst2, "homeFirst2")
+              var home2 = homeLast 
 
-              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()) && x.first_name.toLowerCase() === visitorFirst.toLowerCase())
-              if (!parsedData[i]['fights'][j]['visitorInfo']) {
-                parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()))
-              }
+              // if (homeFirst.charAt(0) === '"') {
+              //   homeFirst = homeFirst.toLowerCase()
+              //   console.log(homeFirst, "homefirst")
+              //   parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.nickname === 'The Maestro')
+              // } else {
+              //   parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()) && x.first_name.toLowerCase() === homeFirst.toLowerCase())
+              //   if (!parsedData[i]['fights'][j]['homeInfo']) {
+              //     parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()))
+              //   }
+              // }
 
-              parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()) && x.first_name.toLowerCase() === homeFirst.toLowerCase())
+              var exists = data.some( o => o.nickname === homeFirst);
+              console.log(exists, "exists")
+
+              parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()) && x.first_name.toLowerCase() === homeFirst.toLowerCase() )
+
               if (!parsedData[i]['fights'][j]['homeInfo']) {
-                parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()))
+                parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeFirst2.toLowerCase()) && x.first_name.toLowerCase().includes(homeFirst.toLowerCase()) )
+                if (!parsedData[i]['fights'][j]['homeInfo']) {
+                  parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()) )
+                  if (!parsedData[i]['fights'][j]['homeInfo']) {
+                    console.log(data.some( x => x.nickname),"nickname")
+                      console.log(data.find( x => x.nickname.toLowerCase().includes('the maestro')), "maestroo")
+                        console.log(data.find( x => x.nickname.toLowerCase().contains('maestro')), "maestrooo")
+                    parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.nickname.toLowerCase().includes('maestro') )
+                  }
+                }
               }
+              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()) && x.first_name.toLowerCase() === visitorFirst.toLowerCase() )
+              if (!parsedData[i]['fights'][j]['visitorInfo']) {
+                parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()) )
+              }
+              
+
+              
             }
           }
         })

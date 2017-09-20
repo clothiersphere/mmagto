@@ -17,6 +17,7 @@ function FightBanner({events ={}}) {
 
   function faceOff(selectedEvent) {
     return selectedEvent.fights.map((fights, key) => {
+      console.log(fights, "fights")
       return (
         <div className="small_faceOff_container" key={key} onClick={()=> events.selectFight(fights)}>
           <div className="small_faceOff_visitor">
