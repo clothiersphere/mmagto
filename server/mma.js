@@ -4,9 +4,7 @@ const parseString = require('xml2js').parseString;
 function getEvents(req, res, next) {
   
   const bookmakerAPI = 'http://lines.bookmaker.eu';
-  // const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v1/us/events';
   const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v3/iphone/events'
-  // const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v1/us/fighters';
   const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v3/iphone/fighters';
 
   axios.get(bookmakerAPI).then(
@@ -20,8 +18,8 @@ function getEvents(req, res, next) {
       let homeFirst;
       let homeLast;
       
+      //if the lines aren't up yet
       if (!result.Data.$$[0].$$.find( x => x.$.IdLeague === '206')) {
-        console.log("hi")
         res.send('failed');
         return;
       }
@@ -39,61 +37,36 @@ function getEvents(req, res, next) {
 
       axios.get(ufcFightersAPI).then( response => response.data )
         .then((data) => {
-          console.log(data, "data")
+          var hasNick = data.filter(x => x.nickname);
           for (var i = 0; i < parsedData.length; i++) {
-            for (var j = 0; j < parsedData[i]['fights'].length; j++) {             
-              visitor = parsedData[i]['fights'][j]['visitor'];
+            for (var j = 0; j < parsedData[i]['fights'].length; j++) {
+              visitor = parsedData[i]['fights'][j]['visitor'].toLowerCase().replace(/\"/g, "");
               visitorFirst = visitor.substr(0, visitor.indexOf(' '));
               visitorLast = visitor.substr(visitor.indexOf(' ')+1);
-              console.log(visitor, "visitor")
-              console.log(visitorFirst, "visitorFirst")
-              console.log(visitorLast, "visitorLast")
-              home = parsedData[i]['fights'][j]['home'];
+              visitorLast = visitorLast.substr(visitorLast.indexOf(' ')+1);
+              home = parsedData[i]['fights'][j]['home'].toLowerCase().replace(/\"/g, "");
               homeFirst = home.substr(0, home.indexOf(' '));
+              //seperate out the actual last name in case it's bad formatting on either side of bookmamker or UFC API
               homeLast = home.substr(home.indexOf(' ')+1);
-              console.log(home, "home")
-              console.log(homeFirst, "homeFirst")
-              console.log(homeLast, "homeLast")
-              //backup in case naming convention is messed up
-              var homeFirst2 = homeLast.substr(homeLast.indexOf(' ')+1)
-              console.log(homeFirst2, "homeFirst2")
-              var home2 = homeLast 
-
-              // if (homeFirst.charAt(0) === '"') {
-              //   homeFirst = homeFirst.toLowerCase()
-              //   console.log(homeFirst, "homefirst")
-              //   parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.nickname === 'The Maestro')
-              // } else {
-              //   parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()) && x.first_name.toLowerCase() === homeFirst.toLowerCase())
-              //   if (!parsedData[i]['fights'][j]['homeInfo']) {
-              //     parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()))
-              //   }
-              // }
-
-              var exists = data.some( o => o.nickname === homeFirst);
-              console.log(exists, "exists")
-
-              parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()) && x.first_name.toLowerCase() === homeFirst.toLowerCase() )
-
+              homeLast = homeLast.substr(homeLast.indexOf(' ')+1);
+              //backup in case naming convention is messed up from booksports.eu
+              //find by last name && first name
+              parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast) && x.first_name.toLowerCase().includes(homeFirst));
               if (!parsedData[i]['fights'][j]['homeInfo']) {
-                parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeFirst2.toLowerCase()) && x.first_name.toLowerCase().includes(homeFirst.toLowerCase()) )
+               //try by nickname 
+                parsedData[i]['fights'][j]['homeInfo'] = hasNick.find( x => x.nickname.toLowerCase().includes(homeFirst))
+                //try by last name
                 if (!parsedData[i]['fights'][j]['homeInfo']) {
-                  parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast.toLowerCase()) )
-                  if (!parsedData[i]['fights'][j]['homeInfo']) {
-                    console.log(data.some( x => x.nickname),"nickname")
-                      console.log(data.find( x => x.nickname.toLowerCase().includes('the maestro')), "maestroo")
-                        console.log(data.find( x => x.nickname.toLowerCase().contains('maestro')), "maestrooo")
-                    parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.nickname.toLowerCase().includes('maestro') )
-                  }
+                  parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast))
                 }
               }
-              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()) && x.first_name.toLowerCase() === visitorFirst.toLowerCase() )
+              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast) && x.first_name.toLowerCase().includes(visitorFirst));
               if (!parsedData[i]['fights'][j]['visitorInfo']) {
-                parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast.toLowerCase()) )
+                parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorFirst))
+                if (!parsedData[i]['fights'][j]['visitorInfo']) {
+                  parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast))
+                }
               }
-              
-
-              
             }
           }
         })
