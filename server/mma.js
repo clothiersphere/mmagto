@@ -32,6 +32,7 @@ function getEvents(req, res, next) {
       //parse data into seperate arrays
       
       var parsedData = fightParser(data[0].$$);
+      // console.log(parsedData[0][1]['fights'][0]['$$'], "pasredData")
       //create new data obj w/ just relevant fight stats
       parsedData = parseFighterInfo(parsedData);
 
@@ -148,6 +149,8 @@ function parseFighterInfo(array) {
           visitorOdds: array[i][1]['fights'][j]['$$'][0]['$']['voddsh'],
           home: array[i][1]['fights'][j]['$']['htm'],
           homeOdds: array[i][1]['fights'][j]['$$'][0]['$']['hoddsh'],
+          over: array[i][1]['fights'][j]['$$'][0]['$']['ovh'],
+          under: array[i][1]['fights'][j]['$$'][0]['$']['unh']
         };
         result[i]['fights'].push(fights);
       }
