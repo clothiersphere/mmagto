@@ -54,9 +54,7 @@ function getEvents(req, res, next) {
               //find by last name && first name
               parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast) && x.first_name.toLowerCase().includes(homeFirst));
               if (!parsedData[i]['fights'][j]['homeInfo']) {
-               //try by nickname 
                 parsedData[i]['fights'][j]['homeInfo'] = hasNick.find( x => x.nickname.toLowerCase().includes(homeFirst))
-                //try by last name
                 if (!parsedData[i]['fights'][j]['homeInfo']) {
                   parsedData[i]['fights'][j]['homeInfo'] = data.find( x => x.last_name.toLowerCase().includes(homeLast))
                 }
