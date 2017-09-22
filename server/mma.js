@@ -77,10 +77,22 @@ function getEvents(req, res, next) {
             
             for (var i = 0; i < parsedData.length; i++) {
               var fightName = parsedData[i]['banner'][1]['$']['vtm'];
-              var lastFighterName = fightName.split(' ').pop()
-              // console.log(fightName.substring(0, fightName.indexOf(':')) , "fightName")
+              var venue = parsedData[i]['banner'][1]['$']['htm'].split(' ').shift().toLowerCase();
+              var eventName = fightName.substring(fightName.indexOf(':')+2).split(' ');
+              var vsMarker = eventName.indexOf('vs.');
+              var firstFighter = eventName[0];
+              var secondFighter = eventName[vsMarker+1];
+
               if (fightName.includes('UFC Fight Night')) {
-                parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes('UFC Fight Night') && x.title_tag_line.includes(lastFighterName))
+                var fightNightEvents = data.filter( x => x.base_title === 'UFC Fight Night');
+                //include both fighter name
+                parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.includes(firstFighter) && x.title_tag_line.includes(secondFighter) && x.arena.toLowerCase().includes(venue));
+                if (!parsedData[i]['eventInfo']) {
+                  parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.includes(firstFighter) && x.arena.toLowerCase().includes(venue));
+                  if (!parsedData[i]['eventInfo']) {
+                    parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.includes(secondFighter) && x.arena.toLowerCase().includes(venue));
+                  }
+                }
               }
               //example - UFC 215: Johnson vs. Borg
               //pulls the # from the UFC event - should spit out 215
