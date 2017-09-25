@@ -1,5 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import Slider from 'react-rangeslider';
+import VolumeSlider from './Volume';
+import FavoriteSlider from './FavoriteSlider';
+// import 'react-rangeslider/lib/index.css';
 
 function BettingPane({events={}}) {
   
@@ -55,8 +59,35 @@ function BettingPane({events={}}) {
     }
   }
 
-  if (events.selectedFight.homeInfo) {
+  // function ok() {
+  //   return ( <div className="betting_stats">
+  //     <div className="visitor_odds">
+  //       Visitor:{matchInfo.visitorOdds}
+  //     </div>
+  //     <div className="home_odds">
+  //       Home:{matchInfo.homeOdds}
+  //     </div>
+  //     <div className="over_odds">
+  //       Over {matchInfo.over.charAt(1)} Rd:{matchInfo.over.substr(matchInfo.over.indexOf(';')+1)}
+  //     </div>
+  //     <div className="under_odds">
+  //       Under {matchInfo.under.charAt(1)} Rd:{matchInfo.under.substr(matchInfo.under.indexOf(';')+1)}
+  //     </div>
+  //     <div className="guess_odds">
+  //       Who do you think is currently favored to win?
+  //       <VolumeSlider />
+  //       How much of a favorite do you think are they?
+  //       <FavoriteSlider />
+  //       <br/>
+  //       How much of an underdog do you think the other fighter is?
+  //       <br/>
+  //       Do you think it will go over or under {matchInfo.over.charAt(1)} round?
+  //     </div>
+  //     </div>
+  //   )
+  // }
 
+  if (events.selectedFight.homeInfo) {
     var matchInfo = events.selectedFight;
     var visitorInfo = events.selectedFight.visitorInfo;
     var homeInfo = events.selectedFight.homeInfo;
@@ -79,20 +110,26 @@ function BettingPane({events={}}) {
           Record: {visitorInfo.wins}-{visitorInfo.losses}-{visitorInfo.draws} (W-L-D)
         </div>
       </div>
-      <div className="betting_stats">
-        <div className="visitor_odds">
-          Visitor:{matchInfo.visitorOdds}
+      <div className="wager_pane">
+        <div>
+        Whom do you want to bet on?
+        <div className="wager_selectVisitor">
         </div>
-        <div className="home_odds">
-          Home:{matchInfo.homeOdds}
+        <div className="wager_selectHome">
         </div>
-        <div className="over_odds">
-          Over {matchInfo.over.charAt(1)} Rd:{matchInfo.over.substr(matchInfo.over.indexOf(';')+1)}
+        <div>
+        How much do you want to bet?
         </div>
-        <div className="under_odds">
-          Under {matchInfo.under.charAt(1)} Rd:{matchInfo.under.substr(matchInfo.under.indexOf(';')+1)}
+        <div>
+        How many rounds do you think it will go?
+        </div>
+        <div> 
+        Based on the current odds of (fighter_name) being (fighter_odds), 
+        <br/>
+        you would win (wager_win) with a bet of (wager)
         </div>
       </div>
+     
       <div className="large_faceOff_homeInfo">
         <div className="large_faceOff_homeInfo_name">
           Name: {homeInfo.first_name} {homeInfo.last_name}
@@ -115,5 +152,7 @@ function BettingPane({events={}}) {
     return <div> Please select a fight. </div>
   }
 } 
+
+
 
 export default BettingPane;
