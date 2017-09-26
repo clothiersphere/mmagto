@@ -22,11 +22,18 @@
 
 .eventTitle {
   margin:0;
+  text-align: center;
+}
+
+.fightHeader {
+  display: flex;
+  flex-direction: column;
 }
 
 .fighterFacesBox {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .small_portrait {
@@ -64,20 +71,20 @@
   border-right: 1px solid black;
 }
 
-.fightHeader {
-  display: flex;
-  align-items: flex-start;
-}
-
 .large_faceOff_container {
   /*width: 75%;*/
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.large_faceOff_visitorInfo, .large_faceOff_homeInfo {
+  margin: 5px;
 }
 
 .wager_pane {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .wager_amount input {

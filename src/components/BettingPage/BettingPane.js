@@ -145,7 +145,7 @@ function BettingPane({events={}}) {
           <br/>
           If {matchInfo.visitor} won, your bet of 100 dollars would
           <br/>
-          win you ${+(100/((-1 * matchInfo.homeOdds)/100)).toFixed(2)} for a total of ${+(100/((-1 * matchInfo.homeOdds)/100)).toFixed(2) + 100}
+          win you ${+(100*((matchInfo.visitorOdds)/100)).toFixed(2)} for a total of ${+(100*((matchInfo.visitorOdds)/100)).toFixed(2) + 100}
         </div>
       )
     }
