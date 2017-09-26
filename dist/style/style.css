@@ -79,3 +79,7 @@
   display: flex;
   flex-direction: column;
 }
+
+.wager_amount input {
+  width: 140px;
+}

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Slider from 'react-rangeslider';
 import VolumeSlider from './Volume';
 import FavoriteSlider from './FavoriteSlider';
-import { Button, ButtonToolbar, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import { Button, ButtonToolbar, FormControl, FormGroup, InputGroup, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 function BettingPane({events={}}) {
   
@@ -59,23 +59,25 @@ function BettingPane({events={}}) {
     }
   }
 
-  function visitorPanel(info) {
-    return (
-      <div className="large_faceOff_visitorInfo">
-        <div className="large_faceOff_visitorInfo_name">
-          Name: {visitorInfo.first_name} {visitorInfo.last_name}
-        </div>
-          {showNickname(visitorInfo)}
-        <div className="large_faceOff_visitorInfo_weightclass">
-          Weightclass: {visitorInfo.weight_class.replace(/\_/g, " ")}
-        </div>
-          {showRank(visitorInfo)}
-        <div className="large_faceOff_visitorInfo_record">
-          Record: {visitorInfo.wins}-{visitorInfo.losses}-{visitorInfo.draws} (W-L-D)
-        </div>
-      </div>
-    )
-  }
+  // function visitorPanel(info) {
+  //   return (
+  //     <div className="large_faceOff_visitorInfo">
+  //       <div className="large_faceOff_visitorInfo_name">
+  //         Name: {visitorInfo.first_name} {visitorInfo.last_name}
+  //       </div>
+  //         {showNickname(visitorInfo)}
+  //       <div className="large_faceOff_visitorInfo_weightclass">
+  //         Weightclass: {visitorInfo.weight_class.replace(/\_/g, " ")}
+  //       </div>
+  //         {showRank(visitorInfo)}
+  //       <div className="large_faceOff_visitorInfo_record">
+  //         Record: {visitorInfo.wins}-{visitorInfo.losses}-{visitorInfo.draws} (W-L-D)
+  //       </div>
+  //     </div>
+  //   )
+  // }
+
+ 
 
   function homePanel(info) {
     return (
@@ -95,39 +97,6 @@ function BettingPane({events={}}) {
     )
   }
 
-  // function ok() {
-  //   return ( <div className="betting_stats">
-  //     <div className="visitor_odds">
-  //       Visitor:{matchInfo.visitorOdds}
-  //     </div>
-  //     <div className="home_odds">
-  //       Home:{matchInfo.homeOdds}
-  //     </div>
-  //     <div className="over_odds">
-  //       Over {matchInfo.over.charAt(1)} Rd:{matchInfo.over.substr(matchInfo.over.indexOf(';')+1)}
-  //     </div>
-  //     <div className="under_odds">
-  //       Under {matchInfo.under.charAt(1)} Rd:{matchInfo.under.substr(matchInfo.under.indexOf(';')+1)}
-  //     </div>
-  //     <div className="guess_odds">
-  //       Who do you think is currently favored to win?
-  //       <VolumeSlider />
-  //       How much of a favorite do you think are they?
-  //       <FavoriteSlider />
-  //       <br/>
-  //       How much of an underdog do you think the other fighter is?
-  //       <br/>
-  //       Do you think it will go over or under {matchInfo.over.charAt(1)} round?
-  //     </div>
-  //     </div>
-  //   )
-  // }
-
-  function changeColor() {
-
-  }
-
-
   if (events.selectedFight.homeInfo) {
     var matchInfo = events.selectedFight;
     var visitorInfo = events.selectedFight.visitorInfo;
@@ -135,39 +104,95 @@ function BettingPane({events={}}) {
 
     var active = 0;
 
-    return (
-     <div className="large_faceOff_container">
-      <div className="visitorSide">
-        {visitorPanel(visitorInfo)}
-        <div className="large_faceOff_visitor">
-          <img src={visitorInfo.left_full_body_image} />
+    var visitorPanel = (
+      <div className="large_faceOff_visitorInfo">
+        <div className="large_faceOff_visitorInfo_name">
+          Name: {visitorInfo.first_name} {visitorInfo.last_name}
+        </div>
+        {showNickname(visitorInfo)}
+        <div className="large_faceOff_visitorInfo_weightclass">
+          Weightclass: {visitorInfo.weight_class.replace(/\_/g, " ")}
+        </div>
+        {showRank(visitorInfo)}
+        <div className="large_faceOff_visitorInfo_record">
+          Record: {visitorInfo.wins}-{visitorInfo.losses}-{visitorInfo.draws} (W-L-D)
         </div>
       </div>
-      <div className="wager_pane">
-        <div>
-        Whom do you want to bet on?
-        <br/>
-        <ButtonToolbar>
-        <Button>{matchInfo.visitor}</Button>
-        <Button>{matchInfo.home}</Button>
-        </ButtonToolbar>
+    )
+
+    function overUnder() {
+      if ((!matchInfo.over) || (!matchInfo.under)) {
+        return null;
+      } else {
+      <div className="overUnder">
+        How many rounds do you think it will go?
+        <ToggleButtonGroup type="radio" name="options">
+          <ToggleButton value={1}>
+            Over {matchInfo.over.charAt(1)} Rd:{matchInfo.over.substr(matchInfo.over.indexOf(';')+1)}
+          </ToggleButton>
+          <ToggleButton value={2}>
+            Under {matchInfo.under.charAt(1)} Rd:{matchInfo.under.substr(matchInfo.under.indexOf(';')+1)}
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
+      } 
+    }
+
+    function decisionPanel() {
+      return (
+        <div className="decision_panel">
+          Based on the current odds of {matchInfo.visitor} at {matchInfo.visitorOdds}
+          <br/>
+          If {matchInfo.visitor} won, your bet of 100 dollars would
+          <br/>
+          win you ${+(100/((-1 * matchInfo.homeOdds)/100)).toFixed(2)} for a total of ${+(100/((-1 * matchInfo.homeOdds)/100)).toFixed(2) + 100}
         </div>
-        <div>
+      )
+    }
+
+    
+    //takes selectedFighter odds.
+    //takes amount wagered 
+
+    //returns dollar amount.
+
+
+    function calculateWager() {
+
+    }
+
+    var wagerPanel = (
+      <div className="wager_pane">
+        <div className="wager_fighter_selection">
+          Whom do you want to bet on?
+          <ButtonToolbar>
+          <Button>{matchInfo.visitor}</Button>
+          <Button>{matchInfo.home}</Button>
+          </ButtonToolbar>
+        </div>
+        <div className="wager_amount">
         How much do you want to bet?
         <br/>
         <FormControl
           type="text"
         />
         </div>
-        <div>
-        How many rounds do you think it will go?
-        </div>
-        <div> 
-        Based on the current odds of (fighter_name) being (fighter_odds), 
-        <br/>
-        you would win (wager_win) with a bet of (wager)
+        
+       {overUnder}
+       {decisionPanel()}
+        
+      </div>
+    )
+
+    return (
+     <div className="large_faceOff_container">
+      <div className="visitorSide">
+        {visitorPanel}
+        <div className="large_faceOff_visitor">
+          <img src={visitorInfo.left_full_body_image} />
         </div>
       </div>
+      {wagerPanel}
       <div className="homeSide">
         {homePanel(homeInfo)}
         <div className="large_faceOff_home">
