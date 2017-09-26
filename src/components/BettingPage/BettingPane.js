@@ -3,7 +3,7 @@ import axios from 'axios';
 import Slider from 'react-rangeslider';
 import VolumeSlider from './Volume';
 import FavoriteSlider from './FavoriteSlider';
-// import 'react-rangeslider/lib/index.css';
+import { Button, ButtonToolbar, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
 function BettingPane({events={}}) {
   
@@ -59,6 +59,42 @@ function BettingPane({events={}}) {
     }
   }
 
+  function visitorPanel(info) {
+    return (
+      <div className="large_faceOff_visitorInfo">
+        <div className="large_faceOff_visitorInfo_name">
+          Name: {visitorInfo.first_name} {visitorInfo.last_name}
+        </div>
+          {showNickname(visitorInfo)}
+        <div className="large_faceOff_visitorInfo_weightclass">
+          Weightclass: {visitorInfo.weight_class.replace(/\_/g, " ")}
+        </div>
+          {showRank(visitorInfo)}
+        <div className="large_faceOff_visitorInfo_record">
+          Record: {visitorInfo.wins}-{visitorInfo.losses}-{visitorInfo.draws} (W-L-D)
+        </div>
+      </div>
+    )
+  }
+
+  function homePanel(info) {
+    return (
+      <div className="large_faceOff_homeInfo">
+        <div className="large_faceOff_homeInfo_name">
+          Name: {homeInfo.first_name} {homeInfo.last_name}
+        </div>
+        {showNickname(homeInfo)}
+        <div className="large_faceOff_homeInfo_weightclass">
+          Weightclass: {homeInfo.weight_class.replace(/\_/g, " ")}
+        </div>
+          {showRank(homeInfo)}
+        <div className="large_faceOff_homeInfo_record">
+          Record: {homeInfo.wins}-{homeInfo.losses}-{homeInfo.draws} (W-L-D)
+        </div>
+      </div>
+    )
+  }
+
   // function ok() {
   //   return ( <div className="betting_stats">
   //     <div className="visitor_odds">
@@ -87,38 +123,41 @@ function BettingPane({events={}}) {
   //   )
   // }
 
+  function changeColor() {
+
+  }
+
+
   if (events.selectedFight.homeInfo) {
     var matchInfo = events.selectedFight;
     var visitorInfo = events.selectedFight.visitorInfo;
     var homeInfo = events.selectedFight.homeInfo;
 
+    var active = 0;
+
     return (
      <div className="large_faceOff_container">
-      <div className="large_faceOff_visitor">
-      <img src={visitorInfo.left_full_body_image} />
-      </div>
-      <div className="large_faceOff_visitorInfo">
-        <div className="large_faceOff_visitorInfo_name">
-          Name: {visitorInfo.first_name} {visitorInfo.last_name}
-        </div>
-          {showNickname(visitorInfo)}
-        <div className="large_faceOff_visitorInfo_weightclass">
-          Weightclass: {visitorInfo.weight_class.replace(/\_/g, " ")}
-        </div>
-          {showRank(visitorInfo)}
-        <div className="large_faceOff_visitorInfo_record">
-          Record: {visitorInfo.wins}-{visitorInfo.losses}-{visitorInfo.draws} (W-L-D)
+      <div className="visitorSide">
+        {visitorPanel(visitorInfo)}
+        <div className="large_faceOff_visitor">
+          <img src={visitorInfo.left_full_body_image} />
         </div>
       </div>
       <div className="wager_pane">
         <div>
         Whom do you want to bet on?
-        <div className="wager_selectVisitor">
-        </div>
-        <div className="wager_selectHome">
+        <br/>
+        <ButtonToolbar>
+        <Button>{matchInfo.visitor}</Button>
+        <Button>{matchInfo.home}</Button>
+        </ButtonToolbar>
         </div>
         <div>
         How much do you want to bet?
+        <br/>
+        <FormControl
+          type="text"
+        />
         </div>
         <div>
         How many rounds do you think it will go?
@@ -129,22 +168,11 @@ function BettingPane({events={}}) {
         you would win (wager_win) with a bet of (wager)
         </div>
       </div>
-     
-      <div className="large_faceOff_homeInfo">
-        <div className="large_faceOff_homeInfo_name">
-          Name: {homeInfo.first_name} {homeInfo.last_name}
+      <div className="homeSide">
+        {homePanel(homeInfo)}
+        <div className="large_faceOff_home">
+          <img src={homeInfo.right_full_body_image} />
         </div>
-        {showNickname(homeInfo)}
-        <div className="large_faceOff_homeInfo_weightclass">
-          Weightclass: {homeInfo.weight_class.replace(/\_/g, " ")}
-        </div>
-          {showRank(homeInfo)}
-        <div className="large_faceOff_homeInfo_record">
-          Record: {homeInfo.wins}-{homeInfo.losses}-{homeInfo.draws} (W-L-D)
-        </div>
-      </div>
-      <div className="large_faceOff_home">
-      <img src={homeInfo.right_full_body_image} />
       </div>
     </div>
     )
