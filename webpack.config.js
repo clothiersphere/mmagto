@@ -12,7 +12,12 @@ module.exports = {
       },
       { test: /\.(png|jpg|gif)$/, 
       loader: 'file-loader?name=./images/[name].[ext]'
-    }]
+      },
+      { test: /\.css$/,
+        include: /node_modules/,
+        loaders: ['style-loader', 'css-loader'],
+      }
+    ]
   },
   resolve: {
     extensions: ['*', '.js', '.jsx']

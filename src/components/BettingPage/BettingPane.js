@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import Slider from 'react-rangeslider';
-import VolumeSlider from './Volume';
-import FavoriteSlider from './FavoriteSlider';
+import Slider from 'rc-slider';
+import wagerAmountSelector from './wagerAmountSelector';
+
+import 'rc-slider/assets/index.css';
+
 import { Button, ButtonToolbar, FormControl, FormGroup, InputGroup, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 function BettingPane({events={}}) {
@@ -165,19 +167,21 @@ function BettingPane({events={}}) {
       <div className="wager_pane">
         <div className="wager_fighter_selection">
           Whom do you want to bet on?
-          <ButtonToolbar>
-          <Button>{matchInfo.visitor}</Button>
-          <Button>{matchInfo.home}</Button>
-          </ButtonToolbar>
+         <ButtonToolbar> 
+          <ToggleButtonGroup 
+            type="radio" 
+            name="options"
+          >
+            <ToggleButton value={1} className="btn-block">{matchInfo.visitor}</ToggleButton>
+            <ToggleButton value={2} className="btn-block">{matchInfo.home}</ToggleButton>
+          </ToggleButtonGroup>
+         </ButtonToolbar>  
         </div>
         <div className="wager_amount">
         How much do you want to bet?
+
         <br/>
-        <FormControl
-          type="text"
-        />
         </div>
-        
        {overUnder}
        {decisionPanel()}
         
@@ -193,6 +197,7 @@ function BettingPane({events={}}) {
         </div>
       </div>
       {wagerPanel}
+      <wagerAmountSelector />
       <div className="homeSide">
         {homePanel(homeInfo)}
         <div className="large_faceOff_home">
