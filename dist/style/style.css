@@ -90,3 +90,10 @@
 .wager_amount input {
   width: 140px;
 }
+
+.wager_box {
+}
+
+.wager_value {
+  text-align: center;
+}

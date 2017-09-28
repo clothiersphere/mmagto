@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import Slider from 'rc-slider';
-import wagerAmountSelector from './wagerAmountSelector';
+import Slider, { createSliderWithTooltip } from 'rc-slider';
+import WagerPane from './WagerPane';
 
 import 'rc-slider/assets/index.css';
 
@@ -60,26 +60,6 @@ function BettingPane({events={}}) {
       }
     }
   }
-
-  // function visitorPanel(info) {
-  //   return (
-  //     <div className="large_faceOff_visitorInfo">
-  //       <div className="large_faceOff_visitorInfo_name">
-  //         Name: {visitorInfo.first_name} {visitorInfo.last_name}
-  //       </div>
-  //         {showNickname(visitorInfo)}
-  //       <div className="large_faceOff_visitorInfo_weightclass">
-  //         Weightclass: {visitorInfo.weight_class.replace(/\_/g, " ")}
-  //       </div>
-  //         {showRank(visitorInfo)}
-  //       <div className="large_faceOff_visitorInfo_record">
-  //         Record: {visitorInfo.wins}-{visitorInfo.losses}-{visitorInfo.draws} (W-L-D)
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
- 
 
   function homePanel(info) {
     return (
@@ -147,7 +127,7 @@ function BettingPane({events={}}) {
           <br/>
           If {matchInfo.visitor} won, your bet of 100 dollars would
           <br/>
-          win you ${+(100*((matchInfo.visitorOdds)/100)).toFixed(2)} for a total of ${+(100*((matchInfo.visitorOdds)/100)).toFixed(2) + 100}
+          win you ${+(100*((matchInfo.visitorOdds)/100)).toFixed(2)} for a total payout of ${+(100*((matchInfo.visitorOdds)/100)).toFixed(2) + 100}
         </div>
       )
     }
@@ -163,28 +143,58 @@ function BettingPane({events={}}) {
 
     }
 
+    function active() {
+
+    }
+
+    class FighterSelection extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          value: 0,
+        }
+      }
+
+      
+      render() {
+        return (
+          <div className="wager_fighter_selection">
+            Whom do you want to bet on?
+           <ButtonToolbar> 
+            <ToggleButtonGroup 
+              type="radio" 
+              name="options"
+            >
+              <ToggleButton 
+                value={1} 
+                className="btn-block btn_green"
+                checked={false}
+              >
+              {matchInfo.visitor}
+              </ToggleButton>
+              <ToggleButton 
+                value={2} 
+                className="btn-block btn_green"
+                checked={false}
+              >
+              {matchInfo.home}
+              </ToggleButton>
+            </ToggleButtonGroup>
+           </ButtonToolbar>  
+          </div>
+        )
+      }
+    }
+
     var wagerPanel = (
       <div className="wager_pane">
-        <div className="wager_fighter_selection">
-          Whom do you want to bet on?
-         <ButtonToolbar> 
-          <ToggleButtonGroup 
-            type="radio" 
-            name="options"
-          >
-            <ToggleButton value={1} className="btn-block">{matchInfo.visitor}</ToggleButton>
-            <ToggleButton value={2} className="btn-block">{matchInfo.home}</ToggleButton>
-          </ToggleButtonGroup>
-         </ButtonToolbar>  
-        </div>
+        <FighterSelection />
         <div className="wager_amount">
         How much do you want to bet?
-
-        <br/>
+        <WagerPane />
         </div>
        {overUnder}
-       {decisionPanel()}
-        
+       {decisionPanel()}   
       </div>
     )
 
@@ -197,7 +207,6 @@ function BettingPane({events={}}) {
         </div>
       </div>
       {wagerPanel}
-      <wagerAmountSelector />
       <div className="homeSide">
         {homePanel(homeInfo)}
         <div className="large_faceOff_home">

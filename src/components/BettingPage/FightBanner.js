@@ -52,7 +52,5 @@ function FightBanner({events ={}}) {
   }
 }
 
-// <img  className="fightBanner" src={selectedEvent.eventInfo.secondary_feature_image} />
-
 export default FightBanner;
 

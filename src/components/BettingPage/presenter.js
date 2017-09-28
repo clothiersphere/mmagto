@@ -1,11 +1,11 @@
 import React from 'react';
-import Events from './events';
+import Events from './Events';
 import BettingPane from './BettingPane';
 import FightBanner from './FightBanner';
 
 function BettingPage(props) {
   return (
-    <div>
+    <div className="presenter">
       <Events events={props} />
       <FightBanner events={props} />
       <BettingPane events={props} />
