@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 function App({ children }) {
-  return <div>{children}</div>;
+  return <MuiThemeProvider>{children}</MuiThemeProvider>
 }
 
 export default App;

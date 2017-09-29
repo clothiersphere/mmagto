@@ -2,10 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import WagerPane from './WagerPane';
-
+import FlatButton from 'material-ui/FlatButton';
 import 'rc-slider/assets/index.css';
 
-import { Button, ButtonToolbar, FormControl, FormGroup, InputGroup, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+// import { Button, ButtonToolbar, FormControl, FormGroup, InputGroup, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 function BettingPane({events={}}) {
   
@@ -102,23 +102,23 @@ function BettingPane({events={}}) {
       </div>
     )
 
-    function overUnder() {
-      if ((!matchInfo.over) || (!matchInfo.under)) {
-        return null;
-      } else {
-      <div className="overUnder">
-        How many rounds do you think it will go?
-        <ToggleButtonGroup type="radio" name="options">
-          <ToggleButton value={1}>
-            Over {matchInfo.over.charAt(1)} Rd:{matchInfo.over.substr(matchInfo.over.indexOf(';')+1)}
-          </ToggleButton>
-          <ToggleButton value={2}>
-            Under {matchInfo.under.charAt(1)} Rd:{matchInfo.under.substr(matchInfo.under.indexOf(';')+1)}
-          </ToggleButton>
-        </ToggleButtonGroup>
-      </div>
-      } 
-    }
+    // function overUnder() {
+    //   if ((!matchInfo.over) || (!matchInfo.under)) {
+    //     return null;
+    //   } else {
+    //   <div className="overUnder">
+    //     How many rounds do you think it will go?
+    //     <ToggleButtonGroup type="radio" name="options">
+    //       <ToggleButton value={1}>
+    //         Over {matchInfo.over.charAt(1)} Rd:{matchInfo.over.substr(matchInfo.over.indexOf(';')+1)}
+    //       </ToggleButton>
+    //       <ToggleButton value={2}>
+    //         Under {matchInfo.under.charAt(1)} Rd:{matchInfo.under.substr(matchInfo.under.indexOf(';')+1)}
+    //       </ToggleButton>
+    //     </ToggleButtonGroup>
+    //   </div>
+    //   } 
+    // }
 
     function decisionPanel() {
       return (
@@ -131,8 +131,6 @@ function BettingPane({events={}}) {
         </div>
       )
     }
-
-    
     //takes selectedFighter odds.
     //takes amount wagered 
 
@@ -147,53 +145,16 @@ function BettingPane({events={}}) {
 
     }
 
-    class FighterSelection extends React.Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          value: 0,
-        }
-      }
-
-      
-      render() {
-        return (
-          <div className="wager_fighter_selection">
-            Whom do you want to bet on?
-           <ButtonToolbar> 
-            <ToggleButtonGroup 
-              type="radio" 
-              name="options"
-            >
-              <ToggleButton 
-                value={1} 
-                className="btn-block btn_green"
-                checked={false}
-              >
-              {matchInfo.visitor}
-              </ToggleButton>
-              <ToggleButton 
-                value={2} 
-                className="btn-block btn_green"
-                checked={false}
-              >
-              {matchInfo.home}
-              </ToggleButton>
-            </ToggleButtonGroup>
-           </ButtonToolbar>  
-          </div>
-        )
-      }
-    }
-
+    // {overUnder}
     var wagerPanel = (
       <div className="wager_pane">
-        <FighterSelection />
+        <FlatButton label={matchInfo.visitor} fullWidth={true} />
+        <FlatButton label={matchInfo.home} fullWidth={true} />
         <div className="wager_amount">
         How much do you want to bet?
         <WagerPane />
         </div>
-       {overUnder}
+       
        {decisionPanel()}   
       </div>
     )
