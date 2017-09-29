@@ -79,7 +79,6 @@
 .wager_pane {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .wager_amount input {
@@ -91,13 +90,9 @@
 
 .wager_value {
   text-align: center;
+  font-size: 25px;
 }
 
-.btn-primary:focus,
-.btn-primary:active:focus,
-.btn-primary:hover {
-  background-color : green;
-  color : green;
-  border-color : green;
-  outline: none;
+.radio_button {
+  width: 100%;
 }

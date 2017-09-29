@@ -3,7 +3,15 @@ import axios from 'axios';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import WagerPane from './WagerPane';
 import FlatButton from 'material-ui/FlatButton';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import 'rc-slider/assets/index.css';
+import {
+  Step,
+  Stepper,
+  StepLabel,
+  StepContent,
+} from 'material-ui/Stepper';
+import RaisedButton from 'material-ui/RaisedButton';
 
 // import { Button, ButtonToolbar, FormControl, FormGroup, InputGroup, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
@@ -120,6 +128,117 @@ function BettingPane({events={}}) {
     //   } 
     // }
 
+    class VerticalLinearStepper extends React.Component {
+
+      
+      state = {
+        finished: false,
+        stepIndex: 0,
+      };
+
+      handleNext = () => {
+        const {stepIndex} = this.state;
+        this.setState({
+          stepIndex: stepIndex + 1,
+          finished: stepIndex >= 2,
+        });
+      };
+
+      handlePrev = () => {
+        const {stepIndex} = this.state;
+        if (stepIndex > 0) {
+          this.setState({stepIndex: stepIndex - 1});
+        }
+      };
+
+      renderStepActions(step) {
+        const {stepIndex} = this.state;
+
+        return (
+          <div style={{margin: '12px 0'}}>
+            <RaisedButton
+              label={stepIndex === 2 ? 'Finish' : 'Next'}
+              disableTouchRipple={true}
+              disableFocusRipple={true}
+              primary={true}
+              onClick={this.handleNext}
+              style={{marginRight: 12}}
+            />
+            {step > 0 && (
+              <FlatButton
+                label="Back"
+                disabled={stepIndex === 0}
+                disableTouchRipple={true}
+                disableFocusRipple={true}
+                onClick={this.handlePrev}
+              />
+            )}
+          </div>
+        );
+      }
+
+      render() {
+        const {finished, stepIndex} = this.state;
+
+        return (
+          <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto'}}>
+            <Stepper activeStep={stepIndex} orientation="vertical">
+              <Step>
+                <StepLabel>Select the fighter you want to bet on.</StepLabel>
+                <StepContent>
+                  <RadioButtonGroup className="radio_button">
+                    <RadioButton
+                      value={matchInfo.visitor}
+                      label={matchInfo.visitor}
+                    />
+                    <RadioButton
+                      value={matchInfo.home}
+                      label={matchInfo.home}
+                    />
+                  </RadioButtonGroup>
+                  {this.renderStepActions(0)}
+                </StepContent>
+              </Step>
+              <Step>
+                <StepLabel>Decide how much to bet on.</StepLabel>
+                <StepContent>
+                  <div className="wager_amount">
+                    <WagerPane />
+                  </div>
+                  {this.renderStepActions(1)}
+                </StepContent>
+              </Step>
+              <Step>
+                <StepLabel>Create an ad</StepLabel>
+                <StepContent>
+                  <p>
+                    Try out different ad text to see what brings in the most customers,
+                    and learn how to enhance your ads using features like ad extensions.
+                    If you run into any problems with your ads, find out how to tell if
+                    they're running and how to resolve approval issues.
+                  </p>
+                  {this.renderStepActions(2)}
+                </StepContent>
+              </Step>
+            </Stepper>
+            {finished && (
+              <p style={{margin: '20px 0', textAlign: 'center'}}>
+                <a
+                  href="#"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    this.setState({stepIndex: 0, finished: false});
+                  }}
+                >
+                  Click here
+                </a> to reset the example.
+              </p>
+            )}
+          </div>
+        );
+      }
+    }
+
     function decisionPanel() {
       return (
         <div className="decision_panel">
@@ -148,12 +267,8 @@ function BettingPane({events={}}) {
     // {overUnder}
     var wagerPanel = (
       <div className="wager_pane">
-        <FlatButton label={matchInfo.visitor} fullWidth={true} />
-        <FlatButton label={matchInfo.home} fullWidth={true} />
-        <div className="wager_amount">
-        How much do you want to bet?
-        <WagerPane />
-        </div>
+      <VerticalLinearStepper />
+        
        
        {decisionPanel()}   
       </div>
