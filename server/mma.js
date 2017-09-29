@@ -75,11 +75,16 @@ function getEvents(req, res, next) {
             
             for (var i = 0; i < parsedData.length; i++) {
               var fightName = parsedData[i]['banner'][1]['$']['vtm'];
+              console.log(fightName, "fn")
               var venue = parsedData[i]['banner'][1]['$']['htm'].split(' ').shift().toLowerCase();
+              console.log(venue, "venue")
               var eventName = fightName.substring(fightName.indexOf(':')+2).split(' ');
+              console.log(eventName, "evn")
               var vsMarker = eventName.indexOf('vs.');
               var firstFighter = eventName[0];
-              var secondFighter = eventName[vsMarker+1];
+              console.log(firstFighter, "Ff")
+              var secondFighter = eventName[2];
+              console.log(secondFighter, "sf")
 
               if (fightName.includes('UFC Fight Night')) {
                 var fightNightEvents = data.filter( x => x.base_title === 'UFC Fight Night');
