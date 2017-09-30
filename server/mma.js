@@ -74,32 +74,37 @@ function getEvents(req, res, next) {
           .then((data) => {
             
             for (var i = 0; i < parsedData.length; i++) {
-              var fightName = parsedData[i]['banner'][1]['$']['vtm'];
-              console.log(fightName, "fn")
-              var venue = parsedData[i]['banner'][1]['$']['htm'].split(' ').shift().toLowerCase();
+              var fightName = parsedData[i]['banner'][1]['$']['vtm'].toLowerCase();
+              console.log(fightName, "fightname")
+              var venue = parsedData[i]['banner'][1]['$']['htm'].split(' ').shift();
               console.log(venue, "venue")
               var eventName = fightName.substring(fightName.indexOf(':')+2).split(' ');
-              console.log(eventName, "evn")
+              console.log(eventName, "eventName")
               var vsMarker = eventName.indexOf('vs.');
               var firstFighter = eventName[0];
               console.log(firstFighter, "Ff")
               var secondFighter = eventName[2];
               console.log(secondFighter, "sf")
 
-              if (fightName.includes('UFC Fight Night')) {
-                var fightNightEvents = data.filter( x => x.base_title === 'UFC Fight Night');
+              var UFN = ('ufc fight night')
+
+              if (fightName.includes(UFN)) {
+                var fightNightEvents = data.filter( x => x.base_title === "UFC Fight Night");
+                // console.log(fightNightEvents, "FNE")
                 //include both fighter name
-                parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.includes(firstFighter) && x.title_tag_line.includes(secondFighter) && x.arena.toLowerCase().includes(venue));
+                parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.toLowerCase().includes(firstFighter) && x.title_tag_line.toLowerCase().includes(secondFighter) && x.arena.toLowerCase().includes(venue));
                 if (!parsedData[i]['eventInfo']) {
-                  parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.includes(firstFighter) && x.arena.toLowerCase().includes(venue));
+                  parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.toLowerCase().includes(firstFighter) && x.title_tag_line.toLowerCase().includes(secondFighter));
                   if (!parsedData[i]['eventInfo']) {
-                    parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.includes(secondFighter) && x.arena.toLowerCase().includes(venue));
+                    parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.toLowerCase().includes(secondFighter) && x.arena.toLowerCase().includes(venue));
                   }
                 }
               }
+
               //example - UFC 215: Johnson vs. Borg
               //pulls the # from the UFC event - should spit out 215
-              var ufcNumberedEvent = fightName.substring(fightName.indexOf('C')+2, fightName.indexOf(':'))
+              var ufcNumberedEvent = fightName.substring(fightName.indexOf('c')+2, fightName.indexOf(':'))
+              console.log(ufcNumberedEvent, "ufcNumberedEvent")
               //if it is a number - then we know it follows UFC ### conventions and is a main UFC event.
               if (/^\d+$/.test(ufcNumberedEvent)) {
                 //find event where base title includes the numbered UFC event eg: UFC 215
