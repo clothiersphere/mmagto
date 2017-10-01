@@ -1,21 +1,30 @@
 import React from 'react';
 import * as actions from '../../actions';
+import CircularProgress from 'material-ui/CircularProgress';
+import { indigo500, blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500 } from 'material-ui/styles/colors';
 
 function Events({events = {}}) {
   
+
+  var colorPalette = [indigo500, blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500];
+
+
+
+
   function displayBanner(events) {
+    
+ 
     return events.fights.map((fight,key) => {
-      return <div className="events" key={key} onClick={()=> events.setEvent(fight)}> {
-        fight['banner'].map((fights, key) => {
-          return (
-            <div className="bannerTitle" key={key}>
-              {fights.$.vtm} {fights.$.htm}
-            </div>
-          )
-        })
-      }
-      </div>
+      console.log(key, "key")
+      console.log(fight['banner'][1]['$'].vtm);
+
+      return (
+        <div className="events fightTiles" style={{backgroundColor:colorPalette[key]}} key={key} onClick={()=> events.setEvent(fight)}>
+        </div>
+      )
+
     });
+
   }
 
   if (events.fights[0]) {
@@ -35,7 +44,25 @@ function Events({events = {}}) {
       </div>
     )
   } else {
-    return <div><h1>..loading vegas odds</h1></div>
+    return <div><CircularProgress />loading vegas odds</div>
   }
 }
 export default Events;
+
+// <div className="bannerTitle" key={key}>
+//   {fights.$.vtm} {fights.$.htm}
+// </div>
+
+//   return events.fights.map((fight,key) => {
+//     return <div className="events" key={key} onClick={()=> events.setEvent(fight)}> {
+//       fight['banner'].map((fights, key) => {
+//         return (
+//           <div className="fightTiles" key={key}>
+            
+//           </div>
+//         )
+//       })
+//     }
+//     </div>
+//   });
+// }

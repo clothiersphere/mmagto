@@ -1,3 +1,7 @@
+.displayBanner {
+  display: flex;
+}
+
 .events {
   border: transparent;
 }
@@ -9,6 +13,13 @@
 .bannerTitle {
  display: inline-block;
  margin-right: 10px;
+}
+
+.fightTiles {
+  height: 10px;
+  width: 10px;
+  /*background-color:green;*/
+  margin: 2px;
 }
 
 .bettingPane {
