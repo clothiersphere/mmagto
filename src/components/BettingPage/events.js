@@ -12,19 +12,13 @@ function Events({events = {}}) {
 
 
   function displayBanner(events) {
-    
- 
     return events.fights.map((fight,key) => {
-      console.log(key, "key")
       console.log(fight['banner'][1]['$'].vtm);
-
       return (
         <div className="events fightTiles" style={{backgroundColor:colorPalette[key]}} key={key} onClick={()=> events.setEvent(fight)}>
         </div>
       )
-
     });
-
   }
 
   if (events.fights[0]) {
@@ -48,21 +42,3 @@ function Events({events = {}}) {
   }
 }
 export default Events;
-
-// <div className="bannerTitle" key={key}>
-//   {fights.$.vtm} {fights.$.htm}
-// </div>
-
-//   return events.fights.map((fight,key) => {
-//     return <div className="events" key={key} onClick={()=> events.setEvent(fight)}> {
-//       fight['banner'].map((fights, key) => {
-//         return (
-//           <div className="fightTiles" key={key}>
-            
-//           </div>
-//         )
-//       })
-//     }
-//     </div>
-//   });
-// }

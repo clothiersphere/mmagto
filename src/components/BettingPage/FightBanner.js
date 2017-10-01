@@ -1,8 +1,11 @@
 import React from 'react';
+import AppBar from 'material-ui/AppBar';
+import AppBarExampleIcon from './AppBarExampleIcon';
 
 const img = 'http://www.craziestsportsfights.com/wp-content/uploads/2017/07/mmaimports.png';
 
 function FightBanner({events ={}}) {
+
   function trailer() {
     if (events.selectedEvent.eventInfo.trailer_url) {
       return (
@@ -40,7 +43,9 @@ function FightBanner({events ={}}) {
     return (
       <div className="fightText">
         <div className="fightHeader">
+          <div className="fightHeader_text">
           <h2 className="eventTitle">{events.selectedEvent.eventInfo.base_title}: {events.selectedEvent.eventInfo.title_tag_line}</h2>
+          </div>
           <div className="fighterFacesBox">
             {faceOff(events.selectedEvent)}
           </div>

@@ -91,9 +91,7 @@ function BettingPane({events={}}) {
     var matchInfo = events.selectedFight;
     var visitorInfo = events.selectedFight.visitorInfo;
     var homeInfo = events.selectedFight.homeInfo;
-
-    var active = 0;
-
+    
     var visitorPanel = (
       <div className="large_faceOff_visitorInfo">
         <div className="large_faceOff_visitorInfo_name">
@@ -129,8 +127,6 @@ function BettingPane({events={}}) {
     // }
 
     class VerticalLinearStepper extends React.Component {
-
-      
       state = {
         finished: false,
         stepIndex: 0,
@@ -186,7 +182,7 @@ function BettingPane({events={}}) {
               <Step>
                 <StepLabel>Select the fighter you want to bet on.</StepLabel>
                 <StepContent>
-                  <RadioButtonGroup className="radio_button">
+                  <RadioButtonGroup name="radio_button" onChange={(event, value) => console.log(value,"value")}>
                     <RadioButton
                       value={matchInfo.visitor}
                       label={matchInfo.visitor}
