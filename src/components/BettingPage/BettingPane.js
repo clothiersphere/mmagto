@@ -13,10 +13,9 @@ import {
 } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 
-// import { Button, ButtonToolbar, FormControl, FormGroup, InputGroup, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-
 function BettingPane({events={}}) {
-  
+  console.log(events, "events")
+
   function showRank(side) {
     if ( side === visitorInfo) {
       if (events.selectedFight.visitorInfo.rank === null) {
@@ -91,7 +90,7 @@ function BettingPane({events={}}) {
     var matchInfo = events.selectedFight;
     var visitorInfo = events.selectedFight.visitorInfo;
     var homeInfo = events.selectedFight.homeInfo;
-    
+
     var visitorPanel = (
       <div className="large_faceOff_visitorInfo">
         <div className="large_faceOff_visitorInfo_name">
@@ -182,13 +181,13 @@ function BettingPane({events={}}) {
               <Step>
                 <StepLabel>Select the fighter you want to bet on.</StepLabel>
                 <StepContent>
-                  <RadioButtonGroup name="radio_button" onChange={(event, value) => console.log(value,"value")}>
+                  <RadioButtonGroup name="radio_button" onChange={(event, value) => events.selectFighter(value)}>
                     <RadioButton
-                      value={matchInfo.visitor}
+                      value={events.selectedFight.visitorInfo}
                       label={matchInfo.visitor}
                     />
                     <RadioButton
-                      value={matchInfo.home}
+                      value={events.selectedFight.homeInfo}
                       label={matchInfo.home}
                     />
                   </RadioButtonGroup>
@@ -264,8 +263,6 @@ function BettingPane({events={}}) {
     var wagerPanel = (
       <div className="wager_pane">
       <VerticalLinearStepper />
-        
-       
        {decisionPanel()}   
       </div>
     )
