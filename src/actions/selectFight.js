@@ -11,12 +11,12 @@ function resetFight() {
   return {
     type: actionTypes.FIGHT_RESET,
 
-  }
-}
+  };
+};
 
 export function selectFight(fight) {
   return function(dispatch) {
     dispatch({type: 'FIGHTER_RESET'})
     dispatch(setFight(fight))
   };
-};''
+};

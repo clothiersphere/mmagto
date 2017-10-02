@@ -4,7 +4,7 @@ function setEvent(event) {
   return {
     type: actionTypes.FIGHTS_SET,
     event
-  }
+  };
 };
 
 export function selectEvent(fight) {
@@ -12,5 +12,5 @@ export function selectEvent(fight) {
     dispatch({type: 'FIGHT_RESET'})
     dispatch({type: 'FIGHTER_RESET'})
     dispatch(setEvent(fight))
-  }
+  };
 };

@@ -4,11 +4,11 @@ function setFighter(fighter) {
   return {
     type: actionTypes.FIGHTER_SET,
     fighter
-  }
+  };
 };
 
 export function selectFighter(fighter) {
   return function(dispatch) {
     dispatch(setFighter(fighter))
-  }
+  };
 };

@@ -284,7 +284,7 @@ function BettingPane({events={}}) {
     </div>
     )
   } else {
-    return <div> Please select a fight. </div>
+    return <div className="text_greeting">select a fight. </div>
   }
 } 
 
