@@ -8,7 +8,6 @@ function setFighter(fighter) {
 };
 
 export function selectFighter(fighter) {
-  console.log(fighter, "fighter")
   return function(dispatch) {
     dispatch(setFighter(fighter))
   }

@@ -75,16 +75,16 @@ function getEvents(req, res, next) {
             
             for (var i = 0; i < parsedData.length; i++) {
               var fightName = parsedData[i]['banner'][1]['$']['vtm'].toLowerCase();
-              console.log(fightName, "fightname")
+              // console.log(fightName, "fightname")
               var venue = parsedData[i]['banner'][1]['$']['htm'].split(' ').shift();
-              console.log(venue, "venue")
+              // console.log(venue, "venue")
               var eventName = fightName.substring(fightName.indexOf(':')+2).split(' ');
-              console.log(eventName, "eventName")
+              // console.log(eventName, "eventName")
               var vsMarker = eventName.indexOf('vs.');
               var firstFighter = eventName[0];
-              console.log(firstFighter, "Ff")
+              // console.log(firstFighter, "Ff")
               var secondFighter = eventName[2];
-              console.log(secondFighter, "sf")
+              // console.log(secondFighter, "sf")
 
               var UFN = ('ufc fight night')
 
@@ -104,7 +104,7 @@ function getEvents(req, res, next) {
               //example - UFC 215: Johnson vs. Borg
               //pulls the # from the UFC event - should spit out 215
               var ufcNumberedEvent = fightName.substring(fightName.indexOf('c')+2, fightName.indexOf(':'))
-              console.log(ufcNumberedEvent, "ufcNumberedEvent")
+              // console.log(ufcNumberedEvent, "ufcNumberedEvent")
               //if it is a number - then we know it follows UFC ### conventions and is a main UFC event.
               if (/^\d+$/.test(ufcNumberedEvent)) {
                 //find event where base title includes the numbered UFC event eg: UFC 215

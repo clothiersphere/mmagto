@@ -7,10 +7,7 @@ function Events({events = {}}) {
   
 
   var colorPalette = [indigo500, blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500];
-
-
-
-
+  
   function displayBanner(events) {
     return events.fights.map((fight,key) => {
       console.log(fight['banner'][1]['$'].vtm);

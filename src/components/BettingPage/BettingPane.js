@@ -14,8 +14,7 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 
 function BettingPane({events={}}) {
-  console.log(events, "events")
-
+  
   function showRank(side) {
     if ( side === visitorInfo) {
       if (events.selectedFight.visitorInfo.rank === null) {
