@@ -4,7 +4,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import { indigo500, blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500 } from 'material-ui/styles/colors';
 
 function Events({events = {}}) {
-  
 
   var colorPalette = [indigo500, blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500];
   
@@ -12,7 +11,11 @@ function Events({events = {}}) {
     return events.fights.map((fight,key) => {
       console.log(fight['banner'][1]['$'].vtm);
       return (
-        <div className="events fightTiles" style={{backgroundColor:colorPalette[key]}} key={key} onClick={()=> events.setEvent(fight)}>
+        <div className="events fightTiles" 
+          style={{backgroundColor:colorPalette[key]}} 
+          key={key} 
+          onClick={()=> events.setEvent(fight)}
+        >
         </div>
       )
     });
@@ -22,7 +25,7 @@ function Events({events = {}}) {
     if (events.fights.join('') === 'failed') {
       return (
         <div>
-          <h1> MMA odds are down. Please check back tomorrow.</h1> 
+          <h1> MMA odds are down. Please check back later.</h1> 
         </div>
       )
     }

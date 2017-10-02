@@ -19,23 +19,30 @@ function FightBanner({events ={}}) {
   }
 
   function faceOff(selectedEvent) {
-    return selectedEvent.fights.map((fights, key) => {
+    return selectedEvent.fights.map((fight, key) => {
+
+      //if there's only one fight - auto display it
+      if (selectedEvent.fights.length === 1) {
+        events.selectFight(fight)
+      }
+
       return (
-        <div className="small_faceOff_container" key={key} onClick={()=> events.selectFight(fights)}>
+        <div className="small_faceOff_container" key={key} onClick={()=> events.selectFight(fight)}>
           <div className="small_faceOff_visitor">
-            <img className="faceOff_visitor small_portrait" src={fights.visitorInfo.profile_image}/>
+            <img className="faceOff_visitor small_portrait" src={fight.visitorInfo.profile_image}/>
             <div className="visitor visitor_faceOff_LastName">
-              {fights.visitorInfo.last_name}
+              {fight.visitorInfo.last_name}
             </div>
           </div>
           <div className="small_faceOff_home">
-            <img className="faceOff_home small_portrait" src={fights.homeInfo.profile_image}/>
+            <img className="faceOff_home small_portrait" src={fight.homeInfo.profile_image}/>
             <div className="home home_faceOff_LastName">
-              {fights.homeInfo.last_name}
+              {fight.homeInfo.last_name}
             </div>
           </div>
         </div>
       )
+
     })
   }
 
