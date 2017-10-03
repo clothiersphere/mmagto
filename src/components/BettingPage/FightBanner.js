@@ -25,7 +25,7 @@ function FightBanner({events ={}}) {
       if (selectedEvent.fights.length === 1) {
         events.selectFight(fight)
       }
-
+      
       return (
         <div className="small_faceOff_container" key={key} onClick={()=> events.selectFight(fight)}>
           <div className="small_faceOff_visitor">
