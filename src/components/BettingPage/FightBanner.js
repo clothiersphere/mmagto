@@ -29,10 +29,10 @@ function FightBanner({events ={}}) {
 
   function faceOff(selectedEvent) {
     return selectedEvent.fights.map((fight, key) => {
-      //if there's only one fight - auto display it
-      if (selectedEvent.fights.length === 1) {
-        events.selectFight(fight)
-      }
+      // if there's only one fight - auto display it
+      // if (selectedEvent.fights.length === 1) {
+      //   events.selectFight(fight)
+      // }
       
       return (
         <div className="small_faceOff_container" key={key} onClick={()=> events.selectFight(fight)}>

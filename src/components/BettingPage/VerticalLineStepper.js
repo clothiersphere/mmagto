@@ -57,30 +57,36 @@ class VerticalLinearStepper extends React.Component {
   }
 
   decisionPanel(events) {
+    console.log(events, "events")
+    console.log(events.selectedFighter, "events")
     return (
       <div className="decision_panel">
-        {events.selectedFighter} at {events.selectedFight.visitorOdds}
+        {events.selectedFighter.last_name} is currently at {events.selectedFighter.odds}
         <br/>
-        If {events.selectedFight.visitor} won, your bet of 100 dollars would
+        If they win, your bet of 100 dollars would
         <br/>
-        win you ${+(100*((events.selectedFight.visitorOdds)/100)).toFixed(2)} for a total payout of ${+(100*((events.selectedFight.visitorOdds)/100)).toFixed(2) + 100}
+        win you ${+(100*((events.selectedFighter.odds)/100)).toFixed(2)} for a total payout of ${+(100*((events.selectedFighter.odds)/100)).toFixed(2) + 100}
       </div>
     )
+  }
+
+  selectFighter(events, value) {
+    events.selectFighter(value);
   }
 
   render() {
     const {finished, stepIndex} = this.state;
     const { events,visitorInfo,matchInfo,homeInfo } = this.props;
-    visitorInfo['visitorOdds'] = events.selectedFight.visitorOdds;
-    homeInfo['homeOdds'] = events.selectedFight.homeOdds;
-    
+    visitorInfo['odds'] = events.selectedFight.visitorOdds;
+    homeInfo['odds'] = events.selectedFight.homeOdds;
+    // console.log(this.props, "PROPS")
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 0 }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
           <Step>
             <StepLabel>Select the fighter you want to bet on.</StepLabel>
             <StepContent>
-              <RadioButtonGroup name="radio_button" onChange={(event, value) => events.selectFighter(value)}>
+              <RadioButtonGroup name="radio_button" onChange={(event, value) => this.selectFighter(events, value)}>
                 <RadioButton
                   value={visitorInfo}
                   label={matchInfo.visitor}
@@ -116,7 +122,7 @@ class VerticalLinearStepper extends React.Component {
               href="#"
               onClick={(event) => {
                 event.preventDefault();
-                this.setState({stepIndex: 0, finished: false});
+                this.setState({stepIndex: 0, finished: false})
               }}
             >
               Click here
