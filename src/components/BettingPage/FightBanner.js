@@ -18,6 +18,17 @@ function FightBanner({events ={}}) {
     }
   }
 
+  // romero borella
+  function convertName(name) {
+    var name = name.split(' ');
+      if (name.length >= 2) {
+        return name[name.length-1];
+      } else {
+        return name;
+      }
+  }
+  
+
   function faceOff(selectedEvent) {
     return selectedEvent.fights.map((fight, key) => {
 
@@ -31,13 +42,13 @@ function FightBanner({events ={}}) {
           <div className="small_faceOff_visitor">
             <img className="faceOff_visitor small_portrait" src={fight.visitorInfo.profile_image}/>
             <div className="visitor visitor_faceOff_LastName">
-              {fight.visitorInfo.last_name}
+              {convertName(fight.visitorInfo.last_name)}
             </div>
           </div>
           <div className="small_faceOff_home">
             <img className="faceOff_home small_portrait" src={fight.homeInfo.profile_image}/>
             <div className="home home_faceOff_LastName">
-              {fight.homeInfo.last_name}
+              {convertName(fight.homeInfo.last_name)}
             </div>
           </div>
         </div>

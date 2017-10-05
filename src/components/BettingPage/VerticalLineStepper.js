@@ -71,11 +71,10 @@ class VerticalLinearStepper extends React.Component {
   render() {
     const {finished, stepIndex} = this.state;
     const { events,visitorInfo,matchInfo,homeInfo } = this.props;
-    console.log(this.props, "PROPS")
+    // console.log(this.props, "PROPS")
     
     return (
-
-      <div style={{maxWidth: 380, maxHeight: 400, margin: 'auto', marginTop: 0 }}>
+      <div style={{maxWidth: 380, maxHeight: 400, margin: 0 }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
           <Step>
             <StepLabel>Select the fighter you want to bet on.</StepLabel>

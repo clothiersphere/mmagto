@@ -63,10 +63,6 @@ function BettingPane({events={}}) {
     var visitorInfo = events.selectedFight.visitorInfo;
     var homeInfo = events.selectedFight.homeInfo;
 
-    // var visitorPanel = (
-      
-    // )
-
     var homePanel = (
       <div className="large_faceOff_homeInfo">
         <div className="large_faceOff_homeInfo_name">
@@ -82,19 +78,39 @@ function BettingPane({events={}}) {
         </div>
       </div>
     )
+
+    var visitorPane = (
+      <div className="large_faceOff_visitorInfo">
+          <div className="large_faceOff_visitorInfo_name">
+            Name: {visitorInfo.first_name} {visitorInfo.last_name}
+          </div>
+          {showNickname(visitorInfo)}
+          <div className="large_faceOff_visitorInfo_weightclass">
+            Weightclass: {visitorInfo.weight_class.replace(/\_/g, " ")}
+          </div>
+          {showRank(visitorInfo)}
+          <div className="large_faceOff_visitorInfo_record">
+            Record: {visitorInfo.wins}-{visitorInfo.losses}-{visitorInfo.draws} (W-L-D)
+          </div>
+        </div>
+    )
     
     return (
       <div className="large_faceOff_container">
         <div className="visitorSide">
           <visitorPanel />
+          {visitorPane}
           <div className="large_faceOff_visitor">
             <img src={visitorInfo.left_full_body_image} />
           </div>
         </div>
-        
-        <VerticalLineStepper events={events} matchInfo={events.selectedFight} visitorInfo={events.selectedFight.visitorInfo} homeInfo={events.selectedFight.homeInfo}/>
-        
-       <div className="homeSide">
+        <VerticalLineStepper 
+          events={events} 
+          matchInfo={events.selectedFight} 
+          visitorInfo={events.selectedFight.visitorInfo} 
+          homeInfo={events.selectedFight.homeInfo}
+        />
+        <div className="homeSide">
           {homePanel}
           <div className="large_faceOff_home">
             <img src={homeInfo.right_full_body_image} />
