@@ -26,8 +26,8 @@ function Events({events = {}}) {
           </div>
         )
       } else {       
-        console.log(fight['banner'][1]['$'].vtm);
-        console.log(fight.eventInfo.id, "fight")
+        // console.log(fight['banner'][1]['$'].vtm);
+        // console.log(fight.eventInfo.id, "fight")
         return (
           <div className="events fightTiles" 
             style={{backgroundColor:colorPalette[key]}} 

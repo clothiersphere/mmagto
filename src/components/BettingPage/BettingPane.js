@@ -63,6 +63,15 @@ function BettingPane({events={}}) {
     var visitorInfo = events.selectedFight.visitorInfo;
     var homeInfo = events.selectedFight.homeInfo;
 
+
+    function checkWeight(side) {
+      if (side.weight_class === null) {
+        return 'Null'
+      } else {
+        return side.weight_class.replace(/\_/g, " ")
+      }
+    }
+
     var homePanel = (
       <div className="large_faceOff_homeInfo">
         <div className="large_faceOff_homeInfo_name">
@@ -70,7 +79,7 @@ function BettingPane({events={}}) {
         </div>
         {showNickname(homeInfo)}
         <div className="large_faceOff_homeInfo_weightclass">
-          Weightclass: {homeInfo.weight_class.replace(/\_/g, " ")}
+          Weightclass: {checkWeight(homeInfo)}
         </div>
           {showRank(homeInfo)}
         <div className="large_faceOff_homeInfo_record">
@@ -86,7 +95,7 @@ function BettingPane({events={}}) {
           </div>
           {showNickname(visitorInfo)}
           <div className="large_faceOff_visitorInfo_weightclass">
-            Weightclass: {visitorInfo.weight_class.replace(/\_/g, " ")}
+            Weightclass: {checkWeight(visitorInfo)}
           </div>
           {showRank(visitorInfo)}
           <div className="large_faceOff_visitorInfo_record">

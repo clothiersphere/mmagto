@@ -18,7 +18,6 @@ function FightBanner({events ={}}) {
     }
   }
 
-  // romero borella
   function convertName(name) {
     var name = name.split(' ');
       if (name.length >= 2) {
@@ -27,11 +26,9 @@ function FightBanner({events ={}}) {
         return name;
       }
   }
-  
 
   function faceOff(selectedEvent) {
     return selectedEvent.fights.map((fight, key) => {
-
       //if there's only one fight - auto display it
       if (selectedEvent.fights.length === 1) {
         events.selectFight(fight)
@@ -53,7 +50,6 @@ function FightBanner({events ={}}) {
           </div>
         </div>
       )
-
     })
   }
 

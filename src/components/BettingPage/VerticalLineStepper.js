@@ -56,16 +56,22 @@ class VerticalLinearStepper extends React.Component {
     );
   }
 
-  decisionPanel() {
+  decisionPanel(events) {
     return (
       <div className="decision_panel">
-        Based on the current odds of {events.selectedFight.visitor} at {events.selectedFight.visitorOdds}
+        {events.selectedFighter} at {events.selectedFight.visitorOdds}
         <br/>
         If {events.selectedFight.visitor} won, your bet of 100 dollars would
         <br/>
         win you ${+(100*((events.selectedFight.visitorOdds)/100)).toFixed(2)} for a total payout of ${+(100*((events.selectedFight.visitorOdds)/100)).toFixed(2) + 100}
       </div>
     )
+  }
+
+  selectFighter(events, value) {
+      console.log(value, "value")
+
+      return events.selectFighter(value);
   }
 
   render() {
@@ -79,7 +85,7 @@ class VerticalLinearStepper extends React.Component {
           <Step>
             <StepLabel>Select the fighter you want to bet on.</StepLabel>
             <StepContent>
-              <RadioButtonGroup name="radio_button" onChange={(event, value) => events.selectFighter(value)}>
+              <RadioButtonGroup name="radio_button" onChange={(event, value) => this.selectFighter(events, value)}>
                 <RadioButton
                   value={visitorInfo}
                   label={matchInfo.visitor}
@@ -104,7 +110,8 @@ class VerticalLinearStepper extends React.Component {
           <Step>
              <StepLabel>See the results</StepLabel>
                 <StepContent>
-                  {this.renderStepActions(2)}
+                {this.decisionPanel(events)}
+                {this.renderStepActions(2)}
                 </StepContent>
           </Step>
         </Stepper>
