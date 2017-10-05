@@ -5,19 +5,38 @@ import { indigo500, blue500, lightBlue500, cyan500, indigoA100, blueA100, lightB
 
 function Events({events = {}}) {
 
-  var colorPalette = [indigo500, blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500];
+  const colorPalette = [blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500];
   
   function displayBanner(events) {
+    var currSelectedEvent;
+    if (events.selectedEvent) {
+      if (events.selectedEvent.eventInfo) {
+        currSelectedEvent = events.selectedEvent.eventInfo.id;
+      }
+    }
+
     return events.fights.map((fight,key) => {
-      console.log(fight['banner'][1]['$'].vtm);
-      return (
-        <div className="events fightTiles" 
-          style={{backgroundColor:colorPalette[key]}} 
-          key={key} 
-          onClick={()=> events.setEvent(fight)}
-        >
-        </div>
-      )
+      if (fight.eventInfo.id === currSelectedEvent) {
+        return (
+          <div className="events fightTiles" 
+            style={{backgroundColor:colorPalette[key], border:'0.5px solid black'}} 
+            key={key} 
+            onClick={()=> events.setEvent(fight)}
+          >
+          </div>
+        )
+      } else {       
+        console.log(fight['banner'][1]['$'].vtm);
+        console.log(fight.eventInfo.id, "fight")
+        return (
+          <div className="events fightTiles" 
+            style={{backgroundColor:colorPalette[key]}} 
+            key={key} 
+            onClick={()=> events.setEvent(fight)}
+          >
+          </div>
+        )
+      }
     });
   }
 
