@@ -68,16 +68,11 @@ class VerticalLinearStepper extends React.Component {
     )
   }
 
-  selectFighter(events, value) {
-      console.log(value, "value")
-
-      return events.selectFighter(value);
-  }
-
   render() {
     const {finished, stepIndex} = this.state;
     const { events,visitorInfo,matchInfo,homeInfo } = this.props;
-    // console.log(this.props, "PROPS")
+    visitorInfo['visitorOdds'] = events.selectedFight.visitorOdds;
+    homeInfo['homeOdds'] = events.selectedFight.homeOdds;
     
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 0 }}>
@@ -85,7 +80,7 @@ class VerticalLinearStepper extends React.Component {
           <Step>
             <StepLabel>Select the fighter you want to bet on.</StepLabel>
             <StepContent>
-              <RadioButtonGroup name="radio_button" onChange={(event, value) => this.selectFighter(events, value)}>
+              <RadioButtonGroup name="radio_button" onChange={(event, value) => events.selectFighter(value)}>
                 <RadioButton
                   value={visitorInfo}
                   label={matchInfo.visitor}
