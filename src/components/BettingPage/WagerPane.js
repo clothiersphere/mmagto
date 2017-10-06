@@ -6,20 +6,23 @@ import 'rc-slider/assets/index.css';
 class WagerPane extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: 50,
-    }
+    this.state = {value: 0}
   }
+
   onSliderChange = (value) => {
-    this.setState({
-      value,
-    })
+    console.log(value, "value")
+    this.props.onWagerChange(value)
   }
+
   render() {
+    console.log(this.props, "thisprops")
+    var wager = this.props.wagerValue;
+    console.log(wager, "wager")
+
     return (
       <div className="wager_box">
         <div className="wager_value">
-          ${this.state.value}
+          ${wager}
         </div>
         <Slider 
           value={this.state.value} 

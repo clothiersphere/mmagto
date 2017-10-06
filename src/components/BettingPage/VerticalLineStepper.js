@@ -11,9 +11,16 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 
 class VerticalLinearStepper extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.handleWagerChange = this.handleWagerChange.bind(this);
+  }
+
   state = {
     finished: false,
     stepIndex: 0,
+    wagerValue: 0
   };
 
   handleNext = () => {
@@ -30,6 +37,11 @@ class VerticalLinearStepper extends React.Component {
       this.setState({stepIndex: stepIndex - 1});
     }
   };
+
+  handleWagerChange(wagerValue) {
+    const {wagerValue} = this.state;
+    this.setState({wagerValue})
+  }
 
   renderStepActions(step) {
     const {stepIndex} = this.state;
@@ -79,7 +91,8 @@ class VerticalLinearStepper extends React.Component {
     const { events,visitorInfo,matchInfo,homeInfo } = this.props;
     visitorInfo['odds'] = events.selectedFight.visitorOdds;
     homeInfo['odds'] = events.selectedFight.homeOdds;
-    // console.log(this.props, "PROPS")
+    console.log(this.props, "PROPSVLS")
+    console.log(this.state, "state")
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 0 }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
@@ -103,7 +116,10 @@ class VerticalLinearStepper extends React.Component {
             <StepLabel>Decide how much to bet on.</StepLabel>
             <StepContent>
                 <div>
-                <WagerPane />
+                <WagerPane 
+                  wagerValue={this.state.wagerValue}
+                  onWagerChange={this.handleWagerChange}
+                />
                 </div>
               {this.renderStepActions(1)}
             </StepContent>
