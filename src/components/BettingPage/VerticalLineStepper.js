@@ -1,5 +1,6 @@
 import React from 'react';
 import WagerPane from './WagerPane';
+import DecisionPane from './DecisionPane';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import FlatButton from 'material-ui/FlatButton';
 import {
@@ -39,7 +40,6 @@ class VerticalLinearStepper extends React.Component {
   };
 
   handleWagerChange(wagerValue) {
-    const {wagerValue} = this.state;
     this.setState({wagerValue})
   }
 
@@ -69,8 +69,6 @@ class VerticalLinearStepper extends React.Component {
   }
 
   decisionPanel(events) {
-    console.log(events, "events")
-    console.log(events.selectedFighter, "events")
     return (
       <div className="decision_panel">
         {events.selectedFighter.last_name} is currently at {events.selectedFighter.odds}
@@ -91,8 +89,9 @@ class VerticalLinearStepper extends React.Component {
     const { events,visitorInfo,matchInfo,homeInfo } = this.props;
     visitorInfo['odds'] = events.selectedFight.visitorOdds;
     homeInfo['odds'] = events.selectedFight.homeOdds;
-    console.log(this.props, "PROPSVLS")
-    console.log(this.state, "state")
+
+    console.log(events.selectedFighter, "sf")
+    
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 0 }}>
         <Stepper activeStep={stepIndex} orientation="vertical">
@@ -128,6 +127,7 @@ class VerticalLinearStepper extends React.Component {
              <StepLabel>See the results</StepLabel>
                 <StepContent>
                 {this.decisionPanel(events)}
+                <DecisionPane selectedFighter={events.selectedFighter}/>
                 {this.renderStepActions(2)}
                 </StepContent>
           </Step>

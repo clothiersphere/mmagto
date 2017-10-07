@@ -8,7 +8,6 @@ function BettingPane({events={}}) {
   
   function showRank(side) {
     if ( side === visitorInfo) {
-      console.log(events.selectedFight.visitorInfo.rank)
       if (events.selectedFight.visitorInfo.rank === null) {
         return <div className="large_faceOff_visitorInfo_rank"> Rank: Unranked </div>
       } 
@@ -19,7 +18,6 @@ function BettingPane({events={}}) {
       }
     } else {
       if ( side === homeInfo) {
-        console.log(events.selectedFight.homeInfo.rank)
         if (events.selectedFight.homeInfo.rank === null) {
           return <div className="large_faceOff_homeInfo_rank"> Rank: Unranked </div>
         } 
