@@ -89,8 +89,6 @@ class VerticalLinearStepper extends React.Component {
     const { events,visitorInfo,matchInfo,homeInfo } = this.props;
     visitorInfo['odds'] = events.selectedFight.visitorOdds;
     homeInfo['odds'] = events.selectedFight.homeOdds;
-
-    console.log(events.selectedFighter, "sf")
     
     return (
       <div style={{maxWidth: 380, maxHeight: 400, margin: 0 }}>
@@ -124,12 +122,15 @@ class VerticalLinearStepper extends React.Component {
             </StepContent>
           </Step>
           <Step>
-             <StepLabel>See the results</StepLabel>
-                <StepContent>
-                {this.decisionPanel(events)}
-                <DecisionPane selectedFighter={events.selectedFighter}/>
-                {this.renderStepActions(2)}
-                </StepContent>
+            <StepLabel>See the results</StepLabel>
+            <StepContent>
+              <DecisionPane
+                selectedFighter={events.selectedFighter}
+                selectedFight={events.selectedFight}
+                wagerValue={this.state.wagerValue}
+              />
+              {this.renderStepActions(2)}
+            </StepContent>
           </Step>
         </Stepper>
         {finished && (

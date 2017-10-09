@@ -36,16 +36,16 @@ function FightBanner({events ={}}) {
       
       return (
         <div className="small_faceOff_container" key={key} onClick={()=> events.selectFight(fight)}>
-          <div className="small_faceOff_visitor">
-            <img className="faceOff_visitor small_portrait" src={fight.visitorInfo.profile_image}/>
-            <div className="visitor visitor_faceOff_LastName">
-              {convertName(fight.visitorInfo.last_name)}
-            </div>
-          </div>
           <div className="small_faceOff_home">
             <img className="faceOff_home small_portrait" src={fight.homeInfo.profile_image}/>
             <div className="home home_faceOff_LastName">
               {convertName(fight.homeInfo.last_name)}
+            </div>
+          </div>
+          <div className="small_faceOff_visitor">
+            <img className="faceOff_visitor small_portrait" src={fight.visitorInfo.profile_image}/>
+            <div className="visitor visitor_faceOff_LastName">
+              {convertName(fight.visitorInfo.last_name)}
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ function FightBanner({events ={}}) {
       </div>
     )
   } else {
-    return <div> <img src={img} /></div>
+    return <div></div>
   }
 }
 
