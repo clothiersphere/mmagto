@@ -1,6 +1,5 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import AppBarExampleIcon from './AppBarExampleIcon';
 
 const img = 'http://www.craziestsportsfights.com/wp-content/uploads/2017/07/mmaimports.png';
 
@@ -27,15 +26,16 @@ function FightBanner({events ={}}) {
       }
   }
 
+  var selectFight = (fight) => {
+    console.log(events)
+    events.selectFight(fight)
+  }
+
   function faceOff(selectedEvent) {
     return selectedEvent.fights.map((fight, key) => {
-      // if there's only one fight - auto display it
-      // if (selectedEvent.fights.length === 1) {
-      //   events.selectFight(fight)
-      // }
-      
+
       return (
-        <div className="small_faceOff_container" key={key} onClick={()=> events.selectFight(fight)}>
+        <div className="small_faceOff_container" key={key} onClick={()=>selectFight(fight)}>
           <div className="small_faceOff_home">
             <img className="faceOff_home small_portrait" src={fight.homeInfo.profile_image}/>
             <div className="home home_faceOff_LastName">

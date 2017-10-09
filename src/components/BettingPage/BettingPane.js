@@ -119,8 +119,8 @@ function BettingPane({events={}}) {
             <img src={visitorInfo.left_full_body_image} />
           </div>
         </div>
-        <VerticalLineStepper 
-          events={events} 
+        <VerticalLineStepper
+          events={events}
           matchInfo={events.selectedFight} 
           visitorInfo={events.selectedFight.visitorInfo} 
           homeInfo={events.selectedFight.homeInfo}

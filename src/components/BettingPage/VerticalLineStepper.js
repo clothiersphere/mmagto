@@ -12,7 +12,13 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 
 class VerticalLinearStepper extends React.Component {
-  
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.events.selectedFight != prevProps.events.selectedFight) {
+      this.reset();
+    }
+  }
+
   constructor(props) {
     super(props);
     this.handleWagerChange = this.handleWagerChange.bind(this);
@@ -21,7 +27,8 @@ class VerticalLinearStepper extends React.Component {
   state = {
     finished: false,
     stepIndex: 0,
-    wagerValue: 0
+    wagerValue: 0,
+    selectedFight: this.props.events.selectedFight
   };
 
   handleNext = () => {
@@ -37,6 +44,10 @@ class VerticalLinearStepper extends React.Component {
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
+  };
+
+  reset = () => {
+    this.setState({stepIndex: 0, finished: false})
   };
 
   handleWagerChange(wagerValue) {
@@ -68,6 +79,10 @@ class VerticalLinearStepper extends React.Component {
     );
   }
 
+  setFight(selectedFight) {
+    this.setState({selectedFight})
+  }
+  
   decisionPanel(events) {
     return (
       <div className="decision_panel">
@@ -83,6 +98,7 @@ class VerticalLinearStepper extends React.Component {
   selectFighter(events, value) {
     events.selectFighter(value);
   }
+
 
   render() {
     const {finished, stepIndex} = this.state;

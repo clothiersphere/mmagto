@@ -28,8 +28,6 @@ function Header({events = {}}) {
   function displayBanner(events) {
    
    var currSelectedEvent;
-
-    console.log(events.selectedEvent, events.selectedEvent === true, events.selectedEvent.eventInfo, "wheee")
     // if (events.selectedEvent) {
       if (events.selectedEvent.eventInfo) {
         currSelectedEvent = events.selectedEvent.eventInfo.id;
