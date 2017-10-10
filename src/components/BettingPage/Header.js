@@ -9,6 +9,14 @@ function Header({events = {}}) {
   const colorPalette = [blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500];
 
   class ShowEventLists extends React.Component {
+
+    constructor(props) {
+      super(props)
+    }
+
+    state = {
+      img: ''
+    }
     
     showEventListMain = (events) => {
       if (events.selectedEvent.length === 0) {
@@ -17,7 +25,7 @@ function Header({events = {}}) {
             <div className="events layFlat"
               key={key} 
               onClick={()=> events.setEvent(fight)}
-              onMouseOver={()=> console.log(fight.eventInfo.secondary_feature_image, "fight")}
+              onMouseOver={()=> this.setState({img:fight.eventInfo.secondary_feature_image})}
             >
             <div className="events fightTiles"
               style={{backgroundColor:colorPalette[key]}}
@@ -63,6 +71,7 @@ function Header({events = {}}) {
         <div>  
           <div className="eventListingSplash">
             {this.showEventListMain(events)}
+            <img src={this.state.img}/>
           </div>
             <div className="layFlat">
             {this.showEventListMin(events)}
