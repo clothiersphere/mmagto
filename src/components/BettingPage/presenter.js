@@ -4,7 +4,7 @@ import BettingPane from './BettingPane';
 import FightBanner from './FightBanner';
 
 function BettingPage(props) {
-
+  
   
   return (
     <div className="presenter">

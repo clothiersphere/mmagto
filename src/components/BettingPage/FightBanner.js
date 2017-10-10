@@ -17,23 +17,22 @@ function FightBanner({events ={}}) {
     }
   }
 
-  function convertName(name) {
+  var convertName = (name) => {
     var name = name.split(' ');
-      if (name.length >= 2) {
-        return name[name.length-1];
-      } else {
-        return name;
-      }
-  }
+    if (name.length >= 2) {
+      return name[name.length-1];
+    } else {
+      return name;
+    }
+  };
 
   var selectFight = (fight) => {
-    console.log(events)
     events.selectFight(fight)
-  }
+  };
 
   function faceOff(selectedEvent) {
     return selectedEvent.fights.map((fight, key) => {
-
+      
       return (
         <div className="small_faceOff_container" key={key} onClick={()=>selectFight(fight)}>
           <div className="small_faceOff_home">
