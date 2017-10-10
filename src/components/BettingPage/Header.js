@@ -9,82 +9,67 @@ function Header({events = {}}) {
   const colorPalette = [blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500];
 
   class ShowEventLists extends React.Component {
-    showEventList = (events) => {
-       return events.fights.map((fight, key) => {
-         return (
-           <div className="events eventListing"
-             key={key} 
-             onClick={()=> events.setEvent(fight)}
-             onMouseOver={()=> console.log(fight.eventInfo.secondary_feature_image, "fight")}
-           >
-           <div className="events fightTiles"
-             style={{backgroundColor:colorPalette[key]}}
-           >
-           </div>
-             {fight.eventInfo.base_title}: {fight.eventInfo.title_tag_line}
-           </div>
-         )
-       })
+    
+    showEventListMain = (events) => {
+      if (events.selectedEvent.length === 0) {
+        return events.fights.map((fight, key) => {
+          return (
+            <div className="events layFlat"
+              key={key} 
+              onClick={()=> events.setEvent(fight)}
+              onMouseOver={()=> console.log(fight.eventInfo.secondary_feature_image, "fight")}
+            >
+            <div className="events fightTiles"
+              style={{backgroundColor:colorPalette[key]}}
+            >
+            </div>
+              {fight.eventInfo.base_title}: {fight.eventInfo.title_tag_line}
+            </div>
+          )
+        })
+      }
     }
+
+    showEventListMin = (events) => {
+      var currSelectedEvent;
+      if (events.selectedEvent.eventInfo) {
+        currSelectedEvent = events.selectedEvent.eventInfo.id;
+        return events.fights.map((fight,key) => {
+          if (fight.eventInfo.id === currSelectedEvent) {
+            return (
+              <div className="events fightTiles" 
+                style={{backgroundColor:colorPalette[key], border:'0.5px solid black'}} 
+                key={key} 
+                onClick={()=> events.setEvent(fight)}
+              >
+              </div>
+              )
+          } else {
+            return (
+              <div className="events fightTiles" 
+                style={{backgroundColor:colorPalette[key]}}
+                key={key}
+                onClick={()=> events.setEvent(fight)}
+              >
+              </div>
+            )
+          }
+        })
+      }
+    }
+
     render() {
       return (
-        <div>
-        {this.showEventList(events)}
+        <div>  
+          <div className="eventListingSplash">
+            {this.showEventListMain(events)}
+          </div>
+            <div className="layFlat">
+            {this.showEventListMin(events)}
+          </div>
         </div>
       )
     }
-  }
-
-  const showEventList = (events) => {
-     return events.fights.map((fight, key) => {
-       return (
-         <div className="events eventListing"
-           key={key} 
-           onClick={()=> events.setEvent(fight)}
-           onMouseOver={()=> console.log(fight.eventInfo.secondary_feature_image, "fight")}
-         >
-         <div className="events fightTiles"
-           style={{backgroundColor:colorPalette[key]}}
-         >
-         </div>
-           {fight.eventInfo.base_title}: {fight.eventInfo.title_tag_line}
-         </div>
-       )
-     })
-  };
-
-  var displayBanner = (events) => {
-   
-   var currSelectedEvent;
-    if (events.selectedEvent.eventInfo) {
-      currSelectedEvent = events.selectedEvent.eventInfo.id;
-      return events.fights.map((fight,key) => {  
-        if (fight.eventInfo.id === currSelectedEvent) {
-          return (
-            <div className="events fightTiles" 
-              style={{backgroundColor:colorPalette[key], border:'0.5px solid black'}} 
-              key={key} 
-              onClick={()=> events.setEvent(fight)}
-            >
-            </div>
-          )
-        } else {
-          return (
-            <div className="events fightTiles" 
-              style={{backgroundColor:colorPalette[key]}} 
-              key={key} 
-              onClick={()=> events.setEvent(fight)}
-            >
-            </div>
-          )
-        }
-      })
-    }
-    return (
-      <div className="eventList">
-        {showEventList(events)}
-      </div>
-    )
   }
 
   if (events.fights[0]) {
@@ -98,7 +83,6 @@ function Header({events = {}}) {
     return (
       <div className="displayBanner">
         <ShowEventLists />
-        {displayBanner(events)}        
       </div>
     )
   } else {

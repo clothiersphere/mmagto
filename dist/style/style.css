@@ -25,13 +25,11 @@ body {
   flex-direction: column;
 }
 
-.eventListing {
+.layFlat {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
-
 
 .bannerTitle {
  display: inline-block;
