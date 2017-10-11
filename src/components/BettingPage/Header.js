@@ -15,7 +15,9 @@ function Header({events = {}}) {
     }
 
     state = {
-      img: ''
+      img: '',
+      title1: '',
+      title2: '',
     }
     
     showEventListMain = (events) => {
@@ -27,11 +29,11 @@ function Header({events = {}}) {
               onClick={()=> events.setEvent(fight)}
               onMouseOver={()=> this.setState({img:fight.eventInfo.secondary_feature_image})}
             >
-            <div className="events fightTiles"
-              style={{backgroundColor:colorPalette[key]}}
-            >
-            </div>
-              {fight.eventInfo.base_title}: {fight.eventInfo.title_tag_line}
+              <div className="events fightTiles"
+                style={{backgroundColor:colorPalette[key]}}
+              >
+              </div>
+                {fight.eventInfo.base_title}: {fight.eventInfo.title_tag_line}
             </div>
           )
         })
@@ -46,7 +48,8 @@ function Header({events = {}}) {
           if (fight.eventInfo.id === currSelectedEvent) {
             return (
               <div className="events fightTiles" 
-                style={{backgroundColor:colorPalette[key], border:'0.5px solid black'}} 
+                style={{backgroundColor:colorPalette[key], border:'0.5px solid black'}}
+                onMouseOver={()=> this.setState({title1:fight.eventInfo.base_title, title2:fight.eventInfo.title_tag_line})} 
                 key={key} 
                 onClick={()=> events.setEvent(fight)}
               >
@@ -56,6 +59,7 @@ function Header({events = {}}) {
             return (
               <div className="events fightTiles" 
                 style={{backgroundColor:colorPalette[key]}}
+                onMouseOver={()=> this.setState({title1:fight.eventInfo.base_title, title2:fight.eventInfo.title_tag_line})} 
                 key={key}
                 onClick={()=> events.setEvent(fight)}
               >
@@ -68,12 +72,12 @@ function Header({events = {}}) {
 
     render() {
       return (
-        <div>  
+        <div className="displayBanner">
           <div className="eventListingSplash">
             {this.showEventListMain(events)}
             <img src={this.state.img}/>
           </div>
-            <div className="layFlat">
+          <div className="layFlat">
             {this.showEventListMin(events)}
           </div>
         </div>
@@ -89,17 +93,10 @@ function Header({events = {}}) {
         </div>
       )
     }
-    return (
-      <div className="displayBanner">
-        <ShowEventLists />
-      </div>
-    )
+    return <ShowEventLists />
   } else {
-    return (
-      <div className="displayBanner">
-        <div className="splash"><CircularProgress />loading vegas odds</div>
-      </div>
-    )
+    return <div className="splash displayBanner"><CircularProgress />loading vegas odds</div>
+
   }
 }
 

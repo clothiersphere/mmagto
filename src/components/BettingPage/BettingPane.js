@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import VerticalLineStepper from './VerticalLineStepper';
-import visitorPanel from './visitorPanel';
+import VisitorPanel from './visitorPanel';
 
 
 function BettingPane({events={}}) {
@@ -112,11 +112,10 @@ function BettingPane({events={}}) {
     
     return (
       <div className="large_faceOff_container">
-        <div className="visitorSide">
-          <visitorPanel />
-          {visitorPane}
-          <div className="large_faceOff_visitor">
-            <img src={visitorInfo.left_full_body_image} />
+        <div className="homeSide">
+          {homePanel}
+          <div className="large_faceOff_home">
+            <img src={homeInfo.left_full_body_image} />
           </div>
         </div>
         <VerticalLineStepper
@@ -125,10 +124,11 @@ function BettingPane({events={}}) {
           visitorInfo={events.selectedFight.visitorInfo} 
           homeInfo={events.selectedFight.homeInfo}
         />
-        <div className="homeSide">
-          {homePanel}
-          <div className="large_faceOff_home">
-            <img src={homeInfo.right_full_body_image} />
+        <div className="visitorSide">
+          
+          {visitorPane}
+          <div className="large_faceOff_visitor">
+            <img src={visitorInfo.right_full_body_image} />
           </div>
         </div>
       </div>

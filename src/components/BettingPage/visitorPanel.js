@@ -1,6 +1,6 @@
 import React from 'react';
 
-var visitorPanel = () => {
+var VisitorPanel = () => {
   console.log("hi")
   return (
     <div className="large_faceOff_visitorInfo">
@@ -18,4 +18,4 @@ var visitorPanel = () => {
     </div>
   )
 }
-export default visitorPanel;
+export default VisitorPanel;
