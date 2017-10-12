@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import VerticalLineStepper from './VerticalLineStepper';
-import VisitorPanel from './visitorPanel';
 
 
 function BettingPane({events={}}) {
@@ -125,7 +124,6 @@ function BettingPane({events={}}) {
           homeInfo={events.selectedFight.homeInfo}
         />
         <div className="visitorSide">
-          
           {visitorPane}
           <div className="large_faceOff_visitor">
             <img src={visitorInfo.right_full_body_image} />

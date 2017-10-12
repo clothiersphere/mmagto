@@ -2,6 +2,7 @@ import React from 'react';
 import * as actions from '../../actions';
 import CircularProgress from 'material-ui/CircularProgress';
 import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 import { indigo500, blue500, lightBlue500, cyan500, indigoA100, blueA100, lightBlueA100, cyan50A100, teal500, green500, lightGreen500, lime500 } from 'material-ui/styles/colors';
 
 function Header({events = {}}) {
@@ -49,7 +50,7 @@ function Header({events = {}}) {
             return (
               <div className="events fightTiles" 
                 style={{backgroundColor:colorPalette[key], border:'0.5px solid black'}}
-                onMouseOver={()=> this.setState({title1:fight.eventInfo.base_title, title2:fight.eventInfo.title_tag_line})} 
+                onMouseOver={()=> this.setState({title1:fight.eventInfo.base_title, title2:fight.eventInfo.title_tag_line})}
                 key={key} 
                 onClick={()=> events.setEvent(fight)}
               >
@@ -59,7 +60,7 @@ function Header({events = {}}) {
             return (
               <div className="events fightTiles" 
                 style={{backgroundColor:colorPalette[key]}}
-                onMouseOver={()=> this.setState({title1:fight.eventInfo.base_title, title2:fight.eventInfo.title_tag_line})} 
+                onMouseOver={()=> this.setState({title1:fight.eventInfo.base_title, title2:fight.eventInfo.title_tag_line})}
                 key={key}
                 onClick={()=> events.setEvent(fight)}
               >
@@ -70,15 +71,37 @@ function Header({events = {}}) {
       }
     }
 
+    showEventListButton = (events) => {
+      if (events.selectedEvent.eventInfo) {
+        return (
+          <div>
+            <FlatButton 
+              label="Back to Event Listing" 
+              primary={true}
+              onClick={()=> events.eventsReset()}
+            />
+          </div>
+        )
+      }
+    }
+
+    showEventInfo = () => {
+      return <div>{this.state.title1} {this.state.title2}</div>
+    }
+
     render() {
       return (
         <div className="displayBanner">
           <div className="eventListingSplash">
             {this.showEventListMain(events)}
-            <img src={this.state.img}/>
+            <img className="eventBanner" src={this.state.img}/>
           </div>
           <div className="layFlat">
+            {this.showEventListButton(events)}
             {this.showEventListMin(events)}
+            <div>
+            {this.showEventInfo()}
+            </div>
           </div>
         </div>
       )

@@ -4,7 +4,7 @@ body {
 
 .displayBanner {
   display: flex;
-  /*align-items: center;*/
+  align-content: center;
   justify-content: center;
 }
 
@@ -19,6 +19,10 @@ body {
 
 .events:hover {
   border: 0.5px solid #d0d0d0;
+}
+
+.eventBanner {
+  margin-top: 10px;
 }
 
 .eventListingSplash {

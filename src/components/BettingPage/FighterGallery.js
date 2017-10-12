@@ -3,7 +3,7 @@ import AppBar from 'material-ui/AppBar';
 
 const img = 'http://www.craziestsportsfights.com/wp-content/uploads/2017/07/mmaimports.png';
 
-function FightBanner({events ={}}) {
+function FighterGallery({events ={}}) {
 
   function trailer() {
     if (events.selectedEvent.eventInfo.trailer_url) {
@@ -70,5 +70,5 @@ function FightBanner({events ={}}) {
   }
 }
 
-export default FightBanner;
+export default FighterGallery;
 
