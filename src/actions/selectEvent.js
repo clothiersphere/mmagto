@@ -9,8 +9,10 @@ function setEvent(event) {
 
 export function selectEvent(fight) {
   return function(dispatch) {
+    
+    dispatch({type: 'EVENTS_RESET'})
     dispatch({type: 'FIGHT_RESET'})
-    dispatch({type: 'FIGHTER_RESET'})
+    dispatch({type: 'FIGHTER_RESET'}) 
     dispatch(setEvent(fight))
   };
 };

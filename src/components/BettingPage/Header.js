@@ -1,5 +1,6 @@
 import React from 'react';
 import * as actions from '../../actions';
+import Sidebar from './Sidebar';
 import CircularProgress from 'material-ui/CircularProgress';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
@@ -13,6 +14,10 @@ function Header({events = {}}) {
 
     constructor(props) {
       super(props)
+    }
+
+    componentDidMount() {
+
     }
 
     state = {
@@ -73,20 +78,29 @@ function Header({events = {}}) {
 
     showEventListButton = (events) => {
       if (events.selectedEvent.eventInfo) {
-        return (
-          <div>
-            <FlatButton 
-              label="Back to Event Listing" 
-              primary={true}
-              onClick={()=> events.eventsReset()}
-            />
-          </div>
+        return ( 
+          <Sidebar props={events}/>
         )
+        // return (
+        //   <div>
+        //     <FlatButton 
+        //       label="Back to Event Listing" 
+        //       primary={true}
+        //       onClick={()=> events.eventsReset()}
+        //     />
+        //   </div>
+        // )
       }
     }
 
     showEventInfo = () => {
-      return <div>{this.state.title1} {this.state.title2}</div>
+      // if (this.state.title1)
+        return (
+          <div> {this.state.title1} {this.state.title2} </div>
+        // ) else {
+        //   return 
+        // }
+        )
     }
 
     render() {
@@ -99,9 +113,7 @@ function Header({events = {}}) {
           <div className="layFlat">
             {this.showEventListButton(events)}
             {this.showEventListMin(events)}
-            <div>
             {this.showEventInfo()}
-            </div>
           </div>
         </div>
       )

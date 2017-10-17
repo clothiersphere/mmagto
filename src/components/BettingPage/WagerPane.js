@@ -23,6 +23,7 @@ class WagerPane extends React.Component {
         <Slider 
           value={wager} 
           onChange={this.onSliderChange}
+          defaultValue={20}
         />
       </div>
     )

@@ -90,23 +90,10 @@ class VerticalLinearStepper extends React.Component {
     this.setState({selectedFight})
   }
   
-  // decisionPanel(events) {
-  //   return (
-  //     <div className="decision_panel">
-  //       {events.selectedFighter.last_name} is currently at {events.selectedFighter.odds}
-  //       <br/>
-  //       If they win, your bet of 100 dollars would
-  //       <br/>
-  //       win you ${+(100*((events.selectedFighter.odds)/100)).toFixed(2)} for a total payout of ${+(100*((events.selectedFighter.odds)/100)).toFixed(2) + 100}
-  //     </div>
-  //   )
-  // }
-
   selectFighter(events, value) {
     events.selectFighter(value);
   }
-
-
+  
   render() {
     const {finished, stepIndex} = this.state;
     const { events,visitorInfo,matchInfo,homeInfo } = this.props;
