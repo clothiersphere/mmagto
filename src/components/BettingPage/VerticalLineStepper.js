@@ -14,8 +14,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 class VerticalLinearStepper extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
+
     if (this.props.events.selectedFight != prevProps.events.selectedFight) {
       this.reset();
+    }
+    
+    //if you select original fight
+    if ((!this.props.events.selectedFighter.id) && this.state.stepIndex === 2) {
+      this.reset()
     }
   }
 
@@ -48,6 +54,7 @@ class VerticalLinearStepper extends React.Component {
 
   reset = () => {
     this.setState({stepIndex: 0, finished: false})
+    // this.renderStepActions(0)
   };
 
   handleWagerChange(wagerValue) {
@@ -83,17 +90,17 @@ class VerticalLinearStepper extends React.Component {
     this.setState({selectedFight})
   }
   
-  decisionPanel(events) {
-    return (
-      <div className="decision_panel">
-        {events.selectedFighter.last_name} is currently at {events.selectedFighter.odds}
-        <br/>
-        If they win, your bet of 100 dollars would
-        <br/>
-        win you ${+(100*((events.selectedFighter.odds)/100)).toFixed(2)} for a total payout of ${+(100*((events.selectedFighter.odds)/100)).toFixed(2) + 100}
-      </div>
-    )
-  }
+  // decisionPanel(events) {
+  //   return (
+  //     <div className="decision_panel">
+  //       {events.selectedFighter.last_name} is currently at {events.selectedFighter.odds}
+  //       <br/>
+  //       If they win, your bet of 100 dollars would
+  //       <br/>
+  //       win you ${+(100*((events.selectedFighter.odds)/100)).toFixed(2)} for a total payout of ${+(100*((events.selectedFighter.odds)/100)).toFixed(2) + 100}
+  //     </div>
+  //   )
+  // }
 
   selectFighter(events, value) {
     events.selectFighter(value);
