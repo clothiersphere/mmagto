@@ -18,14 +18,13 @@ export default class Sidebar extends React.Component {
   showEvents(events) {
     return events.fights.map((fight, key) => {
       return (
-        <MenuItem key={key}>
-        <div className="events" 
+        <MenuItem key={key}
+          className="drawer_items"
           style={{backgroundColor:colorPalette[key]}}
           onClick={()=> events.setEvent(fight)}
         >
-        {fight.eventInfo.base_title}:{fight.eventInfo.title_tag_line}
-        </div>
-        </MenuItem> 
+          {fight.eventInfo.base_title}: {fight.eventInfo.title_tag_line}
+        </MenuItem>
       )
     })
   }
@@ -35,11 +34,10 @@ export default class Sidebar extends React.Component {
 
   render() {
     const { props } = this.props;
-    
+
     return (
-      <div>
+      <div className="drawer">
         <RaisedButton
-          // backgroundColor="#a4c639"
           icon={<ActionList />}
           onClick={this.handleToggle}
           style={{margin:12}}
@@ -48,8 +46,14 @@ export default class Sidebar extends React.Component {
           open={this.state.open}
           docked={false}
           onRequestChange={(open) => this.setState({open})}
+          width={'35%'}
         >
-          {this.showEvents(props)}
+          <div className="drawer_header"> 
+            EVENT LIST
+          </div>
+          <div className="eventListingSplash">
+            {this.showEvents(props)}
+          </div>
         </Drawer>
       </div>
     );

@@ -30,26 +30,24 @@ var isFavored = (odds) => {
 var isFavored2 = (selectedFight, selectedFighter) => {
   const { homeInfo, visitorInfo } = selectedFight
   const { odds } = selectedFighter; 
-
   const smaller = Math.min(homeInfo.odds, visitorInfo.odds);
 
-  console.log(homeInfo.odds, visitorInfo.odds, odds, smaller, "odds")
-
-  if (odds === smaller) {
-    return 'FAVORITE';
-  } 
-  return 'UNDERDOG';
+  if (parseInt(odds) === parseInt(smaller)) {
+    return 'the FAVORITE';
+  } else {
+    return 'the UNDERDOG';
+  }
 }
 
 var calcUnderdog = (odds, wager) => {
   var odds = odds/100;
-  return wager * odds
+  return wager * odds;
 }
 
 var calcFav = (odds, wager) => {
   var odds = odds*(-1);
   odds = 100/odds;
-  return wager * odds
+  return wager * odds;
 }
 
 var oddsToDec = (odds) => {
@@ -63,7 +61,7 @@ var oddsToDec = (odds) => {
     odds = 100/odds
   }
 
-  return (odds + 1).toFixed(2)
+  return odds + 1;
 }
 
 var impliedProb = (odds) => {
@@ -80,9 +78,14 @@ var impliedProb = (odds) => {
   return Math.round(odds * 100);
 }
 
+var totalPayout = (odds, wagerValue) => {
+  var winMoney = convertOdds(odds, wagerValue);
+  return winMoney + wagerValue;
+}
+
 var DecisionPane = (props) => {
   const {selectedFighter, selectedFight, wagerValue} = props;
-  
+
   return (
     <div className="decision_panel">
       {selectedFighter.last_name} is currently {isFavored2(selectedFight, selectedFighter)} at {selectedFighter.odds}.
@@ -91,7 +94,7 @@ var DecisionPane = (props) => {
       <br/>
       If {selectedFighter.last_name} wins, your bet of ${wagerValue} would
         <br/>
-      win you ${convertOdds(selectedFighter.odds, wagerValue)} for a total payout of ${(convertOdds(selectedFighter.odds, wagerValue)) + wagerValue}
+      win you ${convertOdds(selectedFighter.odds, wagerValue).toFixed(2)} for a total payout of ${totalPayout(selectedFighter.odds, wagerValue).toFixed(2)}
     </div>
   )  
 }

@@ -7,7 +7,9 @@ function BettingPage(props) {
   return (
     <div className="presenter">
       <Header events={props} />
-      <FighterGallery events={props} />
+      <div className="fighterGallery">
+        <FighterGallery events={props} />
+      </div>
       <BettingPane events={props} />
     </div>
   )

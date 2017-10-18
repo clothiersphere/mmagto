@@ -18,7 +18,6 @@ class VerticalLinearStepper extends React.Component {
     if (this.props.events.selectedFight != prevProps.events.selectedFight) {
       this.reset();
     }
-    
     //if you select original fight
     if ((!this.props.events.selectedFighter.id) && this.state.stepIndex === 2) {
       this.reset()
@@ -93,7 +92,7 @@ class VerticalLinearStepper extends React.Component {
   selectFighter(events, value) {
     events.selectFighter(value);
   }
-  
+
   render() {
     const {finished, stepIndex} = this.state;
     const { events,visitorInfo,matchInfo,homeInfo } = this.props;
