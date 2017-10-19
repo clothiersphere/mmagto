@@ -12,18 +12,22 @@ export default class Sidebar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    this.state = {open: false, hover: false};
+
   }
 
   showEvents(events) {
     return events.fights.map((fight, key) => {
       return (
         <MenuItem key={key}
-          className="drawer_items"
-          style={{backgroundColor:colorPalette[key]}}
           onClick={()=> events.setEvent(fight)}
+          style={{textAlign:'center'}}
         >
           {fight.eventInfo.base_title}: {fight.eventInfo.title_tag_line}
+          <div className="colorCube drawerTiles"
+            // style={{backgroundColor:colorPalette[key], display:'inline-block', margineft: '10px'}}
+          >
+          </div>
         </MenuItem>
       )
     })
@@ -46,7 +50,7 @@ export default class Sidebar extends React.Component {
           open={this.state.open}
           docked={false}
           onRequestChange={(open) => this.setState({open})}
-          width={'35%'}
+          width={'21%'}
         >
           <div className="drawer_header"> 
             EVENT LIST

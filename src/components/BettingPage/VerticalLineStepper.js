@@ -3,13 +3,17 @@ import WagerPane from './WagerPane';
 import DecisionPane from './DecisionPane';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
 import {
   Step,
   Stepper,
   StepLabel,
   StepContent,
 } from 'material-ui/Stepper';
-import RaisedButton from 'material-ui/RaisedButton';
+
+
 
 class VerticalLinearStepper extends React.Component {
 
@@ -121,12 +125,14 @@ class VerticalLinearStepper extends React.Component {
           <Step>
             <StepLabel>Decide how much to bet on.</StepLabel>
             <StepContent>
-                <div>
-                <WagerPane 
-                  wagerValue={this.state.wagerValue}
-                  onWagerChange={this.handleWagerChange}
+                <TextField
+                  hintText="Enter a dollar amount"
+                  type='number'
+                  onChange={(e)=> {
+                    e.preventDefault();
+                    this.setState({wagerValue:e.target.value})
+                  }}
                 />
-                </div>
               {this.renderStepActions(1)}
             </StepContent>
           </Step>
@@ -151,8 +157,8 @@ class VerticalLinearStepper extends React.Component {
                 this.setState({stepIndex: 0, finished: false})
               }}
             >
-              Click here
-            </a> to reset the example.
+              Restart
+            </a> or select another fight.
           </p>
         )}
       </div>

@@ -6,7 +6,6 @@ var convertOdds = (odds, wager) => {
   } else {
     return calcUnderdog(odds, wager);
   }
-  return;
 }
 
 var isPositive = (odds) => {
@@ -18,36 +17,27 @@ var isPositive = (odds) => {
   return;
 }
 
-var isFavored = (odds) => {
-  if (odds > 0) {
-    return 'an UNDERDOG';
-  } else {
-    return 'FAVORED';
-  }
-  return;
-}
-
-var isFavored2 = (selectedFight, selectedFighter) => {
+var isFavored = (selectedFight, selectedFighter) => {
   const { homeInfo, visitorInfo } = selectedFight
   const { odds } = selectedFighter; 
   const smaller = Math.min(homeInfo.odds, visitorInfo.odds);
 
   if (parseInt(odds) === parseInt(smaller)) {
-    return 'the FAVORITE';
+    return 'FAVORITE';
   } else {
-    return 'the UNDERDOG';
+    return 'UNDERDOG';
   }
 }
 
 var calcUnderdog = (odds, wager) => {
   var odds = odds/100;
-  return wager * odds;
+  return parseInt(wager * odds);
 }
 
 var calcFav = (odds, wager) => {
   var odds = odds*(-1);
   odds = 100/odds;
-  return wager * odds;
+  return parseInt(wager * odds);
 }
 
 var oddsToDec = (odds) => {
@@ -65,21 +55,26 @@ var oddsToDec = (odds) => {
 }
 
 var impliedProb = (odds) => {
+
+  console.log(odds)
   var odds = odds;
-  
+
   if (odds > 1) {
-    odds = odds/100;
+    odds = 100/(parseInt(odds) + 100)
+    
     
   } else {
     odds = odds * (-1)
     odds = 100/odds
+    
   }
-
-  return Math.round(odds * 100);
+  return (odds * 100).toFixed(2)
 }
 
 var totalPayout = (odds, wagerValue) => {
+  
   var winMoney = convertOdds(odds, wagerValue);
+  var wagerValue = parseInt(wagerValue);
   return winMoney + wagerValue;
 }
 
@@ -88,13 +83,13 @@ var DecisionPane = (props) => {
 
   return (
     <div className="decision_panel">
-      {selectedFighter.last_name} is currently {isFavored2(selectedFight, selectedFighter)} at {selectedFighter.odds}.
+      {selectedFighter.last_name} is currently a {selectedFighter.odds} {isFavored(selectedFight, selectedFighter)}.
       <br/>
-      {selectedFighter.last_name}'s implied odds to win are {impliedProb(selectedFighter.odds)}%.
+      Implied odds to win are {impliedProb(selectedFighter.odds)}%.
       <br/>
       If {selectedFighter.last_name} wins, your bet of ${wagerValue} would
         <br/>
-      win you ${convertOdds(selectedFighter.odds, wagerValue).toFixed(2)} for a total payout of ${totalPayout(selectedFighter.odds, wagerValue).toFixed(2)}
+      win you ${convertOdds(selectedFighter.odds, wagerValue).toFixed(2)} for a total payout of ${totalPayout(selectedFighter.odds, wagerValue)}
     </div>
   )  
 }

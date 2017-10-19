@@ -94,13 +94,9 @@ function Header({events = {}}) {
     }
 
     showEventInfo = () => {
-      // if (this.state.title1)
-        return (
-          <div> {this.state.title1} {this.state.title2} </div>
-        // ) else {
-        //   return 
-        // }
-        )
+      return (
+        <div> {this.state.title1} {this.state.title2} </div>
+      )
     }
 
     render() {
@@ -113,7 +109,6 @@ function Header({events = {}}) {
           <div className="layFlat">
             {this.showEventListButton(events)}
             {this.showEventListMin(events)}
-            {this.showEventInfo()}
           </div>
         </div>
       )

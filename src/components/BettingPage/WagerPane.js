@@ -12,8 +12,14 @@ class WagerPane extends React.Component {
     this.props.onWagerChange(value)
   }
 
+  defaultValue() {
+    return this.props.defaultValue;
+  }
+
   render() {
     var wager = this.props.wagerValue;
+    var defaultValue = this.props.defaultValue;
+    console.log(defaultValue, "DV")
 
     return (
       <div className="wager_box">
@@ -23,7 +29,7 @@ class WagerPane extends React.Component {
         <Slider 
           value={wager} 
           onChange={this.onSliderChange}
-          defaultValue={20}
+          defaultValue={this.defaultValue()}
         />
       </div>
     )
