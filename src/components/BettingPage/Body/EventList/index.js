@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import Event from './Event';
 
 export default class EventList extends Component {
+
 
     constructor(props) {
       super(props)
@@ -13,24 +15,21 @@ export default class EventList extends Component {
     }
     
     showEventListMain = (events) => {
+      if (events.length >= 1) {
       console.log(events, "events")
         events.fights.map((fight, key) => {
           return (
             <div className="events layFlat"
               key={key} 
               onClick={()=> events.setEvent(fight)}
-              onMouseOver={()=> this.setState({img:fight.eventInfo.secondary_feature_image})}
+              // onMouseOver={()=> this.setState({img:fight.eventInfo.secondary_feature_image})}
             >
-              <div className="events fightTiles"
-                style={{backgroundColor:colorPalette[key]}}
-              >
-              </div>
-                {fight.eventInfo.base_title}: {fight.eventInfo.title_tag_line}
+              {fight.eventInfo.base_title}: {fight.eventInfo.title_tag_line}
             </div>
           )
         })
       }
-    
+    }
 
     showEventListMin = (events) => {
       var currSelectedEvent;
@@ -87,6 +86,7 @@ export default class EventList extends Component {
 
 
 
+
     // render() {
     //   var events = this.props
     //   // const { events } = this.p
@@ -104,28 +104,16 @@ export default class EventList extends Component {
     //   )
     // }
     render() {
-      
-      console.log(this.props, "eventlistprops")
-      console.log(this.props.events.fights, "eventlistprops")
+    
+      const { event } = this.props;
+      console.log(event, "EventList")
 
-      const EventList = this.showEventListMain(this.props.events.fights)
-      
       return (
-        <div> 
-        <EventList />
-      </div>
+      <ul>
+        {event.map(function(fight, index) {
+          return <li key= {index}><Event fight={fight}/></li>
+        })}
+      </ul>
       )
-
-      // if (events.fights[0]) {
-      //   if (events.fights.join('') === 'failed') {
-      //     return (
-      //       <div>
-      //         <h1> MMA odds are down. Please check back later.</h1> 
-      //       </div>
-      //     )
-      //   }        
-      // } else {
-        
-
     }
 }

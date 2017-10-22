@@ -5,10 +5,14 @@ import FighterGallery from './FighterGallery';
 import Body from './Body';
 
 function BettingPage(props) {
+  console.log(props, "props")
+  var { fights }  = props;
+  console.log(fights, "fights")
+
   return (
     <div className="presenter">
       <Header events={props} />
-      <Body events={props} />
+      <Body fights={fights} />
     </div>
   )
 }
