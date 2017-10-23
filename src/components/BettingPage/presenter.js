@@ -1,18 +1,17 @@
 import React from 'react';
 import Header from './Header';
 import BettingPane from './BettingPane';
-import FighterGallery from './FighterGallery';
+import FighterCard from './Body/FighterCard';
 import Body from './Body';
 
 function BettingPage(props) {
-  console.log(props, "props")
-  var { fights }  = props;
-  console.log(fights, "fights")
-
+  
+  const { fights, ...other }  = props;
+ 
   return (
     <div className="presenter">
       <Header events={props} />
-      <Body fights={fights} />
+      <Body {...{fights, other}} />
     </div>
   )
 }

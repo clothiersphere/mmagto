@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import Event from './Event';
+import EventItem from './EventItem';
 
 export default class EventList extends Component {
 
-
-    constructor(props) {
-      super(props)
-    }
-
-    state = {
-      img: '',
-      title1: '',
-      title2: '',
-    }
-    
-    showEventListMain = (events) => {
+  constructor(props) {
+    super(props)
+  }
+  state = {
+    img: '',
+    title1: '',
+    title2: '',
+  }
+  
+  showEventListMain = (events) => {
       if (events.length >= 1) {
       console.log(events, "events")
         events.fights.map((fight, key) => {
@@ -29,9 +27,8 @@ export default class EventList extends Component {
           )
         })
       }
-    }
-
-    showEventListMin = (events) => {
+  }
+  showEventListMin = (events) => {
       var currSelectedEvent;
       if (events.selectedEvent.eventInfo) {
         currSelectedEvent = events.selectedEvent.eventInfo.id;
@@ -59,9 +56,8 @@ export default class EventList extends Component {
           }
         })
       }
-    }
-
-    showEventListButton = (events) => {
+  }
+  showEventListButton = (events) => {
       if (events.selectedEvent.eventInfo) {
         return ( 
           <Sidebar props={events}/>
@@ -76,44 +72,29 @@ export default class EventList extends Component {
         //   </div>
         // )
       }
-    }
-
-    showEventInfo = () => {
+  }
+  showEventInfo = () => {
       return (
         <div> {this.state.title1} {this.state.title2} </div>
       )
-    }
+  }
 
+  render() {
+    const { fights, selectFight } = this.props;
 
-
-
-    // render() {
-    //   var events = this.props
-    //   // const { events } = this.p
-    //   return (
-    //     <div className="displayBanner">
-    //       <div className="eventListingSplash">
-    //         {this.showEventListMain(events)}
-    //         <img className="eventBanner" src={this.state.img}/>
-    //       </div>
-    //       <div className="layFlat">
-    //         {this.showEventListButton(events)}
-    //         {this.showEventListMin(events)}
-    //       </div>
-    //     </div>
-    //   )
-    // }
-    render() {
-    
-      const { event } = this.props;
-      console.log(event, "EventList")
-
-      return (
+    return (
       <ul>
-        {event.map(function(fight, index) {
-          return <li key= {index}><Event fight={fight}/></li>
+        {fights.map(function(fight, index) {
+          return (
+            <li 
+              key={index} 
+              onClick={(fight)=> selectFight(fight)}
+            >
+              <EventItem fight={fight}/>
+            </li>
+          )
         })}
       </ul>
-      )
-    }
+    )
+  }
 }

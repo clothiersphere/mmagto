@@ -1,30 +1,21 @@
 import React, { Component } from 'react';
-import EventList from './EventList';
+import EventDisplay from './EventDisplay';
+import FightCard from './FightCard';
+
 import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
 
 
 export default class Body extends Component {
-  
-  Body(fights) {
-    console.log(fights, "body")
-    if (fights.length === 0) {
-    return (
-      <Segment>
-        <Dimmer active>
-          <Loader />
-        </Dimmer>
-      </Segment>
-    )
-    } else {
-      return <EventList event={fights} />
-    }
-  } 
 
   render() {
+    console.log(this.props, "bodyprops")
     const { fights } = this.props;
+    const { selectFight, selectedFight } = this.props.other;
+
     return (
-      <div>
-        {this.Body(fights)}
+      <div>        
+        <EventDisplay {...{fights, selectFight}} />
+        <FightCard {...{selectedFight}}/>
       </div>
     )
   }
