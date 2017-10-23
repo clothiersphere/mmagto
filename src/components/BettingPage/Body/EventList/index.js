@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import EventItem from './EventItem';
+import EventListLoader from './EventListLoader';
 
 export default class EventList extends Component {
-
   constructor(props) {
     super(props)
   }
@@ -81,20 +81,27 @@ export default class EventList extends Component {
 
   render() {
     const { fights, selectFight } = this.props;
+    console.log(selectFight, "selec")
 
-    return (
-      <ul>
-        {fights.map(function(fight, index) {
-          return (
-            <li 
-              key={index} 
-              onClick={(fight)=> selectFight(fight)}
-            >
-              <EventItem fight={fight}/>
-            </li>
-          )
-        })}
-      </ul>
-    )
+    if (fights.length === 0) {
+      return <EventListLoader />
+    } else {
+      return (
+        <ul className="eventList">
+          {fights.map(function(fight, index) {
+            return (
+              <li
+                className="eventItem"
+                onClick={()=>selectFight(fight)}
+                key={index} 
+              >
+                <EventItem {...{fight}} />
+              </li>
+            )
+          })}
+        </ul>
+      );
+    }
   }
 }
+

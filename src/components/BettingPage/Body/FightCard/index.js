@@ -9,9 +9,11 @@ var convertName = (name) => {
   }
 };
 
-function FightCard(selectedEvent) {
-    console.log(selectedEvent, "selectedEvent in fightcard")
-    return <div> hi</div>
+function FightCard({selectedFight}) {
+    if (selectedFight.length === 0) {
+      return <div> hi</div>
+    }
+    return <div> bye </div>
     // return selectedEvent.fights.map((fight, key) => {
       
     //   return (

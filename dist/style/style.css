@@ -6,47 +6,29 @@ body {
 
 }
 
-.displayBanner {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
-
-.fighterGallery {
+/*.fighterGallery {
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 30px;
   margin-right: 30px;
+}*/
+
+.eventList {
+  list-style: none;
 }
 
-.text_greeting {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.events {
+.eventItem {
   border: transparent;
-  text-align: center;
 }
 
-.events:hover {
+.eventItem:hover {
   border: 0.5px solid #d0d0d0;
 
 }
 
-.drawer_header {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.eventBanner {
-  margin-top: 10px;
-}
-
-.eventListingSplash {
+/*.eventListingSplash {
   display: flex;
   flex-direction: column;
-  /*align-items: center;*/
   justify-content: center;
 }
 
@@ -65,27 +47,6 @@ body {
 .bannerTitle {
  display: inline-block;
  margin-right: 10px;
-}
-
-.fightTiles {
-  height: 20px;
-  width: 20px;
-  margin: 2px;
-}
-
-/*.drawerTiles {
-  height: 20px;
-  width: 25px;
-}*/
-
-.eventTiles {
-  height: 20px;
-  margin: 2px;
-}
-
-.bettingPane {
-  border: 0.5px solid black;
-  margin-top: 2px
 }
 
 .eventTitle {
@@ -115,9 +76,9 @@ body {
   height: 97px;
   width: 97px;
   border-bottom: 1px solid black;
-  background: #E6DADA;  /* fallback for old browsers 
-  background: -webkit-linear-gradient(to top, #E6DADA, #274046);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #E6DADA, #274046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #E6DADA;
+  background: -webkit-linear-gradient(to top, #E6DADA, #274046);  
+  background: linear-gradient(to top, #E6DADA, #274046); 
 }
 
 .small_faceOff_container {
@@ -160,13 +121,4 @@ body {
 
 .homeSide, .visitorSide {
   margin-top: 15px;
-}
-
-.wager_amount input {
-  width: 140px;
-}
-
-.wager_value {
-  text-align: center;
-  font-size: 25px;
-}
+}*/

@@ -1,5 +1,4 @@
 import React from 'react';
-import AppBar from 'material-ui/AppBar';
 
 const img = 'http://www.craziestsportsfights.com/wp-content/uploads/2017/07/mmaimports.png';
 
@@ -16,8 +15,6 @@ function FighterGallery({events ={}}) {
       )
     }
   }
-
-  
 
   var selectFight = (fight) => {
     events.selectFight(fight)

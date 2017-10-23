@@ -5,19 +5,14 @@ import * as actions from '../../actions';
 import BettingPage from './presenter';
 
 function mapStateToProps(state) {
-  const { fights } = state;
-  const { selectedEvent } = state;
-  const { selectedFight } = state;
-  const { selectedFighter } = state;
-  const { eventReset } = state;
-
+  const { fights, selectedEvent, selectedFight, selectedFighter, eventReset } = state;
   return {
     fights,
     selectedEvent,
     selectedFight,
     selectedFighter,
     eventReset
-  };  
+  };
 }
 
 function mapDispatchToProps(dispatch) {
