@@ -7,6 +7,7 @@ import configureStore from './stores/configureStore';
 import * as actions from './actions';
 import App from './components/App';
 import BettingPage from './components/BettingPage';
+import FightCard from './components/BettingPage/Body/FightCard';
 
 const title = 'MMA - guess the odds';
 
@@ -21,6 +22,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={BettingPage} />
         <Route path="/" component={BettingPage} />
+        <Route path="fightCard" component={FightCard} />
       </Route>
     </Router>
   </Provider>,

@@ -15,6 +15,8 @@ body {
 
 .eventList {
   list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .eventItem {
@@ -24,46 +26,6 @@ body {
 .eventItem:hover {
   border: 0.5px solid #d0d0d0;
 
-}
-
-/*.eventListingSplash {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.layFlat {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.flatten {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
-.bannerTitle {
- display: inline-block;
- margin-right: 10px;
-}
-
-.eventTitle {
-  margin:0;
-  margin-bottom:10px;
-  text-align: center;
-}
-
-.fightHeader {
-  display: flex;
-  flex-direction: column;
-}
-
-.fightHeader_text {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 }
 
 .fighterFacesBox {
@@ -107,6 +69,52 @@ body {
   margin-right: 2px;
   border-right: 1px solid black;
 }
+
+/*.eventListingSplash {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.layFlat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flatten {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.bannerTitle {
+ display: inline-block;
+ margin-right: 10px;
+}
+
+.eventTitle {
+  margin:0;
+  margin-bottom:10px;
+  text-align: center;
+}
+
+.fightHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.fightHeader_text {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+
+
+
+
 
 .large_faceOff_container {
   display: flex;

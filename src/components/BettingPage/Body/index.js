@@ -5,11 +5,11 @@ import FightCard from './FightCard';
 export default class Body extends Component {
   render() {
     const { fights } = this.props;
-    const { selectFight, selectedFight } = this.props.other;
+    const { selectEvent, selectedEvent } = this.props.other;
     return (
       <div>        
-        <EventList {...{fights, selectFight}} />
-        <FightCard {...{selectedFight}} />
+        <EventList {...{fights, selectEvent}} />
+        <FightCard {...{selectedEvent}} />
       </div>
     );
   }

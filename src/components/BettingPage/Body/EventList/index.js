@@ -80,28 +80,26 @@ export default class EventList extends Component {
   }
 
   render() {
-    const { fights, selectFight } = this.props;
-    console.log(selectFight, "selec")
-
+    const { fights, selectEvent } = this.props;
     if (fights.length === 0) {
-      return <EventListLoader />
-    } else {
+      return <EventListLoader />;
+    }
       return (
         <ul className="eventList">
-          {fights.map(function(fight, index) {
+          {fights.map(function(event, index) {
             return (
               <li
                 className="eventItem"
-                onClick={()=>selectFight(fight)}
+                onClick={()=>selectEvent(event)}
                 key={index} 
               >
-                <EventItem {...{fight}} />
+                <EventItem {...{event}} />
               </li>
-            )
+            );
           })}
         </ul>
       );
-    }
+    // }
   }
 }
 
