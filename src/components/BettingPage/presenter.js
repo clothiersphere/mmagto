@@ -3,11 +3,10 @@ import Header from './Header';
 import Body from './Body';
 
 function BettingPage(props) {
-  const { fights, ...other } = props;
-
+  const { fights, eventsReset, ...other } = props;
   return (
     <div className="presenter">
-      <Header events={props} />
+      <Header {...{eventsReset, other}} />
       <Body {...{fights, other}} />
     </div>
   );

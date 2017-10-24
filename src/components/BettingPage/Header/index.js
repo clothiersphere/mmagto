@@ -6,7 +6,14 @@ import { Menu } from 'semantic-ui-react';
 
 export default class Header extends Component { 
   state = {};
-  handleItemClick = (e, { name }) => this.setState({activeItem: name});
+  
+  handleItemClick = (e, { name }) => {
+    if (name === 'eventList') {
+     const { eventsReset } = this.props;
+     eventsReset();
+    }
+    this.setState({activeItem: name})
+  }
   
   render() {
     const { activeItem } = this.state;
