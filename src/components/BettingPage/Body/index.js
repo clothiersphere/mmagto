@@ -6,9 +6,15 @@ export default class Body extends Component {
   render() {
     const { fights } = this.props;
     const { selectEvent, selectedEvent } = this.props.other;
+    let choice = null;
+
+    if (selectedEvent.length === 0) {
+      choice = <EventList {...{fights, selectEvent}} />;
+    }  
+
     return (
-      <div>        
-        <EventList {...{fights, selectEvent}} />
+      <div className="bodyContainer">        
+        {choice} 
         <FightCard {...{selectedEvent}} />
       </div>
     );

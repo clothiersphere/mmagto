@@ -6,17 +6,19 @@ body {
 
 }
 
-/*.fighterGallery {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 30px;
-  margin-right: 30px;
-}*/
+.bodyContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .eventList {
+  padding: 0;
+  margin: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .eventItem {
