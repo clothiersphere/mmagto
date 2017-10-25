@@ -6,10 +6,30 @@ body {
 
 }
 
-.bodyContainer {
+.presenter {
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
+}
+
+/*.Aligner-item {
+  flex: 1;
+}*/
+
+.header {
+  flex: none;
+  width: 100%;
+}
+
+.bodyContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footer {
+  align-self: flex-end;
 }
 
 .eventList {
@@ -18,7 +38,8 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 100%;
+ /* align-items: center;*/
 }
 
 .eventItem {
@@ -30,7 +51,7 @@ body {
 
 }
 
-.fighterFacesBox {
+.fightCard {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -45,7 +66,7 @@ body {
   background: linear-gradient(to top, #E6DADA, #274046); 
 }
 
-.small_faceOff_container {
+.fightCardFaceOff {
   display: flex;
   flex-direction: row;
   margin-right: 15px;
@@ -53,7 +74,7 @@ body {
   border: 1px solid black;
 }
 
-.small_faceOff_container:hover {
+.fightCardFaceOff:hover {
   border: 2px solid black;
 }
 

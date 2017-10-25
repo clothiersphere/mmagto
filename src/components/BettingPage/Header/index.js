@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import { Menu, Breadcrumb } from 'semantic-ui-react';
+// import { Breadcrumb } from 'semantic-ui-react';
 import * as actions from '../../../actions';
-import { Menu } from 'semantic-ui-react';
 
-
-
-export default class Header extends Component { 
+export default class Header extends Component {
   state = {};
-  
+
   handleItemClick = (e, { name }) => {
     if (name === 'eventList') {
      const { eventsReset } = this.props;
@@ -14,9 +13,13 @@ export default class Header extends Component {
     }
     this.setState({activeItem: name})
   }
+
   
+
+
   render() {
     const { activeItem } = this.state;
+
     return (
       <Menu>
         <Menu.Item
@@ -45,3 +48,17 @@ export default class Header extends Component {
     );
   }
 }
+
+// export default class Header extends Component {
+//   render() {
+//     return (
+//       <Breadcrumb>
+//         <Breadcrumb.Section link>Event List</Breadcrumb.Section>
+//         <Breadcrumb.Divider icon='right angle' />
+//         <Breadcrumb.Section link>Fight Gallery</Breadcrumb.Section>
+//         <Breadcrumb.Divider icon='right angle' />
+//         <Breadcrumb.Section link>Odds</Breadcrumb.Section>
+//       </Breadcrumb>
+//     );
+//   }
+// }
