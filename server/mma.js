@@ -128,6 +128,10 @@ function getEvents(req, res, next) {
   )
   .catch((error) => {
     console.log('ERROR', error);
+    console.log(error.response.status)
+    if (error.response.status === '503') {
+      console.log('you got a 503 bruh')
+    }
   })
 }
 

@@ -83,23 +83,23 @@ export default class EventList extends Component {
     const { fights, selectEvent } = this.props;
     if (fights.length === 0) {
       return <EventListLoader />;
-    }
-      return (
-        <ul className="eventList">
-          {fights.map(function(event, index) {
-            return (
-              <li
-                className="eventItem"
-                onClick={()=>selectEvent(event)}
-                key={index} 
-              >
-                <EventItem {...{event}} />
-              </li>
-            );
-          })}
-        </ul>
-      );
-    // }
+    } else {
+    return (
+      <ul className="eventList">
+        {fights.map(function(event, index) {
+          return (
+            <li
+              className="eventItem"
+              onClick={()=>selectEvent(event)}
+              key={index} 
+            >
+              <EventItem {...{event}} />
+            </li>
+          );
+        })}
+      </ul>
+    );
+    }// return <EventListLoader />;
   }
 }
 

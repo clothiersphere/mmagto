@@ -14,5 +14,5 @@ export default function(state = initialState, action) {
 
 function setFighter(state, action) {
   const { fighter } = action;
-  return fighter;
+  return [...state, fighter];
 }

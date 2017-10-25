@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Menu, Breadcrumb } from 'semantic-ui-react';
-// import { Breadcrumb } from 'semantic-ui-react';
+import { Menu, Breadcrumb, Icon } from 'semantic-ui-react';
 import * as actions from '../../../actions';
 
 export default class Header extends Component {
-  state = {};
+  state = { };
 
   handleItemClick = (e, { name }) => {
     if (name === 'eventList') {
@@ -14,37 +13,36 @@ export default class Header extends Component {
     this.setState({activeItem: name})
   }
 
-  
-
-
   render() {
     const { activeItem } = this.state;
-
     return (
-      <Menu>
-        <Menu.Item
-          name="eventList"
-          active={activeItem === "eventList"}
-          onClick={this.handleItemClick}
-        >
-          Event List 
-        </Menu.Item>
-        
-        <Menu.Item
-          name="fightCard"
-          active={activeItem === "fightCard"}
-          onClick={this.handleItemClick}
-        >
-          Fight Card
-        </Menu.Item>
-        <Menu.Item
-          name="odds"
-          active={activeItem === "odds"}
-          onClick={this.handleItemClick}
-        >
-          Odds
-        </Menu.Item>
-      </Menu>
+      <div className="header">
+        <Menu pointing>
+          <Menu.Item
+            name="eventList"
+            active={activeItem === "eventList"}
+            onClick={this.handleItemClick}
+          >
+            <Icon name="list" />
+            <span className="text">Event List</span>
+          </Menu.Item>
+          
+          <Menu.Item
+            name="fightCard"
+            active={activeItem === "fightCard"}
+            onClick={this.handleItemClick}
+          >
+            Fight Card
+          </Menu.Item>
+          <Menu.Item
+            name="odds"
+            active={activeItem === "odds"}
+            onClick={this.handleItemClick}
+          >
+            Odds
+          </Menu.Item>
+        </Menu>
+      </div>
     );
   }
 }

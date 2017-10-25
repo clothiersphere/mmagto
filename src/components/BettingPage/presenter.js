@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Body from './Body';
+import Footer from './Footer';
 
 export default class BettingPage extends Component {
-// function BettingPage(props) {
-  // const { fights, eventsReset, ...other } = props;
-  
-
   render() {
     const { fights, eventsReset, ...other } = this.props;
-    console.log(this.props, "thisprops")
-    const { selectedFight } = this.props;
+
+    // const { selectedFight } = this.props;
+
+    
+    // if (selectedEvent[0]) {
+    //   console.log("hello from presenter")
+    // }
 
     return (
       <div className="presenter">
-        <div className="header"> 
-          <Header {...{eventsReset, other, selectedFight}} />
-        </div>
+          <Header {...{eventsReset, other}} />
           <Body {...{fights, other}} />
-        <div className="footer"> 
-        </div>
+          <Footer />
       </div>
     );
   }
 }
+

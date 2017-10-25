@@ -1,35 +1,44 @@
+html, body, #app {
+  height: 100%;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
+  font-size: 30;
   background: #8e9eab;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #eef2f3, #8e9eab);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #eef2f3, #8e9eab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
 
 .presenter {
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
+  flex-flow: row wrap;
+  height: 100%;
+  align-content: space-between;
 }
 
-/*.Aligner-item {
-  flex: 1;
-}*/
+/*set all to be 100% width*/
+.header, .bodyContainer, .footer {
+  flex: 1 100%;
+}
 
 .header {
-  flex: none;
-  width: 100%;
 }
 
 .bodyContainer {
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  flex-flow:  column;
 }
 
 .footer {
   align-self: flex-end;
+  height: 42px;
+  border: 1px solid grey;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px;
 }
 
 .eventList {
@@ -38,12 +47,15 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  width: 100%;
- /* align-items: center;*/
 }
 
 .eventItem {
   border: transparent;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .eventItem:hover {
@@ -51,10 +63,25 @@ body {
 
 }
 
+.eventListLoader {
+  height: 50%;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fightCardBannerText {
+  font-size: 25px;
+}
+
 .fightCard {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 25px;
 }
 
 .small_portrait {
@@ -152,4 +179,4 @@ body {
 
 .homeSide, .visitorSide {
   margin-top: 15px;
-}*/
+}
