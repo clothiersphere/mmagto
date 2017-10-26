@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import HomePane from './HomePane';
+// import HomePane from './HomePane';
 import VisitorPane from './VisitorPane';
 
 export default class BettingPane extends Component {
@@ -8,7 +8,6 @@ export default class BettingPane extends Component {
     const { selectedFight } = this.props;
     if (selectedFight[0]) {     
       const { visitorInfo, homeInfo, matchInfo } = selectedFight[0];
-      
       var homePanel = (
         <div className="large_faceOff_homeInfo">
           <div className="large_faceOff_homeInfo_name">
@@ -24,27 +23,11 @@ export default class BettingPane extends Component {
           </div>
         </div>
       )
-
-      var visitorPane = (
-        <div className="large_faceOff_visitorInfo">
-            <div className="large_faceOff_visitorInfo_name">
-              Name: {visitorInfo.first_name} {visitorInfo.last_name}
-            </div>
-            {showNickname(visitorInfo)}
-            <div className="large_faceOff_visitorInfo_weightclass">
-              Weightclass: {checkWeight(visitorInfo)}
-            </div>
-            {showRank(visitorInfo)}
-            <div className="large_faceOff_visitorInfo_record">
-              Record: {visitorInfo.wins}-{visitorInfo.losses}-{visitorInfo.draws} (W-L-D)
-            </div>
-          </div>
-      )
-
+      // <HomePane {...homeInfo}/>
       return (
         <div className="bettingPane"> 
-          <HomePane {...homeInfo}/>
-          <VisitorPane {...{visitorInfo}}/>
+          
+          <VisitorPane {...{visitorInfo, showRank, showNickname, checkWeight}}/>
         </div>
       );
     }
@@ -149,9 +132,7 @@ function showRank(side) {
   // <div className="large_faceOff_container">
   //       <div className="homeSide">
   //         {homePanel}
-  //         <div className="large_faceOff_home">
-  //           <img src={homeInfo.left_full_body_image} />
-  //         </div>
+  //         
   //       </div>
   //       <div className="visitorSide">
   //         {visitorPane}
