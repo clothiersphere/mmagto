@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function FightCard({selectedEvent}) {
+export default function FightCard({selectedEvent, selectFight}) {
   if (selectedEvent.length === 0) {
     return null;
   }
