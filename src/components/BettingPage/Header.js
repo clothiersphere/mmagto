@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Menu, Breadcrumb, Icon } from 'semantic-ui-react';
-import * as actions from '../../../actions';
+import * as actions from '../../actions';
 
 export default class Header extends Component {
   state = { };

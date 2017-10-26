@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import BettingPage from './presenter';
 
-function mapStateToProps(state) {
+function mapStateToProps(state) { 
   const { fights, selectedEvent, selectedFight, selectedFighter, eventsReset } = state;
   return {
     fights,
