@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import HomePane from './HomePane';
+import VisitorPane from './VisitorPane';
 
 export default class BettingPane extends Component {
 
   render() {
     const { selectedFight } = this.props;
-    if (selectedFight[0]) {      
+    if (selectedFight[0]) {     
       const { visitorInfo, homeInfo, matchInfo } = selectedFight[0];
+      
       var homePanel = (
         <div className="large_faceOff_homeInfo">
           <div className="large_faceOff_homeInfo_name">
@@ -37,30 +40,17 @@ export default class BettingPane extends Component {
             </div>
           </div>
       )
-    
 
-    return (
-      <div className="large_faceOff_container">
-        <div className="homeSide">
-          {homePanel}
-          <div className="large_faceOff_home">
-            <img src={homeInfo.left_full_body_image} />
-          </div>g
+      return (
+        <div className="bettingPane"> 
+          <HomePane {...homeInfo}/>
+          <VisitorPane {...{visitorInfo}}/>
         </div>
-        <div className="visitorSide">
-          {visitorPane}
-          <div className="large_faceOff_visitor">
-            <img src={visitorInfo.right_full_body_image} />
-          </div>
-        </div>
-      </div>
-    )
-  } else {
+      );
+    }
     return null;
   }
-  }
 }
-
  // function showRank(side) {
  //    if ( side === visitorInfo) {
  //      if (side.rank === null) {
@@ -155,3 +145,18 @@ function showRank(side) {
           return side.weight_class.replace(/\_/g, " ")
         }
   }
+
+  // <div className="large_faceOff_container">
+  //       <div className="homeSide">
+  //         {homePanel}
+  //         <div className="large_faceOff_home">
+  //           <img src={homeInfo.left_full_body_image} />
+  //         </div>
+  //       </div>
+  //       <div className="visitorSide">
+  //         {visitorPane}
+  //         <div className="large_faceOff_visitor">
+  //           <img src={visitorInfo.right_full_body_image} />
+  //         </div>
+  //       </div>
+  //     </div>
