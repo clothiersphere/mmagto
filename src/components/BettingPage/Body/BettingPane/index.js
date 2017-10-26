@@ -4,10 +4,12 @@ export default class BettingPane extends Component {
 
   render() {
     const { selectedFight } = this.props;
-    
+
     console.log(selectedFight, "selectedFight")
     if (selectedFight[0]) {      
-      const { visitorInfo, homeInfo, matchInfo } = selectedFight; 
+      const { visitorInfo, homeInfo, matchInfo } = selectedFight[0]; 
+
+      console.log(selectedFight[0], "SF")
 
       var homePanel = (
         <div className="large_faceOff_homeInfo">
@@ -50,7 +52,6 @@ export default class BettingPane extends Component {
             <img src={homeInfo.left_full_body_image} />
           </div>
         </div>
-        
         <div className="visitorSide">
           {visitorPane}
           <div className="large_faceOff_visitor">
@@ -65,63 +66,92 @@ export default class BettingPane extends Component {
   }
 }
 
- function showRank(side) {
-    if ( side === visitorInfo) {
-      if (side.rank === null) {
-        return <div className="large_faceOff_visitorInfo_rank"> Rank: Unranked </div>
-      } 
-      if (side.rank === 'C') {
-        return <div className="large_faceOff_visitorInfo_rank"> Rank: Champion </div>
-      } else {
-        return <div className="large_faceOff_visitorInfo_rank"> Rank: #{ events.selectedFight.visitorInfo.rank } </div>
-      }
-    } else {
-      if ( side === homeInfo) {
-        if (side.rank === null) {
-          return <div className="large_faceOff_homeInfo_rank"> Rank: Unranked </div>
-        } 
-        if (side.rank === 'C') {
-          return <div className="large_faceOff_homeInfo_rank"> Rank: Champion </div>
-        } else {
-          return <div className="large_faceOff_homeInfo_rank"> Rank: #{ events.selectedFight.homeInfo.rank } </div>
-        }
-      }
-    }
-  }
+ // function showRank(side) {
+ //    if ( side === visitorInfo) {
+ //      if (side.rank === null) {
+ //        return <div className="large_faceOff_visitorInfo_rank"> Rank: Unranked </div>
+ //      } 
+ //      if (side.rank === 'C') {
+ //        return <div className="large_faceOff_visitorInfo_rank"> Rank: Champion </div>
+ //      } else {
+ //        return <div className="large_faceOff_visitorInfo_rank"> Rank: #{ events.selectedFight.visitorInfo.rank } </div>
+ //      }
+ //    } else {
+ //      if ( side === homeInfo) {
+ //        if (side.rank === null) {
+ //          return <div className="large_faceOff_homeInfo_rank"> Rank: Unranked </div>
+ //        } 
+ //        if (side.rank === 'C') {
+ //          return <div className="large_faceOff_homeInfo_rank"> Rank: Champion </div>
+ //        } else {
+ //          return <div className="large_faceOff_homeInfo_rank"> Rank: #{ events.selectedFight.homeInfo.rank } </div>
+ //        }
+ //      }
+ //    }
+ //  }
+
+function showRank(side) {
+
+  const { rank } = side;
+
+  if (rank === null) {
+    return <div className="large_faceOff_visitorInfo_rank"> Rank: Unranked </div>;
+  } 
+  if (rank === 'C') {
+    return <div className="large_faceOff_visitorInfo_rank"> Rank: Champion </div>;
+  } 
+  return <div className="large_faceOff_visitorInfo_rank"> Rank: #{rank} </div>;
+}
+  // function showNickname(side) {
+  //   console.log(side, "side")
+  //   if ( side === visitorInfo) {
+  //     if (side.nickname === null) {
+  //       return (
+  //         <div className="large_faceOff_visitorInfo_nickname">
+  //           Nickname: None
+  //         </div>
+  //       )
+  //     } else {
+  //       return (
+  //         <div className="large_faceOff_visitorInfo_nickname">
+  //           Nickname: {side.nickname}
+  //         </div>
+  //       )
+  //     }
+  //   } else {
+  //     if (side === homeInfo) {
+  //       if (side.nickname === null) {
+  //         return (
+  //           <div className="large_faceOff_homeInfo_nickname">
+  //             Nickname: None
+  //           </div>
+  //         )
+  //       } else {
+  //         return (
+  //           <div className="large_faceOff_homeInfo_nickname">
+  //             Nickname: {side.nickname}
+  //           </div>
+  //         )
+  //       }
+  //     }
+  //   }
+  // }
 
   function showNickname(side) {
-    if ( side === visitorInfo) {
       if (side.nickname === null) {
         return (
-          <div className="large_faceOff_visitorInfo_nickname">
+          <div className="nickName">
             Nickname: None
           </div>
         )
       } else {
         return (
-          <div className="large_faceOff_visitorInfo_nickname">
-            Nickname: {visitorInfo.nickname}
+          <div className="nickName">
+            Nickname: {side.nickname}
           </div>
         )
       }
-    } else {
-      if (side === homeInfo) {
-        if (side.nickname === null) {
-          return (
-            <div className="large_faceOff_homeInfo_nickname">
-              Nickname: None
-            </div>
-          )
-        } else {
-          return (
-            <div className="large_faceOff_homeInfo_nickname">
-              Nickname: {side.nickname}
-            </div>
-          )
-        }
-      }
     }
-  }
 
   function checkWeight(side) {
         if (side.weight_class === null) {
