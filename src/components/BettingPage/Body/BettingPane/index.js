@@ -4,13 +4,8 @@ export default class BettingPane extends Component {
 
   render() {
     const { selectedFight } = this.props;
-
-    console.log(selectedFight, "selectedFight")
     if (selectedFight[0]) {      
-      const { visitorInfo, homeInfo, matchInfo } = selectedFight[0]; 
-
-      console.log(selectedFight[0], "SF")
-
+      const { visitorInfo, homeInfo, matchInfo } = selectedFight[0];
       var homePanel = (
         <div className="large_faceOff_homeInfo">
           <div className="large_faceOff_homeInfo_name">
@@ -50,7 +45,7 @@ export default class BettingPane extends Component {
           {homePanel}
           <div className="large_faceOff_home">
             <img src={homeInfo.left_full_body_image} />
-          </div>
+          </div>g
         </div>
         <div className="visitorSide">
           {visitorPane}
