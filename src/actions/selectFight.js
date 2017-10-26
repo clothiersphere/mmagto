@@ -9,6 +9,7 @@ function setFight(fight) {
 
 export function selectFight(fight) {
   return function(dispatch) {
+    console.log(fight, "inselectfight")
     dispatch({type: 'FIGHTER_RESET'})
     dispatch(setFight(fight))
   };

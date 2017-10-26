@@ -3,6 +3,7 @@ import * as actionTypes from '../constants/actionTypes';
 const initialState = [];
 
 export default function(state = initialState, action) {
+  let newState = Object.assign({}, state);
   switch (action.type) {
     case actionTypes.FIGHTER_SET:
       return setFighter(state, action);
