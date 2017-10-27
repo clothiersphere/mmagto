@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function FightCard({selectedEvent, selectFight}) {
-  if (selectedEvent.length === 0) {
+export default function FightCard({selectedEvent, selectFight, selectedFight}) {
+  if (selectedEvent.length === 0 || selectedFight[0]) {
     return null;
   }
   
@@ -37,8 +37,3 @@ export default function FightCard({selectedEvent, selectFight}) {
     </div>
   );
 }
-
-
-    
-  
-
