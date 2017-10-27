@@ -5,6 +5,20 @@ import * as actions from '../../actions';
 export default class Header extends Component {
   state = { activeItem: 'home' };
 
+  componentWillReceiveProps(nextProps) {
+    const {selectedEvent, selectedFight } = nextProps.other;
+
+    if (selectedEvent[0] && !selectedFight[0]) {
+      if (this.state.activeItem != 'fightCard') {
+        this.setState({activeItem: 'fightCard'});
+      }
+    }
+
+    if (selectedFight[0] && this.state.activeItem === 'fightCard') {
+        this.setState({activeItem: 'odds'});
+    }
+  }
+
   handleItemClick = (e, { name }) => {
     if (name === 'eventList') {
      const { eventsReset } = this.props;
@@ -15,6 +29,7 @@ export default class Header extends Component {
 
   render() {
     const { activeItem } = this.state;
+    const {selectedEvent, selectedFight } = this.props.other;
     
     return (
       <div className="header">

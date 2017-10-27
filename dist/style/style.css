@@ -22,9 +22,6 @@ body {
   flex: 1 100%;
 }
 
-.header {
-}
-
 .bodyContainer {
   display: flex;
   flex-flow: column;
@@ -44,6 +41,7 @@ body {
 .eventList {
   padding: 0;
   margin: 0;
+  margin-bottom: 100px;
   list-style: none;
   display: flex;
   flex-direction: column;
