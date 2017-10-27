@@ -5,15 +5,6 @@ import Banner from './Banner';
 import BettingPane from './BettingPane';
 
 export default class Body extends Component {
-  // componentDidUpdate(props) {
-  //   if (props.other.selectedEvent[0]) {
-  //     console.log("don't show eventList")
-  //   }
-  //   if (props.other.selectedFight[0]) {
-  //     console.log("we have a Fight don't show FightCard")
-  //   }
-  // }
-
   render() {
     const { fights } = this.props;
     const { selectEvent, selectedEvent, selectedFight, selectFight} = this.props.other;

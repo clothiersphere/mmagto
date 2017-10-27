@@ -3,6 +3,7 @@ import React from 'react';
 export default function VisitorPane({visitorInfo, helpers}) {
   const { first_name, last_name, wins, losses, draws, right_full_body_image } = visitorInfo;
   const { showNickname, showRank, checkWeight } = helpers;
+  
   return (
     <div className="large_faceOff_visitorInfo">
       <div className="large_faceOff_visitorInfo_name">

@@ -3,6 +3,7 @@ import React from 'react';
 export default function HomePane({homeInfo, helpers}) {
   const { first_name, last_name, wins, losses, draws, left_full_body_image } = homeInfo;
   const { showNickname, showRank, checkWeight } = helpers;
+  
   return (
     <div className="large_faceOff_homeInfo">
       <div className="large_faceOff_homeInfo_name">

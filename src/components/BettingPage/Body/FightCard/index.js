@@ -7,6 +7,7 @@ export default function FightCard({selectedEvent, selectFight, selectedFight}) {
   
   function ConvertName({lastName}) {
     var lastName = lastName.split(' ');
+    
     if (lastName.length >= 2) {
       return <div> {lastName[lastName.length-1]} </div> 
     } else {

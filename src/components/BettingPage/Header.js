@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Menu, Breadcrumb, Icon } from 'semantic-ui-react';
+import { Menu, Segment, Icon } from 'semantic-ui-react';
 import * as actions from '../../actions';
 
 export default class Header extends Component {
-  state = { };
+  state = { activeItem: 'home' };
 
   handleItemClick = (e, { name }) => {
     if (name === 'eventList') {
@@ -15,9 +15,10 @@ export default class Header extends Component {
 
   render() {
     const { activeItem } = this.state;
+    
     return (
       <div className="header">
-        <Menu pointing>
+        <Menu pointing secondary>
           <Menu.Item
             name="eventList"
             active={activeItem === "eventList"}
