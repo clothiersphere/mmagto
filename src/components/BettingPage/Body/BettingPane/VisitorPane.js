@@ -1,7 +1,8 @@
 import React from 'react';
 
-export default function VisitorPane({visitorInfo, showRank, showNickname, checkWeight}) {
-  const { first_name, last_name, wins, losses, draws, left_full_body_image } = visitorInfo;
+export default function VisitorPane({visitorInfo, helpers}) {
+  const { first_name, last_name, wins, losses, draws, right_full_body_image } = visitorInfo;
+  const { showNickname, showRank, checkWeight } = helpers;
   return (
     <div className="large_faceOff_visitorInfo">
       <div className="large_faceOff_visitorInfo_name">
@@ -16,7 +17,7 @@ export default function VisitorPane({visitorInfo, showRank, showNickname, checkW
         Record: {wins}-{losses}-{draws} (W-L-D)
       </div>
       <div className="large_faceOff_home">
-        <img src={left_full_body_image} />
+        <img src={right_full_body_image} />
       </div>
     </div>
   );
