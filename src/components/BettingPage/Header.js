@@ -24,6 +24,11 @@ export default class Header extends Component {
      const { eventsReset } = this.props;
      eventsReset();
     }
+
+    if (name === 'fightCard') {
+      const { selectedEvent, selectedFight } = this.props.other;
+      //clear signal to BettingPane
+    }
     this.setState({activeItem: name})
   }
 
