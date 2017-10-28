@@ -3,7 +3,8 @@ import { Menu, Segment, Icon } from 'semantic-ui-react';
 import * as actions from '../../actions';
 
 export default class Header extends Component {
-  state = { activeItem: 'home' };
+  state = { activeItem: 'home', fightCard: 'disabled', odds: 'disabled'};
+
 
   componentWillReceiveProps(nextProps) {
     const {selectedEvent, selectedFight } = nextProps.other;
@@ -26,8 +27,8 @@ export default class Header extends Component {
     }
 
     if (name === 'fightCard') {
-      const { selectedEvent, selectedFight } = this.props.other;
-      //clear signal to BettingPane
+      const { fightReset } = this.props.other;
+      fightReset();
     }
     this.setState({activeItem: name})
   }
@@ -55,7 +56,7 @@ export default class Header extends Component {
           >
             Fight Card
           </Menu.Item>
-          <Menu.Item
+          <Menu.Item 
             name="odds"
             active={activeItem === "odds"}
             onClick={this.handleItemClick}
