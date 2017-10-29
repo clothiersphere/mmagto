@@ -44,7 +44,8 @@ export default class Header extends Component {
       fightReset();
       this.setState({
         activeItem: name, 
-        fightCardMenu: 'enabled'
+        fightCardMenu: 'enabled',
+        wagerMenu: 'disabled'
       });
     } 
   }
@@ -83,8 +84,6 @@ export default class Header extends Component {
           <Menu.Item disabled={this.showMenu(wagerMenu)}
             name="wagerMenu"
             active={activeItem === "wagerMenu"}
-            onClick={this.handleItemClick}
-            
           >
             Wager
           </Menu.Item>
@@ -93,18 +92,3 @@ export default class Header extends Component {
     );
   }
 }
-
-
-// export default class Header extends Component {
-//   render() {
-//     return (
-//       <Breadcrumb>
-//         <Breadcrumb.Section link>Event List</Breadcrumb.Section>
-//         <Breadcrumb.Divider icon='right angle' />
-//         <Breadcrumb.Section link>Fight Gallery</Breadcrumb.Section>
-//         <Breadcrumb.Divider icon='right angle' />
-//         <Breadcrumb.Section link>Odds</Breadcrumb.Section>
-//       </Breadcrumb>
-//     );
-//   }
-// }
