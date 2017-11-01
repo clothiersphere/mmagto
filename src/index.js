@@ -1,15 +1,14 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'; // eslint-disable-line no-unused-vars
 import { syncHistoryWithStore } from 'react-router-redux';
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'; // eslint-disable-line no-unused-vars
 import configureStore from './stores/configureStore';
 import * as actions from './actions';
-import App from './components/App';
+import App from './components/app';
 import BettingPage from './components/BettingPage';
 import FightCard from './components/BettingPage/Body/FightCard';
 
-const title = 'MMA - guess the odds';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
@@ -26,7 +25,7 @@ ReactDOM.render(
       </Route>
     </Router>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );
 
 module.hot.accept();

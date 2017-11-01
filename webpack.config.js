@@ -16,7 +16,12 @@ module.exports = {
       { test: /\.css$/,
         include: /node_modules/,
         loaders: ['style-loader', 'css-loader'],
-      }
+      },
+      // {
+      //   test: /\.js$/,
+      //   exclude: /node_modules/,
+      //   loader: ['babel-loader', 'eslint-loader']
+      // },
     ]
   },
   resolve: {

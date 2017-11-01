@@ -1,13 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function VisitorPane({visitorInfo, helpers}) {
-  const { first_name, last_name, wins, losses, draws, right_full_body_image } = visitorInfo;
+export default function VisitorPane({ visitorInfo, helpers }) {
+  const {
+    first_Name,
+    last_Name,
+    wins, losses,
+    draws,
+    right_full_body_image,
+  } = visitorInfo;
+
   const { showNickname, showRank, checkWeight } = helpers;
-  
   return (
     <div className="large_faceOff_visitorInfo">
       <div className="large_faceOff_visitorInfo_name">
-        Name: {first_name} {last_name}
+        Name: {first_Name} {last_Name}
       </div>
       {showNickname(visitorInfo)}
       <div className="large_faceOff_visitorInfo_weightclass">
@@ -23,3 +30,19 @@ export default function VisitorPane({visitorInfo, helpers}) {
     </div>
   );
 }
+
+VisitorPane.propTypes = {
+  visitorInfo: PropTypes.shape({
+    first_Name: PropTypes.string,
+    last_Name: PropTypes.string,
+    wins: PropTypes.number,
+    losses: PropTypes.number,
+    draws: PropTypes.number,
+    right_full_body_image: PropTypes.string,
+  }).isRequired,
+  helpers: PropTypes.shape({
+    showNickname: PropTypes.func,
+    showRank: PropTypes.func,
+    checkWeight: PropTypes.func,
+  }).isRequired,
+};

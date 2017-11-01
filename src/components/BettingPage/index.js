@@ -1,28 +1,36 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import BettingPage from './presenter';
 
-function mapStateToProps(state) { 
-  const { fights, selectedEvent, selectedFight, selectedFighter, eventsReset, fightReset } = state;
+function mapStateToProps(state) {
+  const {
+    fights,
+    selectedEvent,
+    selectedFight,
+    selectedFighter,
+    eventsReset,
+    fightReset,
+  } = state;
   return {
     fights,
     selectedEvent,
     selectedFight,
     selectedFighter,
     eventsReset,
-    fightReset
+    fightReset,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectEvent: (event) => dispatch(actions.selectEvent(event)),
-    selectFight: (fight) => dispatch(actions.selectFight(fight)),
-    selectFighter: (fighter) => dispatch(actions.selectFighter(fighter)),
+    selectEvent: event => dispatch(actions.selectEvent(event)),
+    selectFight: fight => dispatch(actions.selectFight(fight)),
+    selectFighter: fighter => dispatch(actions.selectFighter(fighter)),
     fightReset: () => dispatch(actions.fightReset()),
-    eventsReset: () => dispatch(actions.eventsReset())
+    eventsReset: () => dispatch(actions.eventsReset()),
   };
 }
 

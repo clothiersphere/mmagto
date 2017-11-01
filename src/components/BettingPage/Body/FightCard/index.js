@@ -18,6 +18,7 @@ export default function FightCard({selectedEvent, selectFight, selectedFight}) {
   return (
     <div className="fightCard">
       {selectedEvent[0].fights.map((fight, key) => {
+        console.log(fight, "fightCard")
         return (
           <div className="fightCardFaceOff" key={key} onClick={()=>selectFight(fight)}>
             <div className="small_faceOff_home">

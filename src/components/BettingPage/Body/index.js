@@ -4,10 +4,11 @@ import FightCard from './FightCard';
 import Banner from './Banner';
 import BettingPane from './BettingPane';
 
-export default class Body extends Component {
-  render() {
-    const { fights } = this.props;
-    const { selectEvent, selectedEvent, selectedFight, selectFight} = this.props.other;
+export default function Body({ fights, other}) {
+  console.log(other, "other")
+  console.log(fights, "fights")
+    
+    const { selectEvent, selectedEvent, selectedFight, selectFight} = other;
     let eventListView, bannerView, text, img = null;
 
     if (selectedEvent.length === 0) {
@@ -29,4 +30,3 @@ export default class Body extends Component {
       </div>
     );
   }
-}

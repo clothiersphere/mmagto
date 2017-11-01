@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function EventItem({event}) {
-  const { base_title, title_tag_line } = event.eventInfo
-  
+export default function EventItem({ event }) {
+  const { base_title, title_tag_line } = event.eventInfo;
   return <div className="eventItemText">{base_title}: {title_tag_line}</div>;
 }

@@ -5,7 +5,7 @@ import EventListLoader from './EventListLoader';
 export default class EventList extends Component {
  render() {
     const { fights, selectEvent } = this.props;
-    
+
     if (fights.length === 0) {
       return <EventListLoader />;
     } else {
@@ -18,7 +18,7 @@ export default class EventList extends Component {
                 onClick={()=>selectEvent(event)}
                 key={index} 
               >
-                <EventItem {...{event}} />
+                <EventItem event={event} />
               </li>
             );
           })}
