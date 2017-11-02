@@ -6,10 +6,10 @@ export default function FightCard({ selectedEvent, selectFight, selectedFight })
     return null;
   }
   function ConvertName({ lastName }) {
-    var lastName = lastName.split(' ');
+    lastName.split(' ');
     if (lastName.length >= 2) {
       return <div> {lastName[lastName.length - 1]} </div>;
-    } 
+    }
     return <div> {lastName} </div>;
   }
 
@@ -39,4 +39,9 @@ FightCard.propTypes = {
   selectedEvent: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectFight: PropTypes.func.isRequired,
   selectedFight: PropTypes.arrayOf(PropTypes.object).isRequired,
+  lastName: PropTypes.string,
+};
+
+FightCard.defaultProps = {
+  lastName: '',
 };
