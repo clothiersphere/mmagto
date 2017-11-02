@@ -12,15 +12,18 @@ export default class EventList extends Component {
       return (
         <ul className="eventList">
           {fights.map(function(event, index) {
-            return (
-              <li
-                className="eventItem"
-                onClick={()=>selectEvent(event)}
-                key={index} 
-              >
-                <EventItem event={event} />
-              </li>
-            );
+            if (event.eventInfo) {
+              return (
+                <li
+                  className="eventItem"
+                  onClick={()=>selectEvent(event)}
+                  key={index} 
+                >
+                  <EventItem event={event} />
+                </li>
+              );
+            }
+            return null;
           })}
         </ul>
       );
