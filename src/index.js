@@ -1,14 +1,13 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'; // eslint-disable-line no-unused-vars
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { Provider } from 'react-redux'; // eslint-disable-line no-unused-vars
+import { Provider } from 'react-redux';
 import configureStore from './stores/configureStore';
 import * as actions from './actions';
 import App from './components/app';
 import BettingPage from './components/BettingPage';
 import FightCard from './components/BettingPage/Body/FightCard';
-
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);

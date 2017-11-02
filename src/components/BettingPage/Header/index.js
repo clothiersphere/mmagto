@@ -1,57 +1,58 @@
 import React, { Component } from 'react';
-import { Menu, Segment, Icon } from 'semantic-ui-react';
-import * as actions from '../../../actions';
+import PropTypes from 'prop-types';
+import { Menu, Icon } from 'semantic-ui-react';
+// import * as actions from '../../../actions';
 
 export default class Header extends Component {
-  state = { 
-    activeItem: 'home', 
-    fightCardMenu: 'disabled', 
-    wagerMenu: 'disabled'
+  state = {
+    activeItem: 'home',
+    fightCardMenu: 'disabled',
+    wagerMenu: 'disabled',
   };
 
 
   componentWillReceiveProps(nextProps) {
-    const {selectedEvent, selectedFight } = nextProps.other;
-    
+    console.log(nextProps, "np")
+    const { selectedEvent, selectedFight } = nextProps.other;
     if (selectedEvent[0] && !selectedFight[0]) {
-      if (this.state.activeItem != 'fightCard') {
+      if (this.state.activeItem !== 'fightCard') {
         this.setState({
-          activeItem: 'fightCard', 
-          fightCardMenu: 'enabled', 
-          wagerMenu: 'disabled'
+          activeItem: 'fightCard',
+          fightCardMenu: 'enabled',
+          wagerMenu: 'disabled',
         });
       }
     }
 
     if (selectedFight[0] && this.state.activeItem === 'fightCard') {
-      this.setState({activeItem: 'wagerMenu'});
+      this.setState({ activeItem: 'wagerMenu' });
     }
   }
 
   handleItemClick = (e, { name }) => {
     if (name === 'eventList') {
-     const { eventsReset } = this.props;
-     eventsReset();
-     this.setState({
-       activeItem: name,
-       fightCardMenu: 'disabled',
-       wagerMenu: 'disabled'
-     });
+      const { eventsReset } = this.props;
+      eventsReset();
+      this.setState({
+        activeItem: name,
+        fightCardMenu: 'disabled',
+        wagerMenu: 'disabled',
+      });
     }
 
     if (name === 'fightCard') {
       const { fightReset } = this.props.other;
       fightReset();
       this.setState({
-        activeItem: name, 
+        activeItem: name,
         fightCardMenu: 'enabled',
-        wagerMenu: 'disabled'
+        wagerMenu: 'disabled',
       });
-    } 
+    }
   }
 
   showMenu(status) {
-    if (status === 'enabled'){
+    if (status === 'enabled') {
       return false;
     }
 
@@ -60,7 +61,7 @@ export default class Header extends Component {
 
   render() {
     const { activeItem } = this.state;
-    const {selectedEvent, selectedFight } = this.props.other;
+    const { selectedEvent, selectedFight } = this.props.other;
     const { fightCardMenu, wagerMenu } = this.state;
 
     return (
@@ -68,22 +69,24 @@ export default class Header extends Component {
         <Menu pointing secondary>
           <Menu.Item
             name="eventList"
-            active={activeItem === "eventList"}
+            active={activeItem === 'eventList'}
             onClick={this.handleItemClick}
           >
             <Icon name="list" />
             <span className="text">Event List</span>
           </Menu.Item>
-          <Menu.Item disabled={this.showMenu(fightCardMenu)}
+          <Menu.Item
+            disabled={this.showMenu(fightCardMenu)}
             name="fightCard"
-            active={activeItem === "fightCard"}
+            active={activeItem === 'fightCard'}
             onClick={this.handleItemClick}
           >
             Fight Card
           </Menu.Item>
-          <Menu.Item disabled={this.showMenu(wagerMenu)}
+          <Menu.Item
+            disabled={this.showMenu(wagerMenu)}
             name="wagerMenu"
-            active={activeItem === "wagerMenu"}
+            active={activeItem === 'wagerMenu'}
           >
             Wager
           </Menu.Item>
@@ -92,3 +95,16 @@ export default class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  other: PropTypes.shape({
+    selectedEvent: PropTypes.arrayOf(PropTypes.array),
+    selectFight: PropTypes.func.isRequired,
+    fightReset: PropTypes.func.isRequired,
+  }),
+
+};
+
+Header.defaultProps = {
+  other: {},
+};

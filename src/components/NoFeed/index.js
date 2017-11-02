@@ -1,6 +1,6 @@
 import React from 'react';
 
-function NoFeed () {
+function NoFeed() {
   return (
     <div>
       <h1> MMA Sports Feed is down</h1>

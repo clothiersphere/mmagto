@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
 
-
-export default function BettingPage(props) {
-  const { fights, eventsReset, ...other } = props;
+export default function BettingPage(data) {
+  const { fights, eventsReset, ...other } = data;
   return (
     <div className="presenter">
       <Header {...{ eventsReset, other }} />
@@ -15,10 +13,3 @@ export default function BettingPage(props) {
     </div>
   );
 }
-
-BettingPage.propTypes = {
-  fights: PropTypes.arrayOf(PropTypes.object),
-  eventsReset: PropTypes.func,
-  other: PropTypes.object,
-}
-
