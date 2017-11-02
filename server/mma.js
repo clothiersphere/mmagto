@@ -1,22 +1,27 @@
 const axios = require('axios');
 const parseString = require('xml2js').parseString;
 
+function camelize(str) {
+  return str.replace(/\W+(.)/g, ((match, chr) =>
+    chr.toUpperCase()
+  ));
+}
+
 function getEvents(req, res, next) {
   const bookmakerAPI = 'http://lines.bookmaker.eu';
-  const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v3/iphone/events'
+  const ufcEventsAPI = 'http://ufc-data-api.ufc.com/api/v3/iphone/events';
   const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v3/iphone/fighters';
 
-  axios.get(bookmakerAPI).then(
-    response => parseString(response.data, {explicitChildren:true, preserveChildrenOrder:true}, function (err, result) {
+  axios.get(bookmakerAPI).then(response => parseString(response.data, { explicitChildren: true, preserveChildrenOrder: true }, function (err, result) {
       //had to set options: explicitChildren, preserveChildrenOrder to get correct order
-      const data = []; 
+      const data = [];
       let visitor;
       let visitorFirst;
       let visitorLast;
       let home;
       let homeFirst;
       let homeLast;
-      
+
       //if the lines aren't up yet
       if (!result.Data.$$[0].$$.find( x => x.$.IdLeague === '206')) {
         res.send('failed');
@@ -115,16 +120,16 @@ function getEvents(req, res, next) {
                 var ufcNumberedEvent = fightName.substring(fightName.indexOf('c') + 2, fightName.indexOf(':'))
                 // console.log(ufcNumberedEvent, "ufcNumberedEvent")
                 //if it is a number - then we know it follows UFC ### conventions and is a main UFC event.
-                console.log(ufcNumberedEvent, "ufcNumberedEvent")
                 if (/^\d+$/.test(ufcNumberedEvent)) {
                   
                   //find event where base title includes the numbered UFC event eg: UFC 215
                   // parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes(fightName.substring(0, indexOf(':'))))
-                  parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes(ufcNumberedEvent))
+                  parsedData[i].eventInfo = findNumberedEvent(data, ufcNumberedEvent)
                 }
               }
             })
           .then(() => {
+            console.log(parsedData, "pasredData")
             res.send(parsedData);
             next();
           })
@@ -144,6 +149,9 @@ function getEvents(req, res, next) {
       console.log('you got a 503 bruh')
     }
   })
+}
+function findNumberedEvent(data, ufcNumberedEvent) {
+  data.find(x => x.base_title.includes(ufcNumberedEvent));
 }
 
 function fightParser(array) {
