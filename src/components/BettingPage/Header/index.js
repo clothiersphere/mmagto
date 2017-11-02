@@ -93,7 +93,7 @@ export default class Header extends Component {
 
 Header.propTypes = {
   other: PropTypes.shape({
-    selectedEvent: PropTypes.arrayOf(PropTypes.array),
+    selectedEvent: PropTypes.arrayOf(PropTypes.object),
     selectFight: PropTypes.func.isRequired,
     fightReset: PropTypes.func.isRequired,
   }),
