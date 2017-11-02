@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Icon } from 'semantic-ui-react';
-// import * as actions from '../../../actions';
 
 export default class Header extends Component {
   state = {
@@ -10,9 +9,7 @@ export default class Header extends Component {
     wagerMenu: 'disabled',
   };
 
-
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps, "np")
     const { selectedEvent, selectedFight } = nextProps.other;
     if (selectedEvent[0] && !selectedFight[0]) {
       if (this.state.activeItem !== 'fightCard') {
@@ -51,17 +48,15 @@ export default class Header extends Component {
     }
   }
 
-  showMenu(status) {
+  showMenu = (status) => {
     if (status === 'enabled') {
       return false;
     }
-
     return true;
   }
-
+  
   render() {
     const { activeItem } = this.state;
-    const { selectedEvent, selectedFight } = this.props.other;
     const { fightCardMenu, wagerMenu } = this.state;
 
     return (
@@ -102,7 +97,7 @@ Header.propTypes = {
     selectFight: PropTypes.func.isRequired,
     fightReset: PropTypes.func.isRequired,
   }),
-
+  eventsReset: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
