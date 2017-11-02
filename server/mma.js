@@ -114,22 +114,20 @@ function getEvents(req, res, next) {
                     }
                   }
                 }
-
                 //example - UFC 215: Johnson vs. Borg
                 //pulls the # from the UFC event - should spit out 215
-                var ufcNumberedEvent = fightName.substring(fightName.indexOf('c') + 2, fightName.indexOf(':'))
-                // console.log(ufcNumberedEvent, "ufcNumberedEvent")
+                var ufcNumberedEvent = fightName.substring(fightName.indexOf('c') + 2, fightName.indexOf(':'));
+                console.log(ufcNumberedEvent, "ufcNumberedEvent")
                 //if it is a number - then we know it follows UFC ### conventions and is a main UFC event.
                 if (/^\d+$/.test(ufcNumberedEvent)) {
-                  
+                  console.log(ufcNumberedEvent, "got inside")
                   //find event where base title includes the numbered UFC event eg: UFC 215
                   // parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes(fightName.substring(0, indexOf(':'))))
-                  parsedData[i].eventInfo = findNumberedEvent(data, ufcNumberedEvent)
+                  parsedData[i].eventInfo = findNumberedEvent(data, ufcNumberedEvent);
                 }
               }
             })
           .then(() => {
-            console.log(parsedData, "pasredData")
             res.send(parsedData);
             next();
           })
@@ -144,14 +142,10 @@ function getEvents(req, res, next) {
   )
   .catch((error) => {
     console.log('ERROR', error);
-    console.log(error.response.status)
-    if (error.response.status === '503') {
-      console.log('you got a 503 bruh')
-    }
   })
 }
 function findNumberedEvent(data, ufcNumberedEvent) {
-  data.find(x => x.base_title.includes(ufcNumberedEvent));
+  return data.find(x => x.base_title.includes(ufcNumberedEvent));
 }
 
 function fightParser(array) {
