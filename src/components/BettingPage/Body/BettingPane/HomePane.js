@@ -15,7 +15,7 @@ export default function HomePane({ homeInfo, helpers }) {
   return (
     <div className="large_faceOff_homeInfo">
       <div className="large_faceOff_homeInfo_name">
-        Name: {first_name} {last_name} // eslint-disable-line no-use-before-define
+        Name: {first_name} {last_name}
       </div>
       {showNickname(homeInfo)}
       <div className="large_faceOff_homeInfo_weightclass">
@@ -26,7 +26,7 @@ export default function HomePane({ homeInfo, helpers }) {
         Record: {wins}-{losses}-{draws} (W-L-D)
       </div>
       <div className="large_faceOff_home">
-        <img alt="" src={left_full_body_image} /> // eslint-disable-line no-use-before-define
+        <img alt="" src={left_full_body_image} />
       </div>
     </div>
   );

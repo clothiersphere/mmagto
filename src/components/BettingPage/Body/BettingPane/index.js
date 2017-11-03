@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HomePane from './HomePane';
 import VisitorPane from './VisitorPane';
+import WagerPane from './WagerPane';
 
 export default class BettingPane extends Component {
   render() {
@@ -44,8 +45,9 @@ export default class BettingPane extends Component {
       const { visitorInfo, homeInfo, matchInfo } = selectedFight[0];      
       
       return (
-        <div className="bettingPane"> 
+        <div className="bettingPane">
           <HomePane {...{homeInfo, helpers}} />
+          <WagerPane />
           <VisitorPane {...{visitorInfo, helpers}} />
         </div>
       );
