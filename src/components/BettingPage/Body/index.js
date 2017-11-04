@@ -31,7 +31,7 @@ export default function Body({ fights, other }) {
       {eventListView}
       {bannerView}
       <FightCard {...{ selectedEvent, selectFight, selectedFight }} />
-      <BettingPane {...{ selectedFight }} />
+      <BettingPane {...{ selectedFight, other }} />
     </div>
   );
 }
