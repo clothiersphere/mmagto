@@ -6,46 +6,40 @@ import DecisionPane from './DecisionPane';
 
 
 export default class WagerPane extends Component {
-  state = { activeIndex: 0, wagerValue: 0 };
-
-  handleChange = (e, { value }) => {
-    this.selectFighter(e, value);
-    this.setState({ value });
-  }
-
-  selectFighter(e, value) {
-    const { selectFighter } = this.props.other;
-    selectFighter(value);
-  }
+  state = { wagerValue: 0 };
 
   render() {
     const { wagerValue } = this.state;
 
     const {
-      home,
-      homeOdds,
       homeInfo,
-      visitor,
-      visitorOdds,
       visitorInfo,
+    } = this.props;
+
+    const {
+      home,
+      visitor,
     } = this.props.other.selectedFight[0];
 
     const {
+      selectFighter,
       selectedFight,
       selectedFighter,
     } = this.props.other;
 
+    console.log(this.props.other.selectFighter, "selectFighter")
+
     return (
       <div className="wagerPane">
         <Form>
-          <Form.Group>
+          <Form.Group grouped>
             Select the fighter you wish to wager on:
             <Form.Radio
               label={home}
               name="radioGroup"
               value={home}
-              checked={this.state.value === home}
-              onChange={this.handleChange}
+              checked={selectedFighter[0] === homeInfo}
+              onChange={() => selectFighter(homeInfo)}
             />
           </Form.Group>
           <Form.Group>
@@ -53,11 +47,11 @@ export default class WagerPane extends Component {
               label={visitor}
               name="radioGroup"
               value={visitor}
-              checked={this.state.value === visitor}
-              onChange={this.handleChange}
+              checked={selectedFighter[0] === visitorInfo}
+              onChange={() => selectFighter(visitorInfo)}
             />
           </Form.Group>
-          <Form.Group>
+          <Form.Group grouped>
             Select the amount you wish to wager:
             <Form.Input labelPosition="right" type="text" placeholder="Amount" >
               <Label basic>$</Label>
@@ -74,9 +68,22 @@ export default class WagerPane extends Component {
 }
 
 WagerPane.propTypes = {
+  other: PropTypes.objectOf(PropTypes.any).isRequired,
   selectedFighter: PropTypes.arrayOf(PropTypes.object),
+  selectFighter: PropTypes.func.isRequired,
+  home: PropTypes.string,
+  visitor: PropTypes.string,
+  homeInfo: PropTypes.objectOf(PropTypes.any).isRequired,
+  visitorInfo: PropTypes.objectOf(PropTypes.any).isRequired,
+
 };
 
 WagerPane.defaultProps = {
   selectedFighter: [{}],
+  // selectFighter: () => {
+  //   console.log("hi")
+  //   return;
+  // },
+  home: 'Home',
+  visitor: 'Visitor',
 };

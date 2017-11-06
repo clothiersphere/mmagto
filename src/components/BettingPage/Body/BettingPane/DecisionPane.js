@@ -14,7 +14,7 @@ function calcUnderdog(odds, wager) {
 
 function calcFav(odds, wager) {
   var odds = odds * (-1);
-  odds = 100/odds;
+  odds = 100 / odds;
   return parseInt(wager * odds);
 }
 
@@ -30,10 +30,10 @@ function isFavored(selectedFight, selectedFighter) {
   const { odds } = selectedFighter;
   const smaller = Math.min(homeInfo.odds, visitorInfo.odds);
 
-  if (parseInt(odds) === parseInt(smaller)) {
-    return 'FAVORITE';
+  if (parseInt(odds, 10) === parseInt(smaller, 10)) {
+    return 'the FAVORITE';
   }
-  return 'UNDERDOG';
+  return 'an UNDERDOG';
 }
 
 function oddsToDec(odds) {
@@ -65,16 +65,22 @@ function totalPayout(odds, wagerValue) {
 }
 
 export default function DecisionPane({ selectedFighter, selectedFight, wagerValue }) {
+
   if (selectedFighter[0]) {
+    selectedFight[0].homeInfo.odds = selectedFight.homeOdds;
+    selectedFight[0].visitorInfo.odds = selectedFight.visitorOdds;
+
+    const fighter = selectedFighter[0];
+
     return (
       <div className="decision_panel">
-        {selectedFighter.last_name} is currently a {selectedFighter.odds} {isFavored(selectedFight, selectedFighter)}.
+        {fighter.last_name} is currently {fighter.odds} {isFavored(selectedFight[0], fighter)}.
         <br/>
-        Implied odds to win are {impliedProb(selectedFighter.odds)}%.
+        Implied odds to win are {impliedProb(fighter.odds)}%.
         <br/>
-        If {selectedFighter.last_name} wins, your bet of ${wagerValue} would
+        If {fighter.last_name} wins, your bet of ${wagerValue} would
         <br/>
-        win you ${convertOdds(selectedFighter.odds, wagerValue).toFixed(2)} for a total payout of ${totalPayout(selectedFighter.odds, wagerValue)}
+        win you ${convertOdds(fighter.odds, wagerValue).toFixed(2)} for a total payout of ${totalPayout(fighter.odds, wagerValue)}
       </div>
     );
   }
