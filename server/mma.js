@@ -45,37 +45,42 @@ function getEvents(req, res, next) {
           let hasNick = data.filter(x => x.nickname);
           for (let i = 0; i < parsedData.length; i++) {
             for (let j = 0; j < parsedData[i]['fights'].length; j++) {
-              visitor = parsedData[i]['fights'][j]['visitor'].toLowerCase().replace(/\"/g, '');
+              // visitor = parsedData[i]['fights'][j]['visitor'].toLowerCase().replace(/\"/g, '');
+              visitor = parsedData[i]['fights'][j]['visitor'].replace(/\"/g, '');
               
               visitorFirst = visitor.substr(0, visitor.indexOf(' '));
               
               visitorLast = visitor.substr(visitor.indexOf(' ') + 1);
               visitorLast = visitorLast.substr(visitorLast.indexOf(' ')+1);
               
-              home = parsedData[i].fights[j].home.toLowerCase().replace(/\"/g, '');
+              // home = parsedData[i].fights[j].home.toLowerCase().replace(/\"/g, '');
+              home = parsedData[i].fights[j].home.replace(/\"/g, '');
               homeFirst = home.substr(0, home.indexOf(' '));
               //seperate out the actual last name in case it's bad formatting on either side of bookmamker or UFC API
               homeLast = home.substr(home.indexOf(' ') + 1);
               homeLast = homeLast.substr(homeLast.indexOf(' ')+1);
               //backup in case naming convention is messed up from booksports.eu
               //find by last name && first name
-              parsedData[i].fights[j].homeInfo = data.find( x => x.last_name.toLowerCase().includes(homeLast) && x.first_name.toLowerCase().includes(homeFirst));
+              console.log(homeLast, "homeLast")
+              console.log(data.filter(function (x) { return x.last_name === homeLast }), "data")
+              
+              parsedData[i].fights[j].homeInfo = data.find( x => x.last_name === homeLast && x.first_name === homeFirst);
               if (!parsedData[i].fights[j].homeInfo) {
-                parsedData[i].fights[j].homeInfo = hasNick.find( x => x.nickname.toLowerCase().includes(homeFirst))
+                parsedData[i].fights[j].homeInfo = hasNick.find( x => x.nickname === homeFirst)
                 if (!parsedData[i].fights[j].homeInfo) {
-                  parsedData[i].fights[j].homeInfo = data.find( x => x.last_name.toLowerCase().includes(homeLast))
+                  parsedData[i].fights[j].homeInfo = data.find( x => x.last_name === homeLast)
                     if (!parsedData[i].fights[j].homeInfo) {
-                      parsedData[i].fights[j].homeInfo = data.find( x => x.last_name.toLowerCase().includes(homeFirst))
+                      parsedData[i].fights[j].homeInfo = data.find( x => x.last_name === homeFirst)
                     }
                 }
               }
-              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast) && x.first_name.toLowerCase().includes(visitorFirst));
+              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name === visitorLast && x.first_name === visitorFirst);
               if (!parsedData[i]['fights'][j]['visitorInfo']) {
-                parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorFirst))
+                parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name === visitorFirst)
                 if (!parsedData[i]['fights'][j]['visitorInfo']) {
-                  parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name.toLowerCase().includes(visitorLast))
+                  parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name === visitorLast)
                     if (!parsedData[i]['fights'][j]['visitorInfo']) {
-                      parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.first_name.toLowerCase().includes(visitorFirst))
+                      parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.first_name === visitorFirst)
                     }
                 }
               }
