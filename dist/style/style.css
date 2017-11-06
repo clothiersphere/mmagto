@@ -128,6 +128,11 @@ body {
 
 .wagerPane {
   margin-right: 45px;
+  margin-left: 45px;
+}
+
+.large_faceOff_homeInfo {
+/*border:solid green;*/
 }
 /*.eventListingSplash {
   display: flex;
