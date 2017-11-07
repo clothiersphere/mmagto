@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import HomePane from './HomePane';
 import VisitorPane from './VisitorPane';
 import WagerPane from './WagerPane';
 
-export default class BettingPane extends Component {
-  render() {
-    const helpers = {
+export default function BettingPane({ selectedFight, other }) {
+  const helpers = {
       showRank(side) {
         const { rank } = side;
         if (rank === null) {
@@ -37,30 +36,26 @@ export default class BettingPane extends Component {
         }
         return side.weight_class.replace(/_/g, ' ');
       },
-    };
-
-    const { selectedFight, other } = this.props;
-    const { selectFighter } = this.props.other;
-    if (selectedFight[0]) {
-      const { visitorInfo, homeInfo } = selectedFight[0];
-
-      return (
-        <div className="bettingPane">
-          <HomePane {...{ homeInfo, helpers }} />
-          <WagerPane
-            {...{
-              other,
-              visitorInfo,
-              homeInfo,
-              selectFighter,
-            }}
-          />
-          <VisitorPane {...{ visitorInfo, helpers }} />
-        </div>
-      );
-    }
-    return null;
+  };
+  const { selectFighter } = other;
+  if (selectedFight[0]) {
+    const { visitorInfo, homeInfo } = selectedFight[0];
+    return (
+      <div className="bettingPane">
+        <HomePane {...{ homeInfo, helpers }} />
+        <WagerPane
+          {...{
+            other,
+            visitorInfo,
+            homeInfo,
+            selectFighter,
+          }}
+        />
+        <VisitorPane {...{ visitorInfo, helpers }} />
+      </div>
+    );
   }
+  return null;
 }
 
 BettingPane.propTypes = {

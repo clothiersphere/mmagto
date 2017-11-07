@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Accordion, Icon, Form, Radio, Button, Step, Input, Label } from 'semantic-ui-react';
-import BettingSlider from './BettingSlider';
+// import BettingSlider from './BettingSlider';
 import DecisionPane from './DecisionPane';
 
 

@@ -9,7 +9,7 @@ function setFighter(fighter) {
 
 export function selectFighter(fighter) {
   return function (dispatch) {
-    dispatch({ type: 'FIGHTER_RESET' })
+    // dispatch({ type: 'FIGHTER_RESET' })
     dispatch(setFighter(fighter));
   };
 }
