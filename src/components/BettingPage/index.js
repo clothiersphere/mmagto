@@ -11,16 +11,19 @@ function mapStateToProps(state) {
     selectedEvent,
     selectedFight,
     selectedFighter,
-    eventsReset,
-    fightReset,
+    // eventsReset,
+    // fightReset,
+    // selectFighter,
   } = state;
+
   return {
     fights,
     selectedEvent,
     selectedFight,
     selectedFighter,
-    eventsReset,
-    fightReset,
+    // eventsReset,
+    // fightReset,
+    // selectFighter,
   };
 }
 

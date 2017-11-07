@@ -40,14 +40,21 @@ export default class BettingPane extends Component {
     };
 
     const { selectedFight, other } = this.props;
-
+    const { selectFighter } = this.props.other;
     if (selectedFight[0]) {
       const { visitorInfo, homeInfo } = selectedFight[0];
 
       return (
         <div className="bettingPane">
           <HomePane {...{ homeInfo, helpers }} />
-          <WagerPane {...{ other, visitorInfo, homeInfo }} />
+          <WagerPane
+            {...{
+              other,
+              visitorInfo,
+              homeInfo,
+              selectFighter,
+            }}
+          />
           <VisitorPane {...{ visitorInfo, helpers }} />
         </div>
       );

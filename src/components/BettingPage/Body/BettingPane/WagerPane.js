@@ -14,6 +14,7 @@ export default class WagerPane extends Component {
     const {
       homeInfo,
       visitorInfo,
+      selectFighter,
     } = this.props;
 
     const {
@@ -22,12 +23,9 @@ export default class WagerPane extends Component {
     } = this.props.other.selectedFight[0];
 
     const {
-      selectFighter,
       selectedFight,
       selectedFighter,
     } = this.props.other;
-
-    console.log(this.props.other.selectFighter, "selectFighter")
 
     return (
       <div className="wagerPane">
@@ -69,8 +67,8 @@ export default class WagerPane extends Component {
 
 WagerPane.propTypes = {
   other: PropTypes.objectOf(PropTypes.any).isRequired,
-  selectedFighter: PropTypes.arrayOf(PropTypes.object),
   selectFighter: PropTypes.func.isRequired,
+  selectedFighter: PropTypes.arrayOf(PropTypes.object),
   home: PropTypes.string,
   visitor: PropTypes.string,
   homeInfo: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -80,10 +78,6 @@ WagerPane.propTypes = {
 
 WagerPane.defaultProps = {
   selectedFighter: [{}],
-  // selectFighter: () => {
-  //   console.log("hi")
-  //   return;
-  // },
   home: 'Home',
   visitor: 'Visitor',
 };
