@@ -58,18 +58,16 @@ function impliedProb(odds) {
   return (odds * 100).toFixed(2)
 }
 
-function totalPayout(odds, wagerValue) { 
-  var winMoney = convertOdds(odds, wagerValue);
-  var wagerValue = parseInt(wagerValue);
-  return winMoney + wagerValue;
+function totalPayout(odds, wagerValue) {
+  const winMoney = convertOdds(odds, wagerValue);
+  const wagerValueParsed = parseInt(wagerValue);
+  return winMoney + wagerValueParsed;
 }
 
 export default function DecisionPane({ selectedFighter, selectedFight, wagerValue }) {
-
-  if (selectedFighter[0]) {
-    selectedFight[0].homeInfo.odds = selectedFight.homeOdds;
-    selectedFight[0].visitorInfo.odds = selectedFight.visitorOdds;
-
+  if (selectedFighter[0] && wagerValue) {
+    selectedFight[0].homeInfo.odds = selectedFight[0].homeOdds;
+    selectedFight[0].visitorInfo.odds = selectedFight[0].visitorOdds;
     const fighter = selectedFighter[0];
 
     return (
