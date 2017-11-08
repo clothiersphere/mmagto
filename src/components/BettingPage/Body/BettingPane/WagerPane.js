@@ -6,11 +6,20 @@ import DecisionPane from './DecisionPane';
 
 
 export default class WagerPane extends Component {
-  state = { wagerValue: 0 };
-  handleChange = (e, { value }) => this.setState({ value });
+  // constructor(props) {
+    // super(props);
+    state = {
+      wagerValue: '',
+    }
+    // this.handleChange = this.handleChange.bind(this);
+  // }
+
+  handleWagerChange = (e) => {
+    this.setState({ 'wagerValue': e.target.value });
+  }
+
   render() {
     const { wagerValue } = this.state;
-
     const {
       homeInfo,
       visitorInfo,
@@ -51,13 +60,13 @@ export default class WagerPane extends Component {
           </Form.Group>
           <Form.Group grouped>
             Select the amount you wish to wager:
-            <Form.Input labelPosition="right" type="text" placeholder="Amount">
+            <Form.Input labelPosition="right" type="text" placeholder="Amount" onChange={this.handleWagerChange}>
               <Label basic>$</Label>
               <input />
               <Label>.00</Label>
             </Form.Input>
           </Form.Group>
-          <Form.Button onClick={(data) => console.log(event, data.target.value, "value")}>Submit</Form.Button>
+          <Form.Button onClick={(e, data) => { console.log(e, data, 'e'); }}>Submit</Form.Button>
         </Form>
         <DecisionPane {...{ selectedFight, selectedFighter, wagerValue }} />
       </div>
