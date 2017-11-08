@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function HomePane({ homeInfo, helpers }) {
   const {
@@ -9,7 +10,6 @@ export default function HomePane({ homeInfo, helpers }) {
     draws,
     left_full_body_image,
   } = homeInfo;
-
 
   const { showNickname, showRank, checkWeight } = helpers;
   return (
@@ -31,3 +31,19 @@ export default function HomePane({ homeInfo, helpers }) {
     </div>
   );
 }
+
+HomePane.propTypes = {
+  homeInfo: PropTypes.shape({
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    wins: PropTypes.number,
+    losses: PropTypes.number,
+    draws: PropTypes.number,
+    right_full_body_image: PropTypes.string,
+  }).isRequired,
+  helpers: PropTypes.shape({
+    showNickname: PropTypes.func,
+    showRank: PropTypes.func,
+    checkWeight: PropTypes.func,
+  }).isRequired,
+};

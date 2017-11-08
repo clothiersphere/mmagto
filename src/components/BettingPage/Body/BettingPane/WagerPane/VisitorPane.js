@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 export default function VisitorPane({ visitorInfo, helpers }) {
   const {
-    first_Name,
-    last_Name,
-    wins, losses,
+    first_name,
+    last_name,
+    wins,
+    losses,
     draws,
     right_full_body_image,
   } = visitorInfo;
@@ -14,7 +15,7 @@ export default function VisitorPane({ visitorInfo, helpers }) {
   return (
     <div className="large_faceOff_visitorInfo">
       <div className="large_faceOff_visitorInfo_name">
-        Name: {first_Name} {last_Name}
+        Name: {first_name} {last_name}
       </div>
       {showNickname(visitorInfo)}
       <div className="large_faceOff_visitorInfo_weightclass">
@@ -33,8 +34,8 @@ export default function VisitorPane({ visitorInfo, helpers }) {
 
 VisitorPane.propTypes = {
   visitorInfo: PropTypes.shape({
-    first_Name: PropTypes.string,
-    last_Name: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
     wins: PropTypes.number,
     losses: PropTypes.number,
     draws: PropTypes.number,
