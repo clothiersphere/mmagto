@@ -61,9 +61,6 @@ function getEvents(req, res, next) {
               homeLast = homeLast.substr(homeLast.indexOf(' ')+1);
               //backup in case naming convention is messed up from booksports.eu
               //find by last name && first name
-              console.log(homeLast, "homeLast")
-              console.log(data.filter(function (x) { return x.last_name === homeLast }), "data")
-              
               parsedData[i].fights[j].homeInfo = data.find( x => x.last_name === homeLast && x.first_name === homeFirst);
               if (!parsedData[i].fights[j].homeInfo) {
                 parsedData[i].fights[j].homeInfo = hasNick.find( x => x.nickname === homeFirst)
@@ -122,10 +119,10 @@ function getEvents(req, res, next) {
                 //example - UFC 215: Johnson vs. Borg
                 //pulls the # from the UFC event - should spit out 215
                 var ufcNumberedEvent = fightName.substring(fightName.indexOf('c') + 2, fightName.indexOf(':'));
-                console.log(ufcNumberedEvent, "ufcNumberedEvent")
+                // console.log(ufcNumberedEvent, "ufcNumberedEvent")
                 //if it is a number - then we know it follows UFC ### conventions and is a main UFC event.
                 if (/^\d+$/.test(ufcNumberedEvent)) {
-                  console.log(ufcNumberedEvent, "got inside")
+                  // console.log(ufcNumberedEvent, "got inside")
                   //find event where base title includes the numbered UFC event eg: UFC 215
                   // parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes(fightName.substring(0, indexOf(':'))))
                   parsedData[i].eventInfo = findNumberedEvent(data, ufcNumberedEvent);
