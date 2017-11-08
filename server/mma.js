@@ -1,6 +1,8 @@
 const axios = require('axios');
 const parseString = require('xml2js').parseString;
 
+
+
 function camelize(str) {
   return str.replace(/\W+(.)/g, ((match, chr) =>
     chr.toUpperCase()
@@ -130,6 +132,8 @@ function getEvents(req, res, next) {
               }
             })
           .then(() => {
+
+
             res.send(parsedData);
             next();
           })
@@ -146,6 +150,7 @@ function getEvents(req, res, next) {
     console.log('ERROR', error);
   })
 }
+
 function findNumberedEvent(data, ufcNumberedEvent) {
   return data.find(x => x.base_title.includes(ufcNumberedEvent));
 }
@@ -200,3 +205,5 @@ function parseFighterInfo(array) {
 module.exports = {
   getEvents
 };
+
+
