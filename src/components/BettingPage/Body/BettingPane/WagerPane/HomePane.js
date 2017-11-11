@@ -12,6 +12,7 @@ export default function HomePane({ homeInfo, helpers }) {
   } = homeInfo;
 
   const { showNickname, showRank, checkWeight } = helpers;
+
   return (
     <div className="large_faceOff_homeInfo">
       <div className="large_faceOff_homeInfo_name">

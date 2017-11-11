@@ -11,9 +11,6 @@ function mapStateToProps(state) {
     selectedEvent,
     selectedFight,
     selectedFighter,
-    // eventsReset,
-    // fightReset,
-    // selectFighter,
   } = state;
 
   return {
@@ -21,9 +18,6 @@ function mapStateToProps(state) {
     selectedEvent,
     selectedFight,
     selectedFighter,
-    // eventsReset,
-    // fightReset,
-    // selectFighter,
   };
 }
 

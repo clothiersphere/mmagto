@@ -12,7 +12,7 @@ export default function(state = initialState, action) {
 
 function getFights(state, action) {
   const { fights } = action;
-  // return [...state, ...fights];
-  return [...state, ...fights.data];
+  return [...state, ...fights];
+  // return [...state, ...fights.data];
 }
 

@@ -1,13 +1,12 @@
 const axios = require('axios');
 const parseString = require('xml2js').parseString;
+const mma = require('mma');
 
-
-
-function camelize(str) {
-  return str.replace(/\W+(.)/g, ((match, chr) =>
-    chr.toUpperCase()
-  ));
-}
+// function camelize(str) {
+//   return str.replace(/\W+(.)/g, ((match, chr) =>
+//     chr.toUpperCase()
+//   ));
+// }
 
 function getEvents(req, res, next) {
   const bookmakerAPI = 'http://lines.bookmaker.eu';
@@ -15,77 +14,85 @@ function getEvents(req, res, next) {
   const ufcFightersAPI = 'http://ufc-data-api.ufc.com/api/v3/iphone/fighters';
 
   axios.get(bookmakerAPI).then(response => parseString(response.data, { explicitChildren: true, preserveChildrenOrder: true }, function (err, result) {
-      //had to set options: explicitChildren, preserveChildrenOrder to get correct order
-      const data = [];
-      let visitor;
-      let visitorFirst;
-      let visitorLast;
-      let home;
-      let homeFirst;
-      let homeLast;
-
-      //if the lines aren't up yet
-      if (!result.Data.$$[0].$$.find( x => x.$.IdLeague === '206')) {
-        res.send('failed');
-        return;
-      }
-
-      data.push(result.Data.$$[0].$$.find( x => x.$.IdLeague === '206'))
-      //non UFC feed
-      // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
-      
-      // console.log(data[0]['banner'][1]['$']['vtm'], "data")
-      //parse data into seperate arrays
-      
-      var parsedData = fightParser(data[0].$$);
-      // console.log(parsedData[0][1]['fights'][0]['$$'], "pasredData")
-      //create new data obj w/ just relevant fight stats
-      parsedData = parseFighterInfo(parsedData);
-
-      axios.get(ufcFightersAPI).then( response => response.data )
-        .then((data) => {
-          let hasNick = data.filter(x => x.nickname);
-          for (let i = 0; i < parsedData.length; i++) {
-            for (let j = 0; j < parsedData[i]['fights'].length; j++) {
-              // visitor = parsedData[i]['fights'][j]['visitor'].toLowerCase().replace(/\"/g, '');
-              visitor = parsedData[i]['fights'][j]['visitor'].replace(/\"/g, '');
-              
-              visitorFirst = visitor.substr(0, visitor.indexOf(' '));
-              
-              visitorLast = visitor.substr(visitor.indexOf(' ') + 1);
-              visitorLast = visitorLast.substr(visitorLast.indexOf(' ')+1);
-              
-              // home = parsedData[i].fights[j].home.toLowerCase().replace(/\"/g, '');
-              home = parsedData[i].fights[j].home.replace(/\"/g, '');
-              homeFirst = home.substr(0, home.indexOf(' '));
-              //seperate out the actual last name in case it's bad formatting on either side of bookmamker or UFC API
-              homeLast = home.substr(home.indexOf(' ') + 1);
-              homeLast = homeLast.substr(homeLast.indexOf(' ')+1);
-              //backup in case naming convention is messed up from booksports.eu
-              //find by last name && first name
-              parsedData[i].fights[j].homeInfo = data.find( x => x.last_name === homeLast && x.first_name === homeFirst);
+    // had to set options: explicitChildren, preserveChildrenOrder to get correct order
+    const data = [];
+    let visitor;
+    let visitorFirst;
+    let visitorLast;
+    let home;
+    let homeFirst;
+    let homeLast;
+    //if the lines aren't up yet
+    if (!result.Data.$$[0].$$.find( x => x.$.IdLeague === '206')) {
+      res.send('failed');
+      return;
+    }
+    data.push(result.Data.$$[0].$$.find( x => x.$.IdLeague === '206'))
+    // non UFC feed
+    // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
+    
+    // console.log(data[0]['banner'][1]['$']['vtm'], "data")
+    // parse data into seperate arrays
+    
+    var parsedData = fightParser(data[0].$$);
+    // console.log(parsedData[0][1]['fights'][0]['$$'], "pasredData")
+    // create new data obj w/ just relevant fight stats
+    parsedData = parseFighterInfo(parsedData);
+    axios.get(ufcFightersAPI).then( response => response.data )
+      .then((data) => {
+        const hasNick = data.filter(x => x.nickname);
+        for (let i = 0; i < parsedData.length; i++) {
+          for (let j = 0; j < parsedData[i]['fights'].length; j++) {
+            // visitor = parsedData[i]['fights'][j]['visitor'].toLowerCase().replace(/\"/g, '');
+            visitor = parsedData[i]['fights'][j]['visitor'].replace(/\"/g, '');
+            visitorFirst = visitor.substr(0, visitor.indexOf(' '));
+            visitorLast = visitor.substr(visitor.indexOf(' ') + 1);
+            visitorLast = visitorLast.substr(visitorLast.indexOf(' ')+1);
+            // home = parsedData[i].fights[j].home.toLowerCase().replace(/\"/g, '');
+            home = parsedData[i].fights[j].home.replace(/\"/g, '');
+            homeFirst = home.substr(0, home.indexOf(' '));
+            // seperate out the actual last name in case it's bad formatting on either side of bookmamker or UFC API
+            homeLast = home.substr(home.indexOf(' ') + 1);
+            homeLast = homeLast.substr(homeLast.indexOf(' ') + 1);
+            // backup in case naming convention is messed up from booksports.eu
+            // find by last name && first name
+            parsedData[i].fights[j].homeInfo = data.find(x => x.last_name === homeLast && x.first_name === homeFirst);
+            if (!parsedData[i].fights[j].homeInfo) {
+              parsedData[i].fights[j].homeInfo = hasNick.find(x => x.nickname === homeFirst);
               if (!parsedData[i].fights[j].homeInfo) {
-                parsedData[i].fights[j].homeInfo = hasNick.find( x => x.nickname === homeFirst)
+                parsedData[i].fights[j].homeInfo = data.find(x => x.last_name === homeLast);
                 if (!parsedData[i].fights[j].homeInfo) {
-                  parsedData[i].fights[j].homeInfo = data.find( x => x.last_name === homeLast)
-                    if (!parsedData[i].fights[j].homeInfo) {
-                      parsedData[i].fights[j].homeInfo = data.find( x => x.last_name === homeFirst)
-                    }
-                }
-              }
-              parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name === visitorLast && x.first_name === visitorFirst);
-              if (!parsedData[i]['fights'][j]['visitorInfo']) {
-                parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name === visitorFirst)
-                if (!parsedData[i]['fights'][j]['visitorInfo']) {
-                  parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.last_name === visitorLast)
-                    if (!parsedData[i]['fights'][j]['visitorInfo']) {
-                      parsedData[i]['fights'][j]['visitorInfo'] = data.find( x => x.first_name === visitorFirst)
-                    }
+                  parsedData[i].fights[j].homeInfo = data.find(x => x.last_name === homeFirst);
                 }
               }
             }
+            parsedData[i].fights[j].visitorInfo = data.find(x => x.last_name === visitorLast && x.first_name === visitorFirst);
+            if (!parsedData[i].fights[j].visitorInfo) {
+              parsedData[i].fights[j].visitorInfo = data.find(x => x.last_name === visitorFirst);
+              if (!parsedData[i].fights[j].visitorInfo) {
+                parsedData[i].fights[j].visitorInfo = data.find(x => x.last_name === visitorLast);
+                  if (!parsedData[i].fights[j].visitorInfo) {
+                    parsedData[i].fights[j].visitorInfo = data.find(x => x.first_name === visitorFirst);
+                  }
+              }
+            }
+
+            parsedData[0].fights[0].homeData = {};
+
+            if (i === 0 && j === 0) {
+              var homeName = parsedData[i].fights[j].home;
+              
+              return mma.fighter(homeName, function(data) {
+                return parsedData[i].fights[j].homeData = data;
+                console.log(parsedData[i].fights[j].homeData, "homeName")
+              }).then(()=>console.log('hello'));
+
+
+
+            }
           }
-        })
+        }
+      })
         .then(() => {
           axios.get(ufcEventsAPI).then(response => response.data)
             .then((data) => {
@@ -96,7 +103,7 @@ function getEvents(req, res, next) {
                 }
                 var venue = parsedData[i]['banner'][1]['$']['htm'].split(' ').shift();
                 // console.log(venue, "venue")
-                var eventName = fightName.substring(fightName.indexOf(':')+2).split(' ');
+                var eventName = fightName.substring(fightName.indexOf(':') + 2).split(' ');
                 // console.log(eventName, "eventName")
                 var vsMarker = eventName.indexOf('vs.');
                 var firstFighter = eventName[0];
@@ -132,8 +139,6 @@ function getEvents(req, res, next) {
               }
             })
           .then(() => {
-
-
             res.send(parsedData);
             next();
           })
@@ -205,5 +210,4 @@ function parseFighterInfo(array) {
 module.exports = {
   getEvents
 };
-
 
