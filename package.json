@@ -51,6 +51,7 @@
     "ls": "^0.2.1",
     "material-ui": "^0.19.2",
     "mma": "^0.2.0",
+    "phantom-google-search-scraper": "^1.0.1",
     "prop-types": "^15.6.0",
     "rc-slider": "^8.3.1",
     "react": "^15.6.1",
