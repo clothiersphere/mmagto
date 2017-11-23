@@ -1,6 +1,12 @@
 const axios = require('axios');
 const { parseString } = require('xml2js');
-const mma = require('mma');
+const scraper = require('google-search-scraper');
+const DeathByCaptcha = require('deathbycaptcha');
+const dbc = new DeathByCaptcha('xchrislee','***REMOVED***')
+const ufc = require('ufc');
+const sherdog = require('sherdog');
+const cheerio = require("cheerio");
+
 
 function bookmakerEventParser(array) {
   var storage = []; 
@@ -70,7 +76,7 @@ async function getEvents(req, res, next) {
     parsedBookMakerData = parseFighterInfo(parsedEventData);
   });
   const ufcFightersApiQuery = await axios.get(ufcFightersAPI).then(response => response.data);
-  const populateHomeVisitorInfo = (fighterList, parsedData) => {
+  const populateHomeVisitorInfo = async (fighterList, parsedData) => {
     let visitor; 
     let visitorFirst;
     let visitorLast;
@@ -78,8 +84,326 @@ async function getEvents(req, res, next) {
     let homeFirst;
     let homeLast;
 
-    const hasNick = fighterList.filter(x => x.nickname);
+    async function retrieve(query) {
+      let sherdogUrl;
+      let ufcUrl;
+      let fighter = {
+        name: "",
+        nickname: "",
+        fullname: "",
+        record: "",    
+        association: "",
+        age: "",
+        birthday: "",
+        hometown: "",
+        nationality: "",
+        location: "",
+        height: "",
+        height_cm: "",
+        weight: "",
+        weight_kg: "",
+        weight_class: "",
+        college: "",
+        degree: "",
+        summary: [],
+        wins: {
+          total: 0,
+          knockouts: 0,
+          submissions: 0,
+          decisions: 0,
+          others: 0
+        },
+        losses: {
+          total: 0,
+          knockouts: 0,
+          submissions: 0,
+          decisions: 0,
+          others: 0
+        },
+        strikes: {
+          attempted: 0,
+          successful: 0,
+          standing: 0,
+          clinch: 0,
+          ground: 0
+        },
+        takedowns: {
+          attempted: 0,
+          successful: 0,
+          submissions: 0,
+          passes: 0,
+          sweeps: 0
+        },
+        fights: []
+      };
 
+      const sherDogOpt = {
+        query: query + ' site:www.sherdog.com/fighter/',
+        solver: dbc,
+        limit: 10,
+      };
+
+      const ufcOptions = {
+        query: query + ' site:www.ufc.com/fighter',
+        solver: dbc,
+        limit: 10,
+      };
+      const searchSherdog = () => {
+        return new Promise((resolve, reject) => {
+          const results = [];
+          scraper.search(sherDogOpt, (err, url) => {
+            if (err) {
+              reject(err);
+            } else {
+              results.push(url);
+              if (results.length === 10) {
+                resolve(results);
+              }
+            }
+          });
+        });
+      };
+
+      const searchUfc = () => {
+        return new Promise((resolve, reject) => {
+          const results = [];
+          scraper.search(ufcOptions, (err, url) => {
+            if (err) {
+              reject(err);
+            } else {
+              results.push(url);
+              if (results.length === 10) {
+                resolve(results);
+              }
+            }
+          });
+        });
+      };
+
+      const parseSherdog = ($) => {
+        $('h1[itemprop="name"]').filter(function() {
+          var el = $(this);
+          name = el.find('span.fn').text();
+          nickname = el.find('span.nickname').text();
+          fighter.name = name;
+          fighter.nickname = nickname.replace(/['"]+/g, '');
+        });
+        // Fighter image
+        fighter.image_url = $(".profile_image.photo").attr("src"); 
+        // Fighter bio
+        $('.bio').filter(function() {
+          var el = $(this);
+          age = el.find('.item.birthday strong').text();
+          birthday = el.find('span[itemprop="birthDate"]').text();
+          locality = el.find('span[itemprop="addressLocality"]').text();
+          nationality = el.find('strong[itemprop="nationality"]').text();
+          association = el.find('.item.association span[itemprop="name"]').text();
+          height = el.find('.item.height strong').text();
+          weight = el.find('.item.weight strong').text();
+          weight_class = el.find('.item.wclass strong').text();
+          fighter.age = age.slice(5); 
+          fighter.birthday = birthday;
+          fighter.locality = locality;
+          fighter.nationality = nationality;
+          fighter.association = association;
+          fighter.height = height;
+          fighter.weight = weight;
+          fighter.weight_class = weight_class;
+        }); 
+        // Fighter record
+        $('.record .count_history').filter(function() {
+          var el = $(this);
+          var wins = el.find('.left_side .bio_graph').first();
+          var winsByKnockout = wins.find('.graph_tag:nth-child(3)');
+          var winsBySubmission = wins.find('.graph_tag:nth-child(5)');
+          var winsByDecision = wins.find('.graph_tag:nth-child(7)');
+          var winsByOther = wins.find('.graph_tag:nth-child(9)');
+          var losses = el.find('.left_side .bio_graph.loser');
+          var lossesByKnockout = losses.find('.graph_tag:nth-child(3)');
+          var lossesBySubmission = losses.find('.graph_tag:nth-child(5)');
+          var lossesByDecision = losses.find('.graph_tag:nth-child(7)');
+          var lossesByOther = losses.find('.graph_tag:nth-child(9)');
+          var noContests = el.find('.right_side .bio_graph');
+          var getTotal = function(el) { return parseInt(el.text().split(' ')[0] || 0); }
+          var getPercent = function(el) { return el.find('em').text().split('%')[0]; } 
+          wins_total = parseInt(wins.find('.card .counter').text());
+          losses_total = parseInt(losses.find('.counter').text());
+          no_contests_total = parseInt(noContests.find('.counter').text());        
+          fighter.wins.total = wins_total;
+          fighter.losses.total = losses_total;
+          fighter.no_contests = no_contests_total;
+          fighter.wins.knockouts = getTotal(winsByKnockout);
+          fighter.wins.submissions = getTotal(winsBySubmission);
+          fighter.wins.decisions = getTotal(winsByDecision);
+          fighter.wins.others = getTotal(winsByOther);
+          fighter.losses.knockouts = getTotal(lossesByKnockout);
+          fighter.losses.submissions = getTotal(lossesBySubmission);
+          fighter.losses.decisions = getTotal(lossesByDecision);
+        });
+        // Fighter Fight History
+        $('.module.fight_history tr:not(.table_head)').each(function() {
+          var el = $(this);
+          result = el.find('td:nth-child(1) .final_result').text();
+          opponent_name = el.find('td:nth-child(2) a').text();
+          opponent_url = el.find('td:nth-child(2) a').attr('href');
+          event_name = el.find('td:nth-child(3) a').text();
+          event_url = el.find('td:nth-child(3) a').attr('href');
+          event_date = el.find('td:nth-child(3) .sub_line').text();
+          method = el.find('td:nth-child(4)').text().split(/\)(.*)/)[0] + ")";
+          referee = el.find('td:nth-child(4) .sub_line').text();
+          round = el.find('td:nth-child(5)').text();
+          time = el.find('td:nth-child(6)').text();
+          //----------------------------------+
+          //  JSON object for Fight
+          //----------------------------------+
+          var fight = {
+            name: event_name,
+            date: event_date,
+            url: event_url,
+            result: result,          
+            method: method,
+            referee: referee,
+            round: round,
+            time: time,
+            opponent: opponent_name
+          };
+
+          if (result !== "") {
+            fighter.fights.push(fight);
+          }
+        });
+        return fighter;
+      };
+
+      const parseUfc = ($) => {
+       $('#fighter-details h1').filter(function() {
+            var el = $(this);
+            name = el.text();
+            fighter.name = name;
+        });
+        // Nickname
+        $('td#fighter-nickname').filter(function() {
+            var el = $(this);
+            nickname = el.text();
+            fighter.nickname = nickname;
+        });
+        // Fullname
+        $('head title').filter(function() {
+            var el = $(this);
+            fullname = el.text().split(' -')[0];
+            fighter.fullname = fullname;
+        });
+        // Hometown
+        $('td#fighter-from').filter(function() {
+            var el = $(this);
+            hometown = el.text().replace(/[\n\t]/g,"");
+            fighter.hometown = hometown;
+        });
+        // Location
+        $('td#fighter-lives-in').filter(function() {
+            var el = $(this);
+            location = el.text().replace(/[\n\t]/g,"");
+            fighter.location = location;
+        });
+        // Age
+        $('td#fighter-age').filter(function() {
+            var el = $(this);
+            age = el.text();
+            fighter.age = age;
+        });
+        // Height
+        $('td#fighter-height').filter(function() {
+            var el = $(this);
+            height = el.text().split(' (')[0];
+            height_cm = el.text().split('( ')[1].split(' cm )')[0];
+            fighter.height = height;
+            fighter.height_cm = height_cm;
+        });
+        // Weight
+        $('td#fighter-weight').filter(function() {
+            var el = $(this);
+            weight = el.text().split(' lb (')[0];
+            weight_kg = el.text().split('( ')[1].split(' kg )')[0];
+            fighter.weight = weight;
+            fighter.weight_kg = weight_kg;
+        });
+        // Record
+        $('td#fighter-skill-record').filter(function() {
+            var el = $(this);
+            record = el.text();
+            fighter.record = record;
+        });
+        // College
+        $('td#fighter-college').filter(function() {
+            var el = $(this);
+            college = el.text();
+            fighter.college = college;
+        });
+        
+        // Degree
+        $('td#fighter-degree').filter(function() {
+            var el = $(this);
+            degree = el.text();
+            fighter.degree = degree;
+        });
+        // Summary
+        $('td#fighter-skill-summary').filter(function() {
+            var el = $(this);
+            summary = el.text().split(", ");
+            fighter.summary = summary;
+        });
+        // Striking Metrics
+        $('#fight-history .overall-stats').first().filter(function() {
+            var el = $(this);
+            var stAttempted = el.find('.graph').first();
+            var stSuccessful = el.find('.graph#types-of-successful-strikes-graph');
+            strikes_attempted = parseInt(stAttempted.find('.max-number').text());
+            strikes_successful = parseInt(stAttempted.find('#total-takedowns-number').text());
+            strikes_standing = parseInt(stSuccessful.find('.text-bar').first().text());
+            strikes_clinch = parseInt(stSuccessful.find('.text-bar').first().next().text());
+            strikes_ground = parseInt(stSuccessful.find('.text-bar').first().next().next().text());
+            fighter.strikes.attempted = strikes_attempted;
+            fighter.strikes.successful = strikes_successful;
+            fighter.strikes.standing = strikes_standing;
+            fighter.strikes.clinch = strikes_clinch;
+            fighter.strikes.ground = strikes_ground;
+        });
+        // Grappling Metrics
+        $('#fight-history .overall-stats').first().next().filter(function() {
+            var el = $(this);
+            var tdAttempted = el.find('.graph').first();
+            var tdSuccessful = el.find('.graph#grappling-totals-by-type-graph');
+            takedowns_attempted = parseInt(tdAttempted.find('.max-number').text());
+            takedowns_successful = parseInt(tdAttempted.find('#total-takedowns-number').text());
+            takedowns_submissions = parseInt(tdSuccessful.find('.text-bar').first().text());
+            takedowns_passes = parseInt(tdSuccessful.find('.text-bar').first().next().text());
+            takedowns_sweeps = parseInt(tdSuccessful.find('.text-bar').first().next().next().text());
+            fighter.takedowns.attempted = takedowns_attempted;
+            fighter.takedowns.successful = takedowns_successful;
+            fighter.takedowns.submissions = takedowns_submissions;
+            fighter.takedowns.passes = takedowns_passes;
+            fighter.takedowns.sweeps = takedowns_sweeps;
+        });
+
+        return fighter;
+      };
+
+      const sherdogLinks = await searchSherdog();
+      sherdogUrl = sherdogLinks[0];
+      const sherdogHtml = await axios.get(sherdogUrl).then(response => response.data);
+      const sherdogDom = cheerio.load(sherdogHtml);
+      const ufcLinks = await searchUfc();
+      ufcUrl = ufcLinks[0];
+      const ufcHtml = await axios.get(ufcUrl).then(response => response.data);
+      const ufcDom = cheerio.load(ufcHtml);
+
+      fighter = parseSherdog(sherdogDom);
+      fighter = parseUfc(ufcDom)
+
+      return fighter;
+    }
+
+    const hasNick = fighterList.filter(x => x.nickname);
     const searchFighterDB = (first, last, hasNick, fighterList) => {
       let fighterData = fighterList.find(x => x.last_name === last && x.first_name === first);
       if (!fighterData) {
@@ -93,7 +417,6 @@ async function getEvents(req, res, next) {
       }
       return fighterData;
     };
-
     const fighterParse = (name, side) => {
       if (side === 'v') {
         visitor = name.replace(/\"/g, '');
@@ -106,19 +429,14 @@ async function getEvents(req, res, next) {
       homeLast = home.substr(home.indexOf(' ') + 1);
       homeLast = homeLast.substr(homeLast.indexOf(' ') + 1);
     };
-    
     for (let i = 0; i < parsedData.length; i += 1) {
       for (let j = 0; j < parsedData[i].fights.length; j += 1) {
         fighterParse(parsedData[i].fights[j].visitor, 'v');
         fighterParse(parsedData[i].fights[j].home, 'h');
+        const homeName = parsedData[i].fights[j].home;
+        const visitorName = parsedData[i].fights[j].visitor;
         parsedData[i].fights[j].homeInfo = searchFighterDB(homeFirst, homeLast, hasNick, ufcFightersApiQuery);
         parsedData[i].fights[j].visitorInfo = searchFighterDB(visitorFirst, visitorLast, hasNick, ufcFightersApiQuery);
-        if (i === 0 && j === 0) {
-          const homeName = parsedData[i].fights[j].home;
-          mma.retrieve(homeName).then((data) => {
-            parsedData[0].fights[0].homeInfo = data;
-          })
-        }
       }
     }
     return parsedData;
@@ -162,155 +480,7 @@ async function getEvents(req, res, next) {
   res.send(parsedBookMakerData);
   next();
 }
-//   axios.get(bookmakerAPI).then(response => parseString(response.data, { explicitChildren: true, preserveChildrenOrder: true }, (err, result) => {
-//     // had to set options: explicitChildren, preserveChildrenOrder to get correct order
-//     const data = [];
-//     let visitor;
-//     let visitorFirst;
-//     let visitorLast;
-//     let home;
-//     let homeFirst;
-//     let homeLast;
-//     if (!result.Data.$$[0].$$.find(x => x.$.IdLeague === '206')) {
-//       res.send('failed');
-//       return;
-//     }
-//     data.push(result.Data.$$[0].$$.find(x => x.$.IdLeague === '206'))
-//     // non UFC feed
-//     // data.push(result.Data.Leagues[0].league.find( x => x.$.IdLeague === '12639'))
-//     // console.log(data[0]['banner'][1]['$']['vtm'], "data")
-//     // parse data into seperate arrays
-//     var parsedData = fightParser(data[0].$$);
-//     // console.log(parsedData[0][1]['fights'][0]['$$'], "pasredData")
-//     // create new data obj w/ just relevant fight stats
-//     parsedData = parseFighterInfo(parsedData);
-//     axios.get(ufcFightersAPI).then(response => response.data)
-//       .then((fighterList) => {
-//         const hasNick = fighterList.filter(x => x.nickname);
-//         const searchFighterDB = (first, last) => {
-//           let fighterData = fighterList.find(x => x.last_name === last && x.first_name === first);
-//           if (!fighterData) {
-//             fighterData = hasNick.find(x => x.nickname === first);
-//             if (!fighterData) {
-//               fighterData = fighterList.find(x => x.last_name === last);
-//               if (!fighterData) {
-//                 fighterData = fighterList.find(x => x.last_name === first);
-//               }
-//             }
-//           }
-//           return fighterData;
-//         };
-//         const fighterParse = (name, side) => {
-//           if (side === 'v') {
-//             visitor = name.replace(/\"/g, '');
-//             visitorFirst = visitor.substr(0, visitor.indexOf(' '));
-//             visitorLast = visitor.substr(visitor.indexOf(' ') + 1);
-//             visitorLast = visitorLast.substr(visitorLast.indexOf(' ') + 1);
-//           }
-//           home = name.replace(/"/g, '');
-//           homeFirst = home.substr(0, home.indexOf(' '));
-//           homeLast = home.substr(home.indexOf(' ') + 1);
-//           homeLast = homeLast.substr(homeLast.indexOf(' ') + 1);
-//         };
-//         for (let i = 0; i < parsedData.length; i += 1) {
-//           for (let j = 0; j < parsedData[i].fights.length; j += 1) {
-//             fighterParse(parsedData[i].fights[j].visitor, 'v');
-//             fighterParse(parsedData[i].fights[j].home, 'h');
-//             parsedData[i].fights[j].homeInfo = searchFighterDB(homeFirst, homeLast, hasNick);
-//             parsedData[i].fights[j].visitorInfo = searchFighterDB(visitorFirst, visitorLast, hasNick);
-            
-//             if (i === 0 && j === 0) {
-//               const homeName = parsedData[i].fights[j].home;
-//               mma.retrieve(homeName).then((data) => {
-//                 console.log(data, "data")
-//                 parsedData[0].fights[0].homeInfo = data;
-                
-//               })
-//             }
-//           }
-//         }
-//       }).then(() => {
-//           axios.get(ufcEventsAPI).then(response => response.data)
-//             .then((data) => {
-//               for (var i = 0; i < parsedData.length; i++) {
-//                 var fightName = parsedData[i]['banner'][1]['$']['vtm'].toLowerCase();
-//                 if (parsedData[i]['banner'][2]) {
-//                   fightName = parsedData[i]['banner'][2]['$']['vtm'].toLowerCase();
-//                 }
-//                 var venue = parsedData[i]['banner'][1]['$']['htm'].split(' ').shift();
-//                 // console.log(venue, "venue")
-//                 var eventName = fightName.substring(fightName.indexOf(':') + 2).split(' ');
-//                 // console.log(eventName, "eventName")
-//                 var vsMarker = eventName.indexOf('vs.');
-//                 var firstFighter = eventName[0];
-//                 // console.log(firstFighter, "Ff")
-//                 var secondFighter = eventName[2];
-//                 // console.log(secondFighter, "sf")
 
-//                 var UFN = ('ufc fight night');
-
-//                 if (fightName.includes(UFN)) {
-//                   var fightNightEvents = data.filter( x => x.base_title === "UFC Fight Night");
-//                   // console.log(fightNightEvents, "FNE")
-//                   //include both fighter name
-//                   parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.toLowerCase().includes(firstFighter) && x.title_tag_line.toLowerCase().includes(secondFighter) && x.arena.toLowerCase().includes(venue));
-//                   if (!parsedData[i]['eventInfo']) {
-//                     parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.toLowerCase().includes(firstFighter) && x.title_tag_line.toLowerCase().includes(secondFighter));
-//                     if (!parsedData[i]['eventInfo']) {
-//                       parsedData[i]['eventInfo'] = fightNightEvents.find( x => x.title_tag_line.toLowerCase().includes(secondFighter) && x.arena.toLowerCase().includes(venue));
-//                     }
-//                   }
-//                 }
-//                 //example - UFC 215: Johnson vs. Borg
-//                 //pulls the # from the UFC event - should spit out 215
-//                 var ufcNumberedEvent = fightName.substring(fightName.indexOf('c') + 2, fightName.indexOf(':'));
-//                 // console.log(ufcNumberedEvent, "ufcNumberedEvent")
-//                 //if it is a number - then we know it follows UFC ### conventions and is a main UFC event.
-//                 if (/^\d+$/.test(ufcNumberedEvent)) {
-//                   // console.log(ufcNumberedEvent, "got inside")
-//                   //find event where base title includes the numbered UFC event eg: UFC 215
-//                   // parsedData[i]['eventInfo'] = data.find( x => x.base_title.includes(fightName.substring(0, indexOf(':'))))
-//                   parsedData[i].eventInfo = findNumberedEvent(data, ufcNumberedEvent);
-//                 }
-//               }
-//             })
-//           .then(() => {
-//             res.send(parsedData);
-//             next();
-//           })
-//           .catch((error) => {
-//           console.log('ERROR', error);
-//           })
-//         })
-//         .catch((error) => {
-//           console.log('ERROR', error);
-//         })
-//     })
-//   )
-//   .catch((error) => {
-//     console.log('ERROR', error);
-//   })
-// }
-// function fightParser(array) {
-//   var storage = []; 
-//   var counter = 0;
-//   var pointer = 0;
-
-//   storage[pointer] = [{banner:[]}, {fights:[]}];
-  
-//   for (var i = 0; i < array.length; i++) {
-//     if (array[i]['#name'] === 'banner' && array[i]['$'].ab === 'True' && i !== 0) {
-//           pointer++ 
-//           storage[pointer] = [{banner:[]}, {fights:[]}]
-//     }
-//     if (array[i]['#name'] === 'banner') {
-//       storage[pointer][0]['banner'].push(array[i])
-//     } else {
-//     storage[pointer][1]['fights'].push(array[i]);
-//     }
-//   };
-//   return storage;
-// }
 module.exports = {
   getEvents,
 };
