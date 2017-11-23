@@ -4,20 +4,19 @@ import * as actionTypes from '../constants/actionTypes';
 function showEvents(fights) {
   return {
     type: actionTypes.FIGHTS_GET,
-    fights
+    fights,
   };
-};
+}
 
 export function getEvents() {
-  return function(dispatch) {
+  return function (dispatch) {
     const request = axios({
       method: 'GET',
-      url: 'http://localhost:8080/api/getEvents'
+      url: 'http://localhost:8080/api/getEvents',
     });
-    
     return request
-    .then((response) => {
-      dispatch(showEvents(response.data))
-    })
+      .then((response) => {
+        dispatch(showEvents(response.data));
+      });
   };
-};
+}
