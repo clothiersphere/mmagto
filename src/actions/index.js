@@ -11,5 +11,5 @@ export {
   selectFight,
   selectFighter,
   eventsReset,
-  fightReset
+  fightReset,
 };

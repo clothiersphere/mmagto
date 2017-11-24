@@ -11,5 +11,5 @@ export default combineReducers({
   selectedEvent,
   selectedFight,
   selectedFighter,
-  routing: routerReducer
-})
+  routing: routerReducer,
+});
