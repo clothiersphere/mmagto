@@ -165,14 +165,8 @@ async function getEvents(req, res, next) {
 }
 
 async function getFighterStats(req, res, next) {
-  
-  console.log(req.params)
-  console.log(req.params.id)
-  
   const fighter = req.params.id;
-
   let data;
-
   async function retrieve(query) {
     let sherdogUrl;
     let ufcUrl;
@@ -491,10 +485,7 @@ async function getFighterStats(req, res, next) {
 
     return fighter;
   }
-
   data = await retrieve(fighter);
-
-  console.log(data, "data")
   res.send(data);
   next();
 }
