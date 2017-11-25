@@ -12,6 +12,7 @@ app.get('/api/getEvents', mma.getEvents);
 // app.get('/api/getEvents', (req, res) => {
 //   res.send(data);
 // });
+app.get('/api/getFighterStats/:id', mma.getFighterStats);
 
 app.listen(1234, () => {
   console.log('%s listening at %s', app.name, app.url);
