@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import HomePane from './WagerPane/HomePane';
 import VisitorPane from './WagerPane/VisitorPane';
 import WagerPane from './WagerPane';
+import FighterStatsPane from './WagerPane/FighterStatsPane';
 
 export default function BettingPane({ selectedFight, other }) {
   const helpers = {
@@ -39,9 +40,16 @@ export default function BettingPane({ selectedFight, other }) {
   };
   const { selectFighter } = other;
   if (selectedFight[0]) {
-    const { visitorInfo, homeInfo } = selectedFight[0];
+    const {
+      visitorInfo,
+      homeInfo,
+      homeFightStats,
+      visitorFightStats,
+    } = selectedFight[0];
+
     return (
       <div className="bettingPane">
+        <FighterStatsPane fightRecord={homeFightStats} />
         <HomePane {...{ homeInfo, helpers }} />
         <WagerPane
           {...{
@@ -52,6 +60,7 @@ export default function BettingPane({ selectedFight, other }) {
           }}
         />
         <VisitorPane {...{ visitorInfo, helpers }} />
+        <FighterStatsPane fightRecord={visitorFightStats} />
       </div>
     );
   }
