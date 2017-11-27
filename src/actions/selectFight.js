@@ -44,4 +44,4 @@ export function selectFight(fight) {
 	//server will make api calls to pull fighter info
 	//server will pass back fighter stat info. 
 //reducer will update fighter stats data.
-//reducer will pass back new state w/ fighter stat data. 
+//reducer will pass back new state w/ fighter stat data.
