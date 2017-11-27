@@ -20,9 +20,19 @@ export default function MmaRecord({ record }) {
     result = 'L';
   }
 
+  const shortMethod = method.split(' ')
+
+  if (shortMethod[0] === 'TKONA/A)') {
+    shortMethod[0] = 'TKO N/A';
+  }
+
+  if (shortMethod[0] === 'Decision') {
+    shortMethod[0] = 'Dec';
+  }
+
   return (
     <div className="MmaRecord">
-      {opponent} {method} {result}
+      {opponent} {result} {shortMethod[0]} Rd:{round}
     </div>
   );
 }
