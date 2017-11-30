@@ -1,27 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { Router, Route, Switch } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory'
+import { ConnectedRouter, routerREducer, routerMiddleware, push, syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import configureStore from './stores/configureStore';
 import * as actions from './actions';
 import App from './components/app';
 import BettingPage from './components/BettingPage';
+import EventList from './components/BettingPage/Body/EventList';
 import FightCard from './components/BettingPage/Body/FightCard';
 
 const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+// const history = syncHistoryWithStore(BrowserRouter, store);
+const history = createHistory();
 
 store.dispatch(actions.getEvents());
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={BettingPage} />
-        <Route path="/" component={BettingPage} />
-        <Route path="fightCard" component={FightCard} />
-      </Route>
+      <Switch>
+        <Route path="/" exact component={BettingPage} />
+      </Switch>
     </Router>
   </Provider>,
   document.getElementById('app'),

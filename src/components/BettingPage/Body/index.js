@@ -17,9 +17,9 @@ export default function Body({ fights, other }) {
   let text = null;
   const img = null;
 
-  if (selectedEvent.length === 0) {
-    eventListView = <EventList {...{ fights, selectEvent }} />;
-  }
+  // if (selectedEvent.length === 0) {
+  //   eventListView = <EventList {...{ fights, selectEvent }} />;
+  // }
 
   if (selectedEvent[0] && !selectedFight[0]) {
     const { base_title, title_tag_line } = selectedEvent[0].eventInfo;
@@ -28,10 +28,11 @@ export default function Body({ fights, other }) {
   }
   return (
     <div className="bodyContainer">
-      {eventListView}
-      {bannerView}
-      <FightCard {...{ selectedEvent, selectFight, selectedFight }} />
-      <BettingPane {...{ selectedFight, other }} />
+      <EventList {...{ fights, selectEvent }} />;
     </div>
   );
 }
+
+
+// <FightCard {...{ selectedEvent, selectFight, selectedFight }} />
+// <BettingPane {...{ selectedFight, other }} />
