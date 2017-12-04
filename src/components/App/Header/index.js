@@ -9,22 +9,22 @@ export default class Header extends Component {
     wagerMenu: 'disabled',
   };
 
-  componentWillReceiveProps(nextProps) {
-    const { selectedEvent, selectedFight } = nextProps.other;
-    if (selectedEvent[0] && !selectedFight[0]) {
-      if (this.state.activeItem !== 'fightCard') {
-        this.setState({
-          activeItem: 'fightCard',
-          fightCardMenu: 'enabled',
-          wagerMenu: 'disabled',
-        });
-      }
-    }
+  // componentWillReceiveProps(nextProps) {
+  //   const { selectedEvent, selectedFight } = nextProps.other;
+  //   if (selectedEvent[0] && !selectedFight[0]) {
+  //     if (this.state.activeItem !== 'fightCard') {
+  //       this.setState({
+  //         activeItem: 'fightCard',
+  //         fightCardMenu: 'enabled',
+  //         wagerMenu: 'disabled',
+  //       });
+  //     }
+  //   }
 
-    if (selectedFight[0] && this.state.activeItem === 'fightCard') {
-      this.setState({ activeItem: 'wagerMenu' });
-    }
-  }
+    // if (selectedFight[0] && this.state.activeItem === 'fightCard') {
+    //   this.setState({ activeItem: 'wagerMenu' });
+    // }
+  // }
 
   handleItemClick = (e, { name }) => {
     if (name === 'eventList') {
@@ -91,15 +91,15 @@ export default class Header extends Component {
   }
 }
 
-Header.propTypes = {
-  other: PropTypes.shape({
-    selectedEvent: PropTypes.arrayOf(PropTypes.object),
-    selectFight: PropTypes.func.isRequired,
-    fightReset: PropTypes.func.isRequired,
-  }),
-  eventsReset: PropTypes.func.isRequired,
-};
+// Header.propTypes = {
+//   other: PropTypes.shape({
+//     selectedEvent: PropTypes.arrayOf(PropTypes.object),
+//     selectFight: PropTypes.func.isRequired,
+//     fightReset: PropTypes.func.isRequired,
+//   }),
+//   eventsReset: PropTypes.func.isRequired,
+// };
 
-Header.defaultProps = {
-  other: {},
-};
+// Header.defaultProps = {
+//   other: {},
+// };

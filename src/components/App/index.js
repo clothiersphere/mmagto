@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import BettingPage from './presenter';
+import Header from './Header';
+import Body from './Body';
+import Footer from './Footer';
+import FightCard from './Body/FightCard';
+import EventList from './Body/EventList';
+
+class App extends Component {
+  componentDidMount() {
+    this.props.getEvents();
+  }
+
+  render() {
+    const { props } = this;
+    return (
+      <div className="presenter">
+        <Header />
+        <Body {...props} />
+        <Footer />
+      </div>
+    );
+  }
+}
 
 function mapStateToProps(state) {
   const {
@@ -23,6 +45,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getEvents: () => dispatch(actions.getEvents()),
     selectEvent: event => dispatch(actions.selectEvent(event)),
     selectFight: fight => dispatch(actions.selectFight(fight)),
     selectFighter: fighter => dispatch(actions.selectFighter(fighter)),
@@ -31,4 +54,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BettingPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
