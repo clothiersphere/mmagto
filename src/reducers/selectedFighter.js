@@ -14,6 +14,7 @@ export default function (state = initialState, action) {
       return setFighter(newState, action);
     case actionTypes.FIGHTER_RESET:
       return initialState;
+    default:
+      return state;
   }
-  return state;
 }
