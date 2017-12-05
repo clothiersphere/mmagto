@@ -5,7 +5,6 @@ import FightCard from './FightCard';
 import Banner from './Banner';
 import BettingPane from './BettingPane';
 
-// export default function Body({ props }) {
 export default class Body extends Component {
   render() {
     const { props } = this;
@@ -16,7 +15,8 @@ export default class Body extends Component {
       <div className="bodyContainer">
         <Banner {...selectedEvent} {...selectedFight} />
         <Switch>
-          <Route path="/eventlist/:id" render={routeProps => <FightCard {...routeProps} {...props} />} />
+          <Route path="/eventlist/:eventId/:fighters" render={routeProps => <BettingPane {...routeProps} {...props} />} />
+          <Route path="/eventlist/:eventId" render={routeProps => <FightCard {...routeProps} {...props} />} />
           <Route exact path="/" render={routeProps => <EventList {...routeProps} {...props} />} />
         </Switch>
       </div>
