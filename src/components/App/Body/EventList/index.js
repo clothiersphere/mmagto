@@ -13,12 +13,9 @@ export default class EventList extends Component {
 
   render() {
     const { fights } = this.props;
-
-    console.log(this.props, "props in eventlist")
     const eventItem = (event) => {
       const { base_title, title_tag_line } = event.eventInfo;
       const shortUrl = base_title.replace(/ /g,'')+title_tag_line.replace(/ /g,'');
- 
       return (
         <div className="eventItemText">
             {base_title}: {title_tag_line}

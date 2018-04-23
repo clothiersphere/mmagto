@@ -9,23 +9,6 @@ export default class Header extends Component {
     wagerMenu: 'disabled',
   };
 
-  // componentWillReceiveProps(nextProps) {
-  //   const { selectedEvent, selectedFight } = nextProps.other;
-  //   if (selectedEvent[0] && !selectedFight[0]) {
-  //     if (this.state.activeItem !== 'fightCard') {
-  //       this.setState({
-  //         activeItem: 'fightCard',
-  //         fightCardMenu: 'enabled',
-  //         wagerMenu: 'disabled',
-  //       });
-  //     }
-  //   }
-
-    // if (selectedFight[0] && this.state.activeItem === 'fightCard') {
-    //   this.setState({ activeItem: 'wagerMenu' });
-    // }
-  // }
-
   handleItemClick = (e, { name }) => {
     if (name === 'eventList') {
       const { eventsReset } = this.props;

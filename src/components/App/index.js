@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
-import FightCard from './Body/FightCard';
-import EventList from './Body/EventList';
 
 class App extends Component {
   componentDidMount() {
@@ -17,9 +15,10 @@ class App extends Component {
 
   render() {
     const { props } = this;
+    console.log(props, 'props app');
     return (
       <div className="presenter">
-        <Header />
+        <Header {...props} />
         <Body {...props} />
         <Footer />
       </div>

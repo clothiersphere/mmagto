@@ -8,7 +8,6 @@ import BettingPane from './BettingPane';
 export default class Body extends Component {
   render() {
     const { props } = this;
-    console.log(props, "props")
     const { selectedEvent, selectedFight } = props;
 
     return (

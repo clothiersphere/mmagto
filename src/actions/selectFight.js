@@ -15,7 +15,7 @@ export function selectFight(fight) {
     function getHome() {
       const request1 = axios({
         method: 'GET',
-        url: 'http://localhost:8080/api/getFighterStats/' + home,
+        url: `http://localhost:8080/api/getFighterStats/${home}`,
       });
 
       return request1;
@@ -23,7 +23,7 @@ export function selectFight(fight) {
     function getVisitor() {
       const request2 = axios({
         method: 'GET',
-        url: 'http://localhost:8080/api/getFighterStats/' + visitor
+        url: `http://localhost:8080/api/getFighterStats/${visitor}`,
       });
       return request2;
     }
@@ -38,10 +38,10 @@ export function selectFight(fight) {
   };
 }
 
-//check if fighter stat data is available.
-//if it's not 
-	//make get request to server. 
-	//server will make api calls to pull fighter info
-	//server will pass back fighter stat info. 
-//reducer will update fighter stats data.
-//reducer will pass back new state w/ fighter stat data.
+// check if fighter stat data is available.
+// if it's not
+// make get request to server.
+// server will make api calls to pull fighter info
+// server will pass back fighter stat info.
+// reducer will update fighter stats data.
+// reducer will pass back new state w/ fighter stat data.

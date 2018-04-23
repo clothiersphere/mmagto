@@ -10,8 +10,11 @@ export default class FightCard extends Component {
 
   handleClick(fight) {
     const { selectFight } = this.props;
+    
+    const homeId = fight.homeInfo.id;
+    const visitorId = fight.visitorInfo.id;
     selectFight(fight);
-    this.handleShow();
+    this.props.history.push(`${this.props.location.pathname}/${homeId}v${visitorId}`)
   }
 
   render() { 

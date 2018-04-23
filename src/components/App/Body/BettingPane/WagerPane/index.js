@@ -19,22 +19,20 @@ export default class WagerPane extends Component {
   }
 
   render() {
+    console.log(this.props, "wagerpane")
     const { wagerValue } = this.state;
     const {
       homeInfo,
       visitorInfo,
-      selectFighter,
-    } = this.props;
-
-    const {
       home,
       visitor,
-    } = this.props.other.selectedFight[0];
-
-    const {
+      selectFight,
       selectedFight,
+      selectFighter,
       selectedFighter,
-    } = this.props.other;
+    } = this.props;
+
+    const { props } = this;
 
     return (
       <div className="wagerPane">
@@ -68,25 +66,25 @@ export default class WagerPane extends Component {
           </Form.Group>
           <Form.Button onClick={(e, data) => { console.log(e, data, 'e'); }}>Submit</Form.Button>
         </Form>
-        <DecisionPane {...{ selectedFight, selectedFighter, wagerValue }} />
+        <DecisionPane {...props} />
       </div>
     );
   }
 }
 
-WagerPane.propTypes = {
-  other: PropTypes.objectOf(PropTypes.any).isRequired,
-  selectFighter: PropTypes.func.isRequired,
-  selectedFighter: PropTypes.arrayOf(PropTypes.object),
-  home: PropTypes.string,
-  visitor: PropTypes.string,
-  homeInfo: PropTypes.objectOf(PropTypes.any).isRequired,
-  visitorInfo: PropTypes.objectOf(PropTypes.any).isRequired,
+// WagerPane.propTypes = {
+//   other: PropTypes.objectOf(PropTypes.any).isRequired,
+//   selectFighter: PropTypes.func.isRequired,
+//   selectedFighter: PropTypes.arrayOf(PropTypes.object),
+//   home: PropTypes.string,
+//   visitor: PropTypes.string,
+//   homeInfo: PropTypes.objectOf(PropTypes.any).isRequired,
+//   visitorInfo: PropTypes.objectOf(PropTypes.any).isRequired,
 
-};
+// };
 
-WagerPane.defaultProps = {
-  selectedFighter: [{}],
-  home: 'Home',
-  visitor: 'Visitor',
-};
+// WagerPane.defaultProps = {
+//   selectedFighter: [{}],
+//   home: 'Home',
+//   visitor: 'Visitor',
+// };

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import HomePane from './WagerPane/HomePane';
 import VisitorPane from './WagerPane/VisitorPane';
 import WagerPane from './WagerPane';
-import FighterStatsPane from './WagerPane/FighterStatsPane';
+import FighterStatsPane from './FighterStatsPane';
 
-export default function BettingPane({ selectedFight, other }) {
+export default function BettingPane(props) {
   const helpers = {
     showRank(side) {
       const { rank } = side;
@@ -38,7 +38,8 @@ export default function BettingPane({ selectedFight, other }) {
       return side.weight_class.replace(/_/g, ' ');
     },
   };
-  const { selectFighter } = other;
+  const { selectedFight, selectFighter } = props;
+  
   if (selectedFight[0]) {
     const {
       visitorInfo,
@@ -51,14 +52,7 @@ export default function BettingPane({ selectedFight, other }) {
       <div className="bettingPane">
         <FighterStatsPane fightRecord={homeFightStats} />
         <HomePane {...{ homeInfo, helpers }} />
-        <WagerPane
-          {...{
-            other,
-            visitorInfo,
-            homeInfo,
-            selectFighter,
-          }}
-        />
+        <WagerPane {...props} />
         <VisitorPane {...{ visitorInfo, helpers }} />
         <FighterStatsPane fightRecord={visitorFightStats} />
       </div>
@@ -67,7 +61,7 @@ export default function BettingPane({ selectedFight, other }) {
   return null;
 }
 
-BettingPane.propTypes = {
-  selectedFight: PropTypes.arrayOf(PropTypes.object).isRequired,
-  other: PropTypes.objectOf(PropTypes.any).isRequired,
-};
+// BettingPane.propTypes = {
+//   selectedFight: PropTypes.arrayOf(PropTypes.object).isRequired,
+//   other: PropTypes.objectOf(PropTypes.any).isRequired,
+// };
