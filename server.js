@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 
 app.get('/api/getEvents', mma.getEvents);
 
-// app.get('/api/getFighterStats/:id', mma.getFighterStats);
+app.get('/api/getFighterStats/:id', mma.getFighterStats);
 
 app.listen(1234, () => {
   console.log('%s listening at %d', app.name, 1234);

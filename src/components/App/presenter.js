@@ -6,8 +6,6 @@ import Footer from './Footer';
 
 export default class App extends Component {
   render() {
-    console.log(this, "bettingpage")
-    
     const { props } = this;
 
     return (
