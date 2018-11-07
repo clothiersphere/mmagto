@@ -5,7 +5,14 @@ const scraper = require('google-search-scraper');
 const DeathByCaptcha = require('deathbycaptcha');
 
 
+<<<<<<< HEAD
 const dbc = new DeathByCaptcha('xchrislee', keys.dbc);
+=======
+// const jsonOdds = new JsonOddsAPI(keys.JsonOdds);
+
+
+const dbc = new DeathByCaptcha('xchrislee', '');
+>>>>>>> 1d3838d34524c28436d1959e5240c43226e61fef
 const ufc = require('ufc');
 const sherdog = require('sherdog');
 const cheerio = require('cheerio');
