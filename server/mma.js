@@ -9,7 +9,7 @@ const JsonOddsAPI = require('json-odds-api');
 // const jsonOdds = new JsonOddsAPI(keys.JsonOdds);
 
 
-const dbc = new DeathByCaptcha('xchrislee', '***REMOVED***');
+const dbc = new DeathByCaptcha('xchrislee', '');
 const ufc = require('ufc');
 const sherdog = require('sherdog');
 const cheerio = require('cheerio');
